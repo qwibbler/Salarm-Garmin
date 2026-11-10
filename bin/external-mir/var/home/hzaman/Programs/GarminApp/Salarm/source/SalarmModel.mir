@@ -1,0 +1,2288 @@
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Application,1,14,25]; ]
+import Toybox.Application;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Communications,2,14,28]; ]
+import Toybox.Communications;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [Lang,3,14,18]; ]
+import Toybox.Lang;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 4; @symbol_importdef<0> = [Toybox,4,7,13]; @symbol_importdef<1> = [System,4,14,20]; ]
+import Toybox.System;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 5; @symbol_importdef<0> = [Toybox,5,7,13]; @symbol_importdef<1> = [Time,5,14,18]; ]
+import Toybox.Time;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 6; @symbol_importdef<0> = [Toybox,6,7,13]; @symbol_importdef<1> = [Timer,6,14,19]; ]
+import Toybox.Timer;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 7; @symbol_importdef<0> = [Toybox,7,7,13]; @symbol_importdef<1> = [WatchUi,7,14,21]; ]
+import Toybox.WatchUi;
+//! Model and state machine for SalarmWatch
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 10; @symbol_classdef = [SalarmModel,10,6,17]; ]
+class SalarmModel {
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 10; ]
+    <init> {
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 30 16 ]
+        symbol [ STATE_IDLE %tmp.2 30 39 49 ];
+        %tmp.2 = getv ? :STATE_IDLE;
+        putv self :_state %tmp.2;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 31 16 ]
+        symbol [ STATE_IDLE %tmp.4 31 47 57 ];
+        %tmp.4 = getv ? :STATE_IDLE;
+        putv self :_previousState %tmp.4;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 39 16 ]
+        symbol [ ACTION_NONE %tmp.6 39 47 58 ];
+        %tmp.6 = getv ? :ACTION_NONE;
+        putv self :_pendingAction %tmp.6;
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 10; ]
+    static
+    <init> {
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 13; @symbol_enumdef = [AlarmState,13,16,26]; ]
+    public static
+    enum AlarmState {
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 14; @position = 8; @symbol_enumdec = [STATE_IDLE,14,8,18]; ]
+        STATE_IDLE,
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 15; @position = 8; @symbol_enumdec = [STATE_UPCOMING,15,8,22]; ]
+        STATE_UPCOMING,
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 16; @position = 8; @symbol_enumdec = [STATE_RINGING,16,8,21]; ]
+        STATE_RINGING,
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 17; @position = 8; @symbol_enumdec = [STATE_ACTION_PENDING,17,8,28]; ]
+        STATE_ACTION_PENDING,
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 18; @position = 8; @symbol_enumdec = [STATE_ACTION_CONFIRMED,18,8,30]; ]
+        STATE_ACTION_CONFIRMED,
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 19; @position = 8; @symbol_enumdec = [STATE_ACTION_FAILED,19,8,27]; ]
+        STATE_ACTION_FAILED
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 23; @symbol_enumdef = [ActionType,23,16,26]; ]
+    public static
+    enum ActionType {
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 24; @position = 8; @symbol_enumdec = [ACTION_NONE,24,8,19]; ]
+        ACTION_NONE,
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 25; @position = 8; @symbol_enumdec = [ACTION_SNOOZE,25,8,21]; ]
+        ACTION_SNOOZE,
+        [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 26; @position = 8; @symbol_enumdec = [ACTION_DISMISS,26,8,22]; ]
+        ACTION_DISMISS
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 30; @position = 16; @symbol_vardef = [_state,30,16,22]; @symbol_type<0> = [AlarmState,30,26,36]; ]
+    private
+    var _state as AlarmState;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 31; @position = 16; @symbol_vardef = [_previousState,31,16,30]; @symbol_type<0> = [AlarmState,31,34,44]; ]
+    private
+    var _previousState as AlarmState;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 32; @position = 16; @symbol_vardef = [_alarmId,32,16,24]; @symbol_type<0> = [String,32,28,34]; ]
+    private
+    var _alarmId as String = "";
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 33; @position = 16; @symbol_vardef = [_title,33,16,22]; @symbol_type<0> = [String,33,26,32]; ]
+    private
+    var _title as String = "Alarm";
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 34; @position = 16; @symbol_vardef = [_triggerTime,34,16,28]; @symbol_type<0> = [Number,34,32,38]; ]
+    private
+    var _triggerTime as Number = 0;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 35; @position = 16; @symbol_vardef = [_snoozeDuration,35,16,31]; @symbol_type<0> = [Number,35,35,41]; ]
+    private
+    var _snoozeDuration as Number = 540;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 36; @position = 16; @symbol_vardef = [_lastConfirmedTime,36,16,34]; @symbol_type<0> = [Number,36,38,44]; ]
+    private
+    var _lastConfirmedTime as Number = 0;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 39; @position = 16; @symbol_vardef = [_pendingAction,39,16,30]; @symbol_type<0> = [ActionType,39,34,44]; ]
+    private
+    var _pendingAction as ActionType;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 40; @position = 16; @symbol_vardef = [_pendingRequestId,40,16,33]; @symbol_type<0> = [String,40,37,43]; ]
+    private
+    var _pendingRequestId as String = "";
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 41; @position = 16; @symbol_vardef = [_statusText,41,16,27]; @symbol_type<0> = [String,41,31,37]; ]
+    private
+    var _statusText as String = "Waiting for phone";
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 42; @position = 16; @symbol_vardef = [_timeoutTimer,42,16,29]; @symbol_type<0> = [Timer,42,33,38]; @symbol_type<1> = [Timer,42,39,44]; ]
+    private
+    var _timeoutTimer as Timer.Timer or Null;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 43; @position = 18; @symbol_constdef = [ACTION_TIMEOUT_MS,43,18,35]; @symbol_type<0> = [Number,43,39,45]; ]
+    private
+    const ACTION_TIMEOUT_MS as Number = 10000;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 46; @position = 16; @symbol_vardef = [_alertManager,46,16,29]; @symbol_type<0> = [SalarmAlertManager,46,33,51]; ]
+    private
+    var _alertManager as SalarmAlertManager or Null;
+    //! Constructor
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 49; @symbol_functiondef = [initialize,49,20,30]; ]
+    public
+    function initialize() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_49_33_51_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 50 8 ]
+        symbol [ Timer %tmp.3 50 28 33 ];
+        %tmp.3 = getm $.Toybox.Timer;
+        symbol [ Timer %tmp.4 50 34 39 ];
+        %tmp.4 = getv function ? %tmp.3 :Timer;
+        %tmp.1 = newc %tmp.4 ();
+        symbol [ _timeoutTimer ? 50 8 21 ];
+        putv self :_timeoutTimer %tmp.1;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_49_33_51_4_stop:
+    }
+    //! Set reference to alert manager
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 54; @symbol_functiondef = [setAlertManager,54,20,35]; @symbol_param<0> = [mgr,54,36,39]; @symbol_param<0>_type<0> = [SalarmAlertManager,54,43,61]; ]
+    public
+    function setAlertManager(mgr as SalarmAlertManager) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_54_71_56_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 55 8 ]
+        %tmp.1 = lgetv %mgr;
+        symbol [ mgr %tmp.1 55 24 27 ];
+        symbol [ _alertManager ? 55 8 21 ];
+        putv self :_alertManager %tmp.1;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_54_71_56_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 62; @symbol_functiondef = [getState,62,20,28]; @symbol_return<0> = [AlarmState,62,34,44]; ]
+    public
+    function getState() as AlarmState {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_62_45_64_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 63 8 ]
+        symbol [ _state %tmp.2 63 15 21 ];
+        %tmp.2 = getv ? :_state;
+        ret %tmp.2;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_62_45_64_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 66; @symbol_functiondef = [getTitle,66,20,28]; @symbol_return<0> = [String,66,34,40]; ]
+    public
+    function getTitle() as String {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_66_41_68_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 67 8 ]
+        symbol [ _title %tmp.2 67 15 21 ];
+        %tmp.2 = getv ? :_title;
+        ret %tmp.2;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_66_41_68_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 70; @symbol_functiondef = [getTriggerTime,70,20,34]; @symbol_return<0> = [Number,70,40,46]; ]
+    public
+    function getTriggerTime() as Number {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_70_47_72_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 71 8 ]
+        symbol [ _triggerTime %tmp.2 71 15 27 ];
+        %tmp.2 = getv ? :_triggerTime;
+        ret %tmp.2;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_70_47_72_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 74; @symbol_functiondef = [getSnoozeDuration,74,20,37]; @symbol_return<0> = [Number,74,43,49]; ]
+    public
+    function getSnoozeDuration() as Number {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_74_50_76_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 75 8 ]
+        symbol [ _snoozeDuration %tmp.2 75 15 30 ];
+        %tmp.2 = getv ? :_snoozeDuration;
+        ret %tmp.2;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_74_50_76_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 78; @symbol_functiondef = [getAlarmId,78,20,30]; @symbol_return<0> = [String,78,36,42]; ]
+    public
+    function getAlarmId() as String {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_78_43_80_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 79 8 ]
+        symbol [ _alarmId %tmp.2 79 15 23 ];
+        %tmp.2 = getv ? :_alarmId;
+        ret %tmp.2;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_78_43_80_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 82; @symbol_functiondef = [getPendingAction,82,20,36]; @symbol_return<0> = [ActionType,82,42,52]; ]
+    public
+    function getPendingAction() as ActionType {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_82_53_84_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 83 8 ]
+        symbol [ _pendingAction %tmp.2 83 15 29 ];
+        %tmp.2 = getv ? :_pendingAction;
+        ret %tmp.2;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_82_53_84_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 86; @symbol_functiondef = [getStatusText,86,20,33]; @symbol_return<0> = [String,86,39,45]; ]
+    public
+    function getStatusText() as String {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_86_46_88_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 87 8 ]
+        symbol [ _statusText %tmp.2 87 15 26 ];
+        %tmp.2 = getv ? :_statusText;
+        ret %tmp.2;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_86_46_88_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 90; @symbol_functiondef = [isPhoneConnected,90,20,36]; @symbol_return<0> = [Boolean,90,42,49]; ]
+    public
+    function isPhoneConnected() as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_90_50_93_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 91 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_90_50_93_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_90_50_93_4_stop" ]
+        %settings.1 = local;
+        symbol [ settings %settings.1 91 12 20 ];
+        symbol [ System %tmp.1 91 23 29 ];
+        %tmp.1 = getm $.Toybox.System;
+        symbol [ getDeviceSettings %tmp.2 91 30 47 ];
+        %tmp.2 = getv function %tmp.1 :getDeviceSettings;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %settings.1 %tmp.3;
+        symbol [ settings %settings.1 91 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 92 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_92_16_92_60_begin:
+        %tmp.4 = lgetv %settings.1;
+        symbol [ settings %tmp.4 92 16 24 ];
+        symbol [ phoneConnected %tmp.5 92 25 39 ];
+        %tmp.5 = getv %tmp.4 :phoneConnected;
+        %tmp.6 = null;
+        %tmp.7 = ne %tmp.5 %tmp.6;
+        %tmp.8 = dup %tmp.7;
+        bf %tmp.8 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_92_51_92_60_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_92_51_92_60_true:
+        %tmp.9 = lgetv %settings.1;
+        symbol [ settings %tmp.9 92 51 59 ];
+        symbol [ phoneConnected %tmp.10 92 60 74 ];
+        %tmp.10 = getv %tmp.9 :phoneConnected;
+        %tmp.11 = and %tmp.7 %tmp.10;
+        push %tmp.11;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_92_51_92_60_end:
+        %tmp.12 = phi [%tmp.8 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_92_16_92_60_begin] [%tmp.11 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_92_51_92_60_true] [%tmp.12 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_92_51_92_60_end];
+        ret %tmp.12;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_90_50_93_4_stop:
+    }
+    //! Safely processes incoming data from phone app
+    //! @param rawData Payload from PhoneAppMessage.data
+    //! @return true if payload was recognized and handled
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 102; @symbol_functiondef = [processIncomingMessage,102,20,42]; @symbol_param<0> = [rawData,102,43,50]; @symbol_param<0>_type<0> = [Object,102,54,60]; @symbol_return<0> = [Boolean,102,66,73]; ]
+    public
+    function processIncomingMessage(rawData as Object or Null) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_102_74_148_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 103 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_103_8_106_8_if_stmt:
+        %tmp.1 = lgetv %rawData;
+        symbol [ rawData %tmp.1 103 12 19 ];
+        %tmp.2 = null;
+        %tmp.3 = eq %tmp.1 %tmp.2;
+        bf %tmp.3 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_103_8_106_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_103_8_106_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_103_29_106_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 104 12 ]
+        symbol [ System %tmp.4 104 12 18 ];
+        %tmp.4 = getm $.Toybox.System;
+        symbol [ println %tmp.5 104 19 26 ];
+        %tmp.5 = getv function %tmp.4 :println;
+        %tmp.6 = "[SalarmModel] Received null message data.";
+        invoke %tmp.4 %tmp.5(%tmp.6);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 105 12 ]
+        %tmp.7 = false;
+        ret %tmp.7;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_103_29_106_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_103_8_106_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_103_8_106_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 108 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_102_74_148_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_102_74_148_4_stop" ]
+        %dict.1 = local;
+        symbol [ dict %dict.1 108 12 16 ];
+        %tmp.8 = null;
+        lputv %dict.1 %tmp.8;
+        symbol [ dict %dict.1 108 12 16 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 110 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_110_8_117_8_if_stmt:
+        %tmp.9 = lgetv %rawData;
+        symbol [ rawData %tmp.9 110 12 19 ];
+        symbol [ Dictionary %tmp.11 110 31 41 ];
+        %tmp.11 = getv ? :Dictionary;
+        %tmp.12 = isa %tmp.9 %tmp.11;
+        bf %tmp.12 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_110_8_117_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_110_8_117_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_110_43_112_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 111 12 ]
+        %tmp.13 = lgetv %rawData;
+        symbol [ rawData %tmp.13 111 19 26 ];
+        %tmp.14 = as %tmp.13 { (Dictionary) };
+        %tmp.15 = as %tmp.14 Dictionary;
+        symbol [ Dictionary %tmp.15 111 30 40 ];
+        lputv %dict.1 %tmp.15;
+        symbol [ dict %dict.1 111 12 16 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_110_43_112_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_110_8_117_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_110_8_117_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 112 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_15_117_8_if_stmt:
+        %tmp.16 = lgetv %rawData;
+        symbol [ rawData %tmp.16 112 19 26 ];
+        %tmp.17 = as %tmp.16 { (!Dictionary) };
+        symbol [ Array %tmp.19 112 38 43 ];
+        %tmp.19 = getv ? :Array;
+        %tmp.20 = isa %tmp.17 %tmp.19;
+        bf %tmp.20 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_15_117_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_15_117_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_45_117_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 113 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_45_117_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_45_117_8_stop" ]
+        %arr.2 = local;
+        symbol [ arr %arr.2 113 16 19 ];
+        %tmp.21 = lgetv %rawData;
+        symbol [ rawData %tmp.21 113 22 29 ];
+        %tmp.22 = as %tmp.21 { (Array) && (!Dictionary) };
+        %tmp.23 = as %tmp.22 Array;
+        symbol [ Array %tmp.23 113 33 38 ];
+        lputv %arr.2 %tmp.23;
+        symbol [ arr %arr.2 113 16 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 114 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_12_116_12_if_stmt:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_16_114_52_begin:
+        %tmp.24 = lgetv %arr.2;
+        symbol [ arr %tmp.24 114 16 19 ];
+        symbol [ size %tmp.25 114 20 24 ];
+        %tmp.25 = getv function %tmp.24 :size;
+        %tmp.26 = invoke %tmp.24 %tmp.25();
+        %tmp.27 = 0;
+        %tmp.28 = gt %tmp.26 %tmp.27;
+        bf %tmp.28 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_12_116_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_34_114_52_true:
+        %tmp.29 = lgetv %arr.2;
+        symbol [ arr %tmp.29 114 34 37 ];
+        %tmp.30 = 0;
+        %tmp.31 = agetv %tmp.29 %tmp.30;
+        symbol [ Dictionary %tmp.33 114 52 62 ];
+        %tmp.33 = getv ? :Dictionary;
+        %tmp.34 = isa %tmp.31 %tmp.33;
+        push %tmp.34;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_34_114_52_end:
+        %tmp.35 = phi [%tmp.28 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_16_114_52_begin] [%tmp.34 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_34_114_52_true] [%tmp.35 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_34_114_52_end];
+        bf %tmp.35 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_12_116_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_12_116_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_64_116_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 115 16 ]
+        %tmp.36 = lgetv %arr.2;
+        symbol [ arr %tmp.36 115 23 26 ];
+        %tmp.37 = 0;
+        %tmp.38 = agetv %tmp.36 %tmp.37;
+        %tmp.39 = as %tmp.38 Dictionary;
+        symbol [ Dictionary %tmp.39 115 33 43 ];
+        lputv %dict.1 %tmp.39;
+        symbol [ dict %dict.1 115 16 20 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_64_116_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_12_116_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_114_12_116_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_45_117_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_15_117_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_112_15_117_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_110_8_117_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 119 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_119_8_122_8_if_stmt:
+        %tmp.40 = lgetv %dict.1;
+        symbol [ dict %tmp.40 119 12 16 ];
+        %tmp.41 = null;
+        %tmp.42 = eq %tmp.40 %tmp.41;
+        bf %tmp.42 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_119_8_122_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_119_8_122_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_119_26_122_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 120 12 ]
+        symbol [ System %tmp.43 120 12 18 ];
+        %tmp.43 = getm $.Toybox.System;
+        symbol [ println %tmp.44 120 19 26 ];
+        %tmp.44 = getv function %tmp.43 :println;
+        %tmp.45 = "[SalarmModel] Unsupported message format: ";
+        %tmp.46 = lgetv %rawData;
+        symbol [ rawData %tmp.46 120 74 81 ];
+        symbol [ toString %tmp.47 120 82 90 ];
+        %tmp.47 = getv function %tmp.46 :toString;
+        %tmp.48 = invoke %tmp.46 %tmp.47();
+        %tmp.49 = add %tmp.45 %tmp.48;
+        invoke %tmp.43 %tmp.44(%tmp.49);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 121 12 ]
+        %tmp.50 = false;
+        ret %tmp.50;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_119_26_122_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_119_8_122_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_119_8_122_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 124 8 ]
+        symbol [ System %tmp.51 124 8 14 ];
+        %tmp.51 = getm $.Toybox.System;
+        symbol [ println %tmp.52 124 15 22 ];
+        %tmp.52 = getv function %tmp.51 :println;
+        %tmp.53 = "[SalarmModel] Processing message: ";
+        %tmp.54 = lgetv %dict.1;
+        symbol [ dict %tmp.54 124 62 66 ];
+        symbol [ toString %tmp.55 124 67 75 ];
+        %tmp.55 = getv function %tmp.54 :toString;
+        %tmp.56 = invoke %tmp.54 %tmp.55();
+        %tmp.57 = add %tmp.53 %tmp.56;
+        invoke %tmp.51 %tmp.52(%tmp.57);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 127 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_102_74_148_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_102_74_148_4_stop" ]
+        %msgType.3 = local;
+        symbol [ msgType %msgType.3 127 12 19 ];
+        %tmp.58 = "";
+        lputv %msgType.3 %tmp.58;
+        symbol [ msgType %msgType.3 127 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 128 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_102_74_148_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_102_74_148_4_stop" ]
+        %rawType.4 = local;
+        symbol [ rawType %rawType.4 128 12 19 ];
+        %tmp.59 = lgetv %dict.1;
+        symbol [ dict %tmp.59 128 22 26 ];
+        symbol [ get %tmp.60 128 27 30 ];
+        %tmp.60 = getv function %tmp.59 :get;
+        %tmp.61 = "type";
+        %tmp.62 = invoke %tmp.59 %tmp.60(%tmp.61);
+        lputv %rawType.4 %tmp.62;
+        symbol [ rawType %rawType.4 128 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 129 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_129_8_131_8_if_stmt:
+        %tmp.63 = lgetv %rawType.4;
+        symbol [ rawType %tmp.63 129 12 19 ];
+        %tmp.64 = null;
+        %tmp.65 = ne %tmp.63 %tmp.64;
+        bf %tmp.65 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_129_8_131_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_129_8_131_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_129_29_131_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 130 12 ]
+        %tmp.66 = lgetv %rawType.4;
+        symbol [ rawType %tmp.66 130 22 29 ];
+        %tmp.67 = as %tmp.66 { (!Null) };
+        symbol [ toString %tmp.68 130 30 38 ];
+        %tmp.68 = getv function %tmp.67 :toString;
+        %tmp.69 = invoke %tmp.67 %tmp.68();
+        lputv %msgType.3 %tmp.69;
+        symbol [ msgType %msgType.3 130 12 19 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_129_29_131_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_129_8_131_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_129_8_131_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 134 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_134_8_143_8_if_stmt:
+        %tmp.70 = lgetv %msgType.3;
+        symbol [ msgType %tmp.70 134 12 19 ];
+        symbol [ equals %tmp.71 134 20 26 ];
+        %tmp.71 = getv function %tmp.70 :equals;
+        %tmp.72 = "ACTION_CONFIRM";
+        %tmp.73 = invoke %tmp.70 %tmp.71(%tmp.72);
+        bf %tmp.73 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_134_8_143_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_134_8_143_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_134_46_137_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 135 12 ]
+        %tmp.74 = self;
+        symbol [ handleActionConfirm %tmp.75 135 12 31 ];
+        %tmp.75 = getv function %tmp.74 :handleActionConfirm;
+        %tmp.76 = lgetv %dict.1;
+        symbol [ dict %tmp.76 135 32 36 ];
+        invoke %tmp.74 %tmp.75(%tmp.76);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 136 12 ]
+        %tmp.77 = true;
+        ret %tmp.77;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_134_46_137_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_134_8_143_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_134_8_143_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 137 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_137_15_143_8_if_stmt:
+        %tmp.78 = lgetv %msgType.3;
+        symbol [ msgType %tmp.78 137 19 26 ];
+        symbol [ equals %tmp.79 137 27 33 ];
+        %tmp.79 = getv function %tmp.78 :equals;
+        %tmp.80 = "ACTION_REJECT";
+        %tmp.81 = invoke %tmp.78 %tmp.79(%tmp.80);
+        bf %tmp.81 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_137_15_143_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_137_15_143_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_137_52_140_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 138 12 ]
+        %tmp.82 = self;
+        symbol [ handleActionReject %tmp.83 138 12 30 ];
+        %tmp.83 = getv function %tmp.82 :handleActionReject;
+        %tmp.84 = lgetv %dict.1;
+        symbol [ dict %tmp.84 138 31 35 ];
+        invoke %tmp.82 %tmp.83(%tmp.84);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 139 12 ]
+        %tmp.85 = true;
+        ret %tmp.85;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_137_52_140_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_137_15_143_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_137_15_143_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 140 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_140_15_143_8_if_stmt:
+        %tmp.86 = lgetv %msgType.3;
+        symbol [ msgType %tmp.86 140 19 26 ];
+        symbol [ equals %tmp.87 140 27 33 ];
+        %tmp.87 = getv function %tmp.86 :equals;
+        %tmp.88 = "CLEAR";
+        %tmp.89 = invoke %tmp.86 %tmp.87(%tmp.88);
+        bf %tmp.89 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_140_15_143_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_140_15_143_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_140_44_143_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 141 12 ]
+        %tmp.90 = self;
+        symbol [ clearAlarm %tmp.91 141 12 22 ];
+        %tmp.91 = getv function %tmp.90 :clearAlarm;
+        invoke %tmp.90 %tmp.91();
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 142 12 ]
+        %tmp.92 = true;
+        ret %tmp.92;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_140_44_143_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_140_15_143_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_140_15_143_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_137_15_143_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_134_8_143_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 146 8 ]
+        %tmp.93 = self;
+        symbol [ handleAlarmStateUpdate %tmp.94 146 8 30 ];
+        %tmp.94 = getv function %tmp.93 :handleAlarmStateUpdate;
+        %tmp.95 = lgetv %dict.1;
+        symbol [ dict %tmp.95 146 31 35 ];
+        invoke %tmp.93 %tmp.94(%tmp.95);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 147 8 ]
+        %tmp.96 = true;
+        ret %tmp.96;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_102_74_148_4_stop:
+    }
+    //! Handles state updates (upcoming, ringing, snoozed, dismissed, idle)
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 151; @symbol_functiondef = [handleAlarmStateUpdate,151,21,43]; @symbol_param<0> = [dict,151,44,48]; @symbol_param<0>_type<0> = [Dictionary,151,52,62]; ]
+    private
+    function handleAlarmStateUpdate(dict as Dictionary) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 153 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_stop" ]
+        %rawId.1 = local;
+        symbol [ rawId %rawId.1 153 12 17 ];
+        %tmp.1 = lgetv %dict;
+        symbol [ dict %tmp.1 153 20 24 ];
+        symbol [ get %tmp.2 153 25 28 ];
+        %tmp.2 = getv function %tmp.1 :get;
+        %tmp.3 = "id";
+        %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
+        lputv %rawId.1 %tmp.4;
+        symbol [ rawId %rawId.1 153 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 154 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_154_8_156_8_if_stmt:
+        %tmp.5 = lgetv %rawId.1;
+        symbol [ rawId %tmp.5 154 12 17 ];
+        %tmp.6 = null;
+        %tmp.7 = ne %tmp.5 %tmp.6;
+        bf %tmp.7 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_154_8_156_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_154_8_156_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_154_27_156_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 155 12 ]
+        %tmp.8 = lgetv %rawId.1;
+        symbol [ rawId %tmp.8 155 23 28 ];
+        %tmp.9 = as %tmp.8 { (!Null) };
+        symbol [ toString %tmp.10 155 29 37 ];
+        %tmp.10 = getv function %tmp.9 :toString;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        symbol [ _alarmId ? 155 12 20 ];
+        putv self :_alarmId %tmp.11;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_154_27_156_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_154_8_156_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_154_8_156_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 159 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_stop" ]
+        %rawTitle.2 = local;
+        symbol [ rawTitle %rawTitle.2 159 12 20 ];
+        %tmp.12 = lgetv %dict;
+        symbol [ dict %tmp.12 159 23 27 ];
+        symbol [ get %tmp.13 159 28 31 ];
+        %tmp.13 = getv function %tmp.12 :get;
+        %tmp.14 = "title";
+        %tmp.15 = invoke %tmp.12 %tmp.13(%tmp.14);
+        lputv %rawTitle.2 %tmp.15;
+        symbol [ rawTitle %rawTitle.2 159 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 160 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_8_165_8_if_stmt:
+        %tmp.16 = lgetv %rawTitle.2;
+        symbol [ rawTitle %tmp.16 160 12 20 ];
+        %tmp.17 = null;
+        %tmp.18 = ne %tmp.16 %tmp.17;
+        bf %tmp.18 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_8_165_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_8_165_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_30_165_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 161 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_30_165_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_30_165_8_stop" ]
+        %t.3 = local;
+        symbol [ t %t.3 161 16 17 ];
+        %tmp.19 = lgetv %rawTitle.2;
+        symbol [ rawTitle %tmp.19 161 20 28 ];
+        %tmp.20 = as %tmp.19 { (!Null) };
+        symbol [ toString %tmp.21 161 29 37 ];
+        %tmp.21 = getv function %tmp.20 :toString;
+        %tmp.22 = invoke %tmp.20 %tmp.21();
+        lputv %t.3 %tmp.22;
+        symbol [ t %t.3 161 16 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 162 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_162_12_164_12_if_stmt:
+        %tmp.23 = lgetv %t.3;
+        symbol [ t %tmp.23 162 16 17 ];
+        symbol [ length %tmp.24 162 18 24 ];
+        %tmp.24 = getv function %tmp.23 :length;
+        %tmp.25 = invoke %tmp.23 %tmp.24();
+        %tmp.26 = 0;
+        %tmp.27 = gt %tmp.25 %tmp.26;
+        bf %tmp.27 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_162_12_164_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_162_12_164_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_162_32_164_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 163 16 ]
+        %tmp.28 = lgetv %t.3;
+        symbol [ t %tmp.28 163 25 26 ];
+        symbol [ _title ? 163 16 22 ];
+        putv self :_title %tmp.28;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_162_32_164_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_162_12_164_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_162_12_164_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_30_165_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_8_165_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_160_8_165_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 168 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_stop" ]
+        %rawTrigger.4 = local;
+        symbol [ rawTrigger %rawTrigger.4 168 12 22 ];
+        %tmp.29 = lgetv %dict;
+        symbol [ dict %tmp.29 168 25 29 ];
+        symbol [ get %tmp.30 168 30 33 ];
+        %tmp.30 = getv function %tmp.29 :get;
+        %tmp.31 = "triggerTime";
+        %tmp.32 = invoke %tmp.29 %tmp.30(%tmp.31);
+        lputv %rawTrigger.4 %tmp.32;
+        symbol [ rawTrigger %rawTrigger.4 168 12 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 169 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_169_8_184_8_if_stmt:
+        %tmp.33 = lgetv %rawTrigger.4;
+        symbol [ rawTrigger %tmp.33 169 12 22 ];
+        %tmp.34 = null;
+        %tmp.35 = ne %tmp.33 %tmp.34;
+        bf %tmp.35 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_169_8_184_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_169_8_184_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_169_32_184_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 170 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_170_12_183_12_if_stmt:
+        %tmp.36 = lgetv %rawTrigger.4;
+        symbol [ rawTrigger %tmp.36 170 16 26 ];
+        %tmp.37 = as %tmp.36 { (!Null) };
+        symbol [ Number %tmp.39 170 38 44 ];
+        %tmp.39 = getv ? :Number;
+        %tmp.40 = isa %tmp.37 %tmp.39;
+        bf %tmp.40 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_170_12_183_12_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_170_12_183_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_170_46_172_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 171 16 ]
+        %tmp.41 = lgetv %rawTrigger.4;
+        symbol [ rawTrigger %tmp.41 171 31 41 ];
+        %tmp.42 = as %tmp.41 { (Number) && (!Null) };
+        %tmp.43 = as %tmp.42 Number;
+        symbol [ Number %tmp.43 171 45 51 ];
+        symbol [ _triggerTime ? 171 16 28 ];
+        putv self :_triggerTime %tmp.43;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_170_46_172_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_170_12_183_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_170_12_183_12_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 172 19 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_172_19_183_12_if_stmt:
+        %tmp.44 = lgetv %rawTrigger.4;
+        symbol [ rawTrigger %tmp.44 172 23 33 ];
+        %tmp.45 = as %tmp.44 { (!Number) && (!Null) };
+        symbol [ Long %tmp.47 172 45 49 ];
+        %tmp.47 = getv ? :Long;
+        %tmp.48 = isa %tmp.45 %tmp.47;
+        bf %tmp.48 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_172_19_183_12_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_172_19_183_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_172_51_174_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 173 16 ]
+        %tmp.49 = lgetv %rawTrigger.4;
+        symbol [ rawTrigger %tmp.49 173 32 42 ];
+        %tmp.50 = as %tmp.49 { (!Number) && (Long) && (!Null) };
+        %tmp.51 = as %tmp.50 Long;
+        symbol [ Long %tmp.51 173 46 50 ];
+        symbol [ toNumber %tmp.52 173 52 60 ];
+        %tmp.52 = getv function %tmp.51 :toNumber;
+        %tmp.53 = invoke %tmp.51 %tmp.52();
+        symbol [ _triggerTime ? 173 16 28 ];
+        putv self :_triggerTime %tmp.53;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_172_51_174_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_172_19_183_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_172_19_183_12_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 174 19 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_174_19_183_12_if_stmt:
+        %tmp.54 = lgetv %rawTrigger.4;
+        symbol [ rawTrigger %tmp.54 174 23 33 ];
+        %tmp.55 = as %tmp.54 { (!Number) && (!Long) && (!Null) };
+        symbol [ String %tmp.57 174 45 51 ];
+        %tmp.57 = getv ? :String;
+        %tmp.58 = isa %tmp.55 %tmp.57;
+        bf %tmp.58 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_174_19_183_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_174_19_183_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_174_53_183_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 175 16 ]
+        try @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_beginTry @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_endTry @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_catch @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_finally;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_beginTry:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_20_180_16_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 176 20 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_20_180_16_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_20_180_16_stop" ]
+        %parsed.5 = local;
+        symbol [ parsed %parsed.5 176 24 30 ];
+        %tmp.59 = lgetv %rawTrigger.4;
+        symbol [ rawTrigger %tmp.59 176 34 44 ];
+        %tmp.60 = as %tmp.59 { (!Number) && (!Long) && (String) && (!Null) };
+        %tmp.61 = as %tmp.60 String;
+        symbol [ String %tmp.61 176 48 54 ];
+        symbol [ toNumber %tmp.62 176 56 64 ];
+        %tmp.62 = getv function %tmp.61 :toNumber;
+        %tmp.63 = invoke %tmp.61 %tmp.62();
+        lputv %parsed.5 %tmp.63;
+        symbol [ parsed %parsed.5 176 24 30 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 177 20 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_177_20_179_20_if_stmt:
+        %tmp.64 = lgetv %parsed.5;
+        symbol [ parsed %tmp.64 177 24 30 ];
+        %tmp.65 = null;
+        %tmp.66 = ne %tmp.64 %tmp.65;
+        bf %tmp.66 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_177_20_179_20_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_177_20_179_20_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_177_40_179_20_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 178 24 ]
+        %tmp.67 = lgetv %parsed.5;
+        symbol [ parsed %tmp.67 178 39 45 ];
+        %tmp.68 = as %tmp.67 { (!Null) };
+        symbol [ _triggerTime ? 178 24 36 ];
+        putv self :_triggerTime %tmp.68;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_177_40_179_20_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_177_20_179_20_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_177_20_179_20_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_20_180_16_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_endTry:
+        jsr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_finally;
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_catch:
+        %tmp.69 = exception;
+        push %tmp.69;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 180 18 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_catch" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_180_18_182_16_end" ]
+        %e.6 = local;
+        symbol [ e %e.6 180 25 26 ];
+        %tmp.70 = dup %tmp.69;
+        lputv %e.6 %tmp.70;
+        symbol [ e %e.6 180 25 26 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_180_28_182_16_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 181 20 ]
+        symbol [ System %tmp.71 181 20 26 ];
+        %tmp.71 = getm $.Toybox.System;
+        symbol [ println %tmp.72 181 27 34 ];
+        %tmp.72 = getv function %tmp.71 :println;
+        %tmp.73 = "[SalarmModel] Invalid triggerTime string: ";
+        %tmp.74 = lgetv %rawTrigger.4;
+        symbol [ rawTrigger %tmp.74 181 82 92 ];
+        %tmp.75 = as %tmp.74 { (!Number) && (!Long) && (String) && (!Null) };
+        %tmp.76 = add %tmp.73 %tmp.75;
+        invoke %tmp.71 %tmp.72(%tmp.76);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_180_28_182_16_stop:
+        jsr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_finally;
+        pop;
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_180_18_182_16_end:
+        try @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_catch @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_180_18_182_16_end @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_180_18_182_16_end @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_finally;
+        jsr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_finally;
+        throw %tmp.69;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_finally:
+        jsrret;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_175_16_182_16_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_174_53_183_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_174_19_183_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_174_19_183_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_172_19_183_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_170_12_183_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_169_32_184_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_169_8_184_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_169_8_184_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 187 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_stop" ]
+        %rawSnooze.7 = local;
+        symbol [ rawSnooze %rawSnooze.7 187 12 21 ];
+        %tmp.77 = lgetv %dict;
+        symbol [ dict %tmp.77 187 24 28 ];
+        symbol [ get %tmp.78 187 29 32 ];
+        %tmp.78 = getv function %tmp.77 :get;
+        %tmp.79 = "snoozeDuration";
+        %tmp.80 = invoke %tmp.77 %tmp.78(%tmp.79);
+        lputv %rawSnooze.7 %tmp.80;
+        symbol [ rawSnooze %rawSnooze.7 187 12 21 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 188 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_188_8_194_8_if_stmt:
+        %tmp.81 = lgetv %rawSnooze.7;
+        symbol [ rawSnooze %tmp.81 188 12 21 ];
+        %tmp.82 = null;
+        %tmp.83 = ne %tmp.81 %tmp.82;
+        bf %tmp.83 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_188_8_194_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_188_8_194_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_188_31_194_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 189 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_189_12_193_12_if_stmt:
+        %tmp.84 = lgetv %rawSnooze.7;
+        symbol [ rawSnooze %tmp.84 189 16 25 ];
+        %tmp.85 = as %tmp.84 { (!Null) };
+        symbol [ Number %tmp.87 189 37 43 ];
+        %tmp.87 = getv ? :Number;
+        %tmp.88 = isa %tmp.85 %tmp.87;
+        bf %tmp.88 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_189_12_193_12_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_189_12_193_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_189_45_191_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 190 16 ]
+        %tmp.89 = lgetv %rawSnooze.7;
+        symbol [ rawSnooze %tmp.89 190 34 43 ];
+        %tmp.90 = as %tmp.89 { (Number) && (!Null) };
+        %tmp.91 = as %tmp.90 Number;
+        symbol [ Number %tmp.91 190 47 53 ];
+        symbol [ _snoozeDuration ? 190 16 31 ];
+        putv self :_snoozeDuration %tmp.91;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_189_45_191_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_189_12_193_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_189_12_193_12_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 191 19 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_191_19_193_12_if_stmt:
+        %tmp.92 = lgetv %rawSnooze.7;
+        symbol [ rawSnooze %tmp.92 191 23 32 ];
+        %tmp.93 = as %tmp.92 { (!Number) && (!Null) };
+        symbol [ Long %tmp.95 191 44 48 ];
+        %tmp.95 = getv ? :Long;
+        %tmp.96 = isa %tmp.93 %tmp.95;
+        bf %tmp.96 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_191_19_193_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_191_19_193_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_191_50_193_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 192 16 ]
+        %tmp.97 = lgetv %rawSnooze.7;
+        symbol [ rawSnooze %tmp.97 192 35 44 ];
+        %tmp.98 = as %tmp.97 { (!Number) && (Long) && (!Null) };
+        %tmp.99 = as %tmp.98 Long;
+        symbol [ Long %tmp.99 192 48 52 ];
+        symbol [ toNumber %tmp.100 192 54 62 ];
+        %tmp.100 = getv function %tmp.99 :toNumber;
+        %tmp.101 = invoke %tmp.99 %tmp.100();
+        symbol [ _snoozeDuration ? 192 16 31 ];
+        putv self :_snoozeDuration %tmp.101;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_191_50_193_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_191_19_193_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_191_19_193_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_189_12_193_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_188_31_194_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_188_8_194_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_188_8_194_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 197 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_stop" ]
+        %stateStr.8 = local;
+        symbol [ stateStr %stateStr.8 197 12 20 ];
+        %tmp.102 = "";
+        lputv %stateStr.8 %tmp.102;
+        symbol [ stateStr %stateStr.8 197 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 198 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_stop" ]
+        %rawState.9 = local;
+        symbol [ rawState %rawState.9 198 12 20 ];
+        %tmp.103 = lgetv %dict;
+        symbol [ dict %tmp.103 198 23 27 ];
+        symbol [ get %tmp.104 198 28 31 ];
+        %tmp.104 = getv function %tmp.103 :get;
+        %tmp.105 = "state";
+        %tmp.106 = invoke %tmp.103 %tmp.104(%tmp.105);
+        lputv %rawState.9 %tmp.106;
+        symbol [ rawState %rawState.9 198 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 199 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_199_8_206_8_if_stmt:
+        %tmp.107 = lgetv %rawState.9;
+        symbol [ rawState %tmp.107 199 12 20 ];
+        %tmp.108 = null;
+        %tmp.109 = ne %tmp.107 %tmp.108;
+        bf %tmp.109 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_199_8_206_8_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_199_8_206_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_199_30_201_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 200 12 ]
+        %tmp.110 = lgetv %rawState.9;
+        symbol [ rawState %tmp.110 200 23 31 ];
+        %tmp.111 = as %tmp.110 { (!Null) };
+        symbol [ toString %tmp.112 200 32 40 ];
+        %tmp.112 = getv function %tmp.111 :toString;
+        %tmp.113 = invoke %tmp.111 %tmp.112();
+        symbol [ toLower %tmp.114 200 43 50 ];
+        %tmp.114 = getv function %tmp.113 :toLower;
+        %tmp.115 = invoke %tmp.113 %tmp.114();
+        lputv %stateStr.8 %tmp.115;
+        symbol [ stateStr %stateStr.8 200 12 20 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_199_30_201_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_199_8_206_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_199_8_206_8_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_201_15_206_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 202 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_201_15_206_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_201_15_206_8_stop" ]
+        %rawType.10 = local;
+        symbol [ rawType %rawType.10 202 16 23 ];
+        %tmp.116 = lgetv %dict;
+        symbol [ dict %tmp.116 202 26 30 ];
+        symbol [ get %tmp.117 202 31 34 ];
+        %tmp.117 = getv function %tmp.116 :get;
+        %tmp.118 = "type";
+        %tmp.119 = invoke %tmp.116 %tmp.117(%tmp.118);
+        lputv %rawType.10 %tmp.119;
+        symbol [ rawType %rawType.10 202 16 23 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 203 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_12_205_12_if_stmt:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_16_203_76_begin:
+        %tmp.120 = lgetv %rawType.10;
+        symbol [ rawType %tmp.120 203 16 23 ];
+        %tmp.121 = null;
+        %tmp.122 = ne %tmp.120 %tmp.121;
+        bf %tmp.122 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_12_205_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_35_203_76_true:
+        %tmp.123 = lgetv %rawType.10;
+        symbol [ rawType %tmp.123 203 35 42 ];
+        %tmp.124 = as %tmp.123 { (!Null) };
+        symbol [ toString %tmp.125 203 43 51 ];
+        %tmp.125 = getv function %tmp.124 :toString;
+        %tmp.126 = invoke %tmp.124 %tmp.125();
+        symbol [ equals %tmp.127 203 54 60 ];
+        %tmp.127 = getv function %tmp.126 :equals;
+        %tmp.128 = "ALARM_TRIGGER";
+        %tmp.129 = invoke %tmp.126 %tmp.127(%tmp.128);
+        push %tmp.129;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_35_203_76_end:
+        %tmp.130 = phi [%tmp.122 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_16_203_76_begin] [%tmp.129 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_35_203_76_true] [%tmp.130 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_35_203_76_end];
+        bf %tmp.130 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_12_205_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_12_205_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_79_205_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 204 16 ]
+        %tmp.131 = "ringing";
+        lputv %stateStr.8 %tmp.131;
+        symbol [ stateStr %stateStr.8 204 16 24 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_79_205_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_12_205_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_203_12_205_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_201_15_206_8_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_199_8_206_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 208 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_208_8_227_8_if_stmt:
+        %tmp.132 = lgetv %stateStr.8;
+        symbol [ stateStr %tmp.132 208 12 20 ];
+        symbol [ equals %tmp.133 208 21 27 ];
+        %tmp.133 = getv function %tmp.132 :equals;
+        %tmp.134 = "ringing";
+        %tmp.135 = invoke %tmp.132 %tmp.133(%tmp.134);
+        bf %tmp.135 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_208_8_227_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_208_8_227_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_208_40_210_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 209 12 ]
+        %tmp.136 = self;
+        symbol [ transitionToState %tmp.137 209 12 29 ];
+        %tmp.137 = getv function %tmp.136 :transitionToState;
+        symbol [ STATE_RINGING %tmp.139 209 30 43 ];
+        %tmp.139 = getv ? :STATE_RINGING;
+        %tmp.140 = "Alarm is ringing";
+        invoke %tmp.136 %tmp.137(%tmp.139, %tmp.140);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_208_40_210_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_208_8_227_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_208_8_227_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 210 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_210_15_227_8_if_stmt:
+        %tmp.141 = lgetv %stateStr.8;
+        symbol [ stateStr %tmp.141 210 19 27 ];
+        symbol [ equals %tmp.142 210 28 34 ];
+        %tmp.142 = getv function %tmp.141 :equals;
+        %tmp.143 = "upcoming";
+        %tmp.144 = invoke %tmp.141 %tmp.142(%tmp.143);
+        bf %tmp.144 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_210_15_227_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_210_15_227_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_210_48_212_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 211 12 ]
+        %tmp.145 = self;
+        symbol [ transitionToState %tmp.146 211 12 29 ];
+        %tmp.146 = getv function %tmp.145 :transitionToState;
+        symbol [ STATE_UPCOMING %tmp.148 211 30 44 ];
+        %tmp.148 = getv ? :STATE_UPCOMING;
+        %tmp.149 = "Upcoming alarm";
+        invoke %tmp.145 %tmp.146(%tmp.148, %tmp.149);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_210_48_212_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_210_15_227_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_210_15_227_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 212 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_212_15_227_8_if_stmt:
+        %tmp.150 = lgetv %stateStr.8;
+        symbol [ stateStr %tmp.150 212 19 27 ];
+        symbol [ equals %tmp.151 212 28 34 ];
+        %tmp.151 = getv function %tmp.150 :equals;
+        %tmp.152 = "snoozed";
+        %tmp.153 = invoke %tmp.150 %tmp.151(%tmp.152);
+        bf %tmp.153 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_212_15_227_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_212_15_227_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_212_47_214_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 213 12 ]
+        %tmp.154 = self;
+        symbol [ transitionToState %tmp.155 213 12 29 ];
+        %tmp.155 = getv function %tmp.154 :transitionToState;
+        symbol [ STATE_UPCOMING %tmp.157 213 30 44 ];
+        %tmp.157 = getv ? :STATE_UPCOMING;
+        %tmp.158 = "Alarm snoozed";
+        invoke %tmp.154 %tmp.155(%tmp.157, %tmp.158);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_212_47_214_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_212_15_227_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_212_15_227_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 214 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_15_227_8_if_stmt:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_19_214_100_begin:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_19_214_73_begin:
+        %tmp.159 = lgetv %stateStr.8;
+        symbol [ stateStr %tmp.159 214 19 27 ];
+        symbol [ equals %tmp.160 214 28 34 ];
+        %tmp.160 = getv function %tmp.159 :equals;
+        %tmp.161 = "dismissed";
+        %tmp.162 = invoke %tmp.159 %tmp.160(%tmp.161);
+        bt %tmp.162 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_15_227_8_if_true;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_51_214_73_false:
+        %tmp.163 = lgetv %stateStr.8;
+        symbol [ stateStr %tmp.163 214 51 59 ];
+        symbol [ equals %tmp.164 214 60 66 ];
+        %tmp.164 = getv function %tmp.163 :equals;
+        %tmp.165 = "idle";
+        %tmp.166 = invoke %tmp.163 %tmp.164(%tmp.165);
+        push %tmp.166;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_51_214_73_end:
+        %tmp.167 = phi [%tmp.162 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_19_214_73_begin] [%tmp.166 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_51_214_73_false] [%tmp.167 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_51_214_73_end];
+        bt %tmp.167 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_15_227_8_if_true;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_78_214_100_false:
+        %tmp.168 = lgetv %stateStr.8;
+        symbol [ stateStr %tmp.168 214 78 86 ];
+        symbol [ equals %tmp.169 214 87 93 ];
+        %tmp.169 = getv function %tmp.168 :equals;
+        %tmp.170 = "none";
+        %tmp.171 = invoke %tmp.168 %tmp.169(%tmp.170);
+        push %tmp.171;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_78_214_100_end:
+        %tmp.172 = phi [%tmp.167 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_19_214_100_begin] [%tmp.171 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_78_214_100_false] [%tmp.172 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_78_214_100_end];
+        bf %tmp.172 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_15_227_8_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_15_227_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_103_216_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 215 12 ]
+        %tmp.173 = self;
+        symbol [ clearAlarm %tmp.174 215 12 22 ];
+        %tmp.174 = getv function %tmp.173 :clearAlarm;
+        invoke %tmp.173 %tmp.174();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_103_216_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_15_227_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_15_227_8_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_216_15_227_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 218 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_216_15_227_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_216_15_227_8_stop" ]
+        %now.11 = local;
+        symbol [ now %now.11 218 16 19 ];
+        symbol [ Time %tmp.175 218 22 26 ];
+        %tmp.175 = getm $.Toybox.Time;
+        symbol [ now %tmp.176 218 27 30 ];
+        %tmp.176 = getv function %tmp.175 :now;
+        %tmp.177 = invoke %tmp.175 %tmp.176();
+        symbol [ value %tmp.178 218 33 38 ];
+        %tmp.178 = getv function %tmp.177 :value;
+        %tmp.179 = invoke %tmp.177 %tmp.178();
+        lputv %now.11 %tmp.179;
+        symbol [ now %now.11 218 16 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 219 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_219_12_226_12_if_stmt:
+        symbol [ _triggerTime %tmp.181 219 16 28 ];
+        %tmp.181 = getv ? :_triggerTime;
+        %tmp.182 = lgetv %now.11;
+        symbol [ now %tmp.182 219 31 34 ];
+        %tmp.183 = gt %tmp.181 %tmp.182;
+        bf %tmp.183 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_219_12_226_12_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_219_12_226_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_219_36_221_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 220 16 ]
+        %tmp.184 = self;
+        symbol [ transitionToState %tmp.185 220 16 33 ];
+        %tmp.185 = getv function %tmp.184 :transitionToState;
+        symbol [ STATE_UPCOMING %tmp.187 220 34 48 ];
+        %tmp.187 = getv ? :STATE_UPCOMING;
+        %tmp.188 = "Upcoming alarm";
+        invoke %tmp.184 %tmp.185(%tmp.187, %tmp.188);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_219_36_221_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_219_12_226_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_219_12_226_12_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 221 19 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_19_226_12_if_stmt:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_23_221_66_begin:
+        symbol [ _triggerTime %tmp.190 221 23 35 ];
+        %tmp.190 = getv ? :_triggerTime;
+        %tmp.191 = 0;
+        %tmp.192 = gt %tmp.190 %tmp.191;
+        bf %tmp.192 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_19_226_12_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_43_221_66_true:
+        %tmp.193 = lgetv %now.11;
+        symbol [ now %tmp.193 221 44 47 ];
+        symbol [ _triggerTime %tmp.195 221 50 62 ];
+        %tmp.195 = getv ? :_triggerTime;
+        %tmp.196 = sub %tmp.193 %tmp.195;
+        %tmp.197 = 300;
+        %tmp.198 = lt %tmp.196 %tmp.197;
+        push %tmp.198;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_43_221_66_end:
+        %tmp.199 = phi [%tmp.192 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_23_221_66_begin] [%tmp.198 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_43_221_66_true] [%tmp.199 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_43_221_66_end];
+        bf %tmp.199 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_19_226_12_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_19_226_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_71_224_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 223 16 ]
+        %tmp.200 = self;
+        symbol [ transitionToState %tmp.201 223 16 33 ];
+        %tmp.201 = getv function %tmp.200 :transitionToState;
+        symbol [ STATE_RINGING %tmp.203 223 34 47 ];
+        %tmp.203 = getv ? :STATE_RINGING;
+        %tmp.204 = "Alarm is ringing";
+        invoke %tmp.200 %tmp.201(%tmp.203, %tmp.204);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_71_224_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_19_226_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_19_226_12_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_224_19_226_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 225 16 ]
+        %tmp.205 = self;
+        symbol [ transitionToState %tmp.206 225 16 33 ];
+        %tmp.206 = getv function %tmp.205 :transitionToState;
+        symbol [ STATE_IDLE %tmp.208 225 34 44 ];
+        %tmp.208 = getv ? :STATE_IDLE;
+        %tmp.209 = "No upcoming alarms";
+        invoke %tmp.205 %tmp.206(%tmp.208, %tmp.209);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_224_19_226_12_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_221_19_226_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_219_12_226_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_216_15_227_8_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_214_15_227_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_212_15_227_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_210_15_227_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_208_8_227_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_151_72_228_4_stop:
+    }
+    //! Handles explicit action confirmation from Android
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 231; @symbol_functiondef = [handleActionConfirm,231,21,40]; @symbol_param<0> = [dict,231,41,45]; @symbol_param<0>_type<0> = [Dictionary,231,49,59]; ]
+    private
+    function handleActionConfirm(dict as Dictionary) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_231_69_272_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 233 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_233_8_235_8_if_stmt:
+        symbol [ _timeoutTimer %tmp.2 233 12 25 ];
+        %tmp.2 = getv ? :_timeoutTimer;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_233_8_235_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_233_8_235_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_233_35_235_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 234 12 ]
+        symbol [ _timeoutTimer %tmp.6 234 12 25 ];
+        %tmp.6 = getv ? :_timeoutTimer;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ stop %tmp.8 234 26 30 ];
+        %tmp.8 = getv function %tmp.7 :stop;
+        invoke %tmp.7 %tmp.8();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_233_35_235_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_233_8_235_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_233_8_235_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 237 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_231_69_272_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_231_69_272_4_stop" ]
+        %confirmedAction.1 = local;
+        symbol [ confirmedAction %confirmedAction.1 237 12 27 ];
+        %tmp.9 = "";
+        lputv %confirmedAction.1 %tmp.9;
+        symbol [ confirmedAction %confirmedAction.1 237 12 27 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 238 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_231_69_272_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_231_69_272_4_stop" ]
+        %rawAction.2 = local;
+        symbol [ rawAction %rawAction.2 238 12 21 ];
+        %tmp.10 = lgetv %dict;
+        symbol [ dict %tmp.10 238 24 28 ];
+        symbol [ get %tmp.11 238 29 32 ];
+        %tmp.11 = getv function %tmp.10 :get;
+        %tmp.12 = "action";
+        %tmp.13 = invoke %tmp.10 %tmp.11(%tmp.12);
+        lputv %rawAction.2 %tmp.13;
+        symbol [ rawAction %rawAction.2 238 12 21 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 239 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_239_8_241_8_if_stmt:
+        %tmp.14 = lgetv %rawAction.2;
+        symbol [ rawAction %tmp.14 239 12 21 ];
+        %tmp.15 = null;
+        %tmp.16 = ne %tmp.14 %tmp.15;
+        bf %tmp.16 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_239_8_241_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_239_8_241_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_239_31_241_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 240 12 ]
+        %tmp.17 = lgetv %rawAction.2;
+        symbol [ rawAction %tmp.17 240 30 39 ];
+        %tmp.18 = as %tmp.17 { (!Null) };
+        symbol [ toString %tmp.19 240 40 48 ];
+        %tmp.19 = getv function %tmp.18 :toString;
+        %tmp.20 = invoke %tmp.18 %tmp.19();
+        symbol [ toLower %tmp.21 240 51 58 ];
+        %tmp.21 = getv function %tmp.20 :toLower;
+        %tmp.22 = invoke %tmp.20 %tmp.21();
+        lputv %confirmedAction.1 %tmp.22;
+        symbol [ confirmedAction %confirmedAction.1 240 12 27 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_239_31_241_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_239_8_241_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_239_8_241_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 243 8 ]
+        symbol [ System %tmp.23 243 8 14 ];
+        %tmp.23 = getm $.Toybox.System;
+        symbol [ println %tmp.24 243 15 22 ];
+        %tmp.24 = getv function %tmp.23 :println;
+        %tmp.25 = "[SalarmModel] Confirmed action: ";
+        %tmp.26 = lgetv %confirmedAction.1;
+        symbol [ confirmedAction %tmp.26 243 60 75 ];
+        %tmp.27 = add %tmp.25 %tmp.26;
+        invoke %tmp.23 %tmp.24(%tmp.27);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 246 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_246_8_248_8_if_stmt:
+        symbol [ _alertManager %tmp.29 246 12 25 ];
+        %tmp.29 = getv ? :_alertManager;
+        %tmp.30 = null;
+        %tmp.31 = ne %tmp.29 %tmp.30;
+        bf %tmp.31 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_246_8_248_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_246_8_248_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_246_35_248_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 247 12 ]
+        symbol [ _alertManager %tmp.33 247 12 25 ];
+        %tmp.33 = getv ? :_alertManager;
+        %tmp.34 = as %tmp.33 { (!Null) };
+        symbol [ stopAlert %tmp.35 247 26 35 ];
+        %tmp.35 = getv function %tmp.34 :stopAlert;
+        invoke %tmp.34 %tmp.35();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_246_35_248_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_246_8_248_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_246_8_248_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 250 8 ]
+        symbol [ ACTION_NONE %tmp.37 250 25 36 ];
+        %tmp.37 = getv ? :ACTION_NONE;
+        symbol [ _pendingAction ? 250 8 22 ];
+        putv self :_pendingAction %tmp.37;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 251 8 ]
+        %tmp.38 = "";
+        symbol [ _pendingRequestId ? 251 8 25 ];
+        putv self :_pendingRequestId %tmp.38;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 253 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_8_267_8_if_stmt:
+        %tmp.39 = lgetv %confirmedAction.1;
+        symbol [ confirmedAction %tmp.39 253 12 27 ];
+        symbol [ equals %tmp.40 253 28 34 ];
+        %tmp.40 = getv function %tmp.39 :equals;
+        %tmp.41 = "snooze";
+        %tmp.42 = invoke %tmp.39 %tmp.40(%tmp.41);
+        bf %tmp.42 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_8_267_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_8_267_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_46_263_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 254 12 ]
+        %tmp.43 = "Snoozed successfully";
+        symbol [ _statusText ? 254 12 23 ];
+        putv self :_statusText %tmp.43;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 255 12 ]
+        %tmp.44 = self;
+        symbol [ transitionToState %tmp.45 255 12 29 ];
+        %tmp.45 = getv function %tmp.44 :transitionToState;
+        symbol [ STATE_ACTION_CONFIRMED %tmp.47 255 30 52 ];
+        %tmp.47 = getv ? :STATE_ACTION_CONFIRMED;
+        %tmp.48 = "Alarm Snoozed";
+        invoke %tmp.44 %tmp.45(%tmp.47, %tmp.48);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 257 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_46_263_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_46_263_8_stop" ]
+        %rawNewTrigger.3 = local;
+        symbol [ rawNewTrigger %rawNewTrigger.3 257 16 29 ];
+        %tmp.49 = lgetv %dict;
+        symbol [ dict %tmp.49 257 32 36 ];
+        symbol [ get %tmp.50 257 37 40 ];
+        %tmp.50 = getv function %tmp.49 :get;
+        %tmp.51 = "triggerTime";
+        %tmp.52 = invoke %tmp.49 %tmp.50(%tmp.51);
+        lputv %rawNewTrigger.3 %tmp.52;
+        symbol [ rawNewTrigger %rawNewTrigger.3 257 16 29 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 258 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_12_262_12_if_stmt:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_16_258_66_begin:
+        %tmp.53 = lgetv %rawNewTrigger.3;
+        symbol [ rawNewTrigger %tmp.53 258 16 29 ];
+        %tmp.54 = null;
+        %tmp.55 = ne %tmp.53 %tmp.54;
+        bf %tmp.55 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_12_262_12_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_41_258_66_true:
+        %tmp.56 = lgetv %rawNewTrigger.3;
+        symbol [ rawNewTrigger %tmp.56 258 41 54 ];
+        %tmp.57 = as %tmp.56 { (!Null) };
+        symbol [ Number %tmp.59 258 66 72 ];
+        %tmp.59 = getv ? :Number;
+        %tmp.60 = isa %tmp.57 %tmp.59;
+        push %tmp.60;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_41_258_66_end:
+        %tmp.61 = phi [%tmp.55 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_16_258_66_begin] [%tmp.60 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_41_258_66_true] [%tmp.61 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_41_258_66_end];
+        bf %tmp.61 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_12_262_12_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_12_262_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_74_260_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 259 16 ]
+        %tmp.62 = lgetv %rawNewTrigger.3;
+        symbol [ rawNewTrigger %tmp.62 259 31 44 ];
+        %tmp.63 = as %tmp.62 { (Number) && (!Null) };
+        %tmp.64 = as %tmp.63 Number;
+        symbol [ Number %tmp.64 259 48 54 ];
+        symbol [ _triggerTime ? 259 16 28 ];
+        putv self :_triggerTime %tmp.64;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_74_260_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_12_262_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_12_262_12_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_260_19_262_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 261 16 ]
+        symbol [ Time %tmp.65 261 31 35 ];
+        %tmp.65 = getm $.Toybox.Time;
+        symbol [ now %tmp.66 261 36 39 ];
+        %tmp.66 = getv function %tmp.65 :now;
+        %tmp.67 = invoke %tmp.65 %tmp.66();
+        symbol [ value %tmp.68 261 42 47 ];
+        %tmp.68 = getv function %tmp.67 :value;
+        %tmp.69 = invoke %tmp.67 %tmp.68();
+        symbol [ _snoozeDuration %tmp.71 261 52 67 ];
+        %tmp.71 = getv ? :_snoozeDuration;
+        %tmp.72 = add %tmp.69 %tmp.71;
+        symbol [ _triggerTime ? 261 16 28 ];
+        putv self :_triggerTime %tmp.72;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_260_19_262_12_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_258_12_262_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_46_263_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_8_267_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_8_267_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 263 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_263_15_267_8_if_stmt:
+        %tmp.73 = lgetv %confirmedAction.1;
+        symbol [ confirmedAction %tmp.73 263 19 34 ];
+        symbol [ equals %tmp.74 263 35 41 ];
+        %tmp.74 = getv function %tmp.73 :equals;
+        %tmp.75 = "dismiss";
+        %tmp.76 = invoke %tmp.73 %tmp.74(%tmp.75);
+        bf %tmp.76 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_263_15_267_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_263_15_267_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_263_54_267_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 264 12 ]
+        %tmp.77 = "Dismissed successfully";
+        symbol [ _statusText ? 264 12 23 ];
+        putv self :_statusText %tmp.77;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 265 12 ]
+        %tmp.78 = self;
+        symbol [ transitionToState %tmp.79 265 12 29 ];
+        %tmp.79 = getv function %tmp.78 :transitionToState;
+        symbol [ STATE_ACTION_CONFIRMED %tmp.81 265 30 52 ];
+        %tmp.81 = getv ? :STATE_ACTION_CONFIRMED;
+        %tmp.82 = "Alarm Dismissed";
+        invoke %tmp.78 %tmp.79(%tmp.81, %tmp.82);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 266 12 ]
+        %tmp.83 = 0;
+        symbol [ _triggerTime ? 266 12 24 ];
+        putv self :_triggerTime %tmp.83;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_263_54_267_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_263_15_267_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_263_15_267_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_253_8_267_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 270 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_231_69_272_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_231_69_272_4_stop" ]
+        %delayTimer.4 = local;
+        symbol [ delayTimer %delayTimer.4 270 12 22 ];
+        symbol [ Timer %tmp.86 270 29 34 ];
+        %tmp.86 = getm $.Toybox.Timer;
+        symbol [ Timer %tmp.87 270 35 40 ];
+        %tmp.87 = getv function ? %tmp.86 :Timer;
+        %tmp.84 = newc %tmp.87 ();
+        lputv %delayTimer.4 %tmp.84;
+        symbol [ delayTimer %delayTimer.4 270 12 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 271 8 ]
+        %tmp.88 = lgetv %delayTimer.4;
+        symbol [ delayTimer %tmp.88 271 8 18 ];
+        symbol [ start %tmp.89 271 19 24 ];
+        %tmp.89 = getv function %tmp.88 :start;
+        %tmp.90 = self;
+        symbol [ method %tmp.91 271 25 31 ];
+        %tmp.91 = getv function %tmp.90 :method;
+        %tmp.93 = const :onConfirmDisplayComplete;
+        symbol [ onConfirmDisplayComplete %tmp.93 271 33 57 const ];
+        %tmp.94 = invoke %tmp.90 %tmp.91(%tmp.93);
+        %tmp.95 = 2000;
+        %tmp.96 = false;
+        invoke %tmp.88 %tmp.89(%tmp.94, %tmp.95, %tmp.96);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_231_69_272_4_stop:
+    }
+    //! Completion of confirmed action display
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 275; @symbol_functiondef = [onConfirmDisplayComplete,275,20,44]; ]
+    public
+    function onConfirmDisplayComplete() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_275_55_283_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 276 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_275_55_283_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_275_55_283_4_stop" ]
+        %now.1 = local;
+        symbol [ now %now.1 276 12 15 ];
+        symbol [ Time %tmp.1 276 18 22 ];
+        %tmp.1 = getm $.Toybox.Time;
+        symbol [ now %tmp.2 276 23 26 ];
+        %tmp.2 = getv function %tmp.1 :now;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        symbol [ value %tmp.4 276 29 34 ];
+        %tmp.4 = getv function %tmp.3 :value;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        lputv %now.1 %tmp.5;
+        symbol [ now %now.1 276 12 15 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 277 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_277_8_281_8_if_stmt:
+        symbol [ _triggerTime %tmp.7 277 12 24 ];
+        %tmp.7 = getv ? :_triggerTime;
+        %tmp.8 = lgetv %now.1;
+        symbol [ now %tmp.8 277 27 30 ];
+        %tmp.9 = gt %tmp.7 %tmp.8;
+        bf %tmp.9 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_277_8_281_8_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_277_8_281_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_277_32_279_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 278 12 ]
+        %tmp.10 = self;
+        symbol [ transitionToState %tmp.11 278 12 29 ];
+        %tmp.11 = getv function %tmp.10 :transitionToState;
+        symbol [ STATE_UPCOMING %tmp.13 278 30 44 ];
+        %tmp.13 = getv ? :STATE_UPCOMING;
+        %tmp.14 = "Upcoming alarm";
+        invoke %tmp.10 %tmp.11(%tmp.13, %tmp.14);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_277_32_279_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_277_8_281_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_277_8_281_8_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_279_15_281_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 280 12 ]
+        %tmp.15 = self;
+        symbol [ transitionToState %tmp.16 280 12 29 ];
+        %tmp.16 = getv function %tmp.15 :transitionToState;
+        symbol [ STATE_IDLE %tmp.18 280 30 40 ];
+        %tmp.18 = getv ? :STATE_IDLE;
+        %tmp.19 = "No upcoming alarm";
+        invoke %tmp.15 %tmp.16(%tmp.18, %tmp.19);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_279_15_281_8_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_277_8_281_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 282 8 ]
+        symbol [ WatchUi %tmp.20 282 8 15 ];
+        %tmp.20 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.21 282 16 29 ];
+        %tmp.21 = getv function %tmp.20 :requestUpdate;
+        invoke %tmp.20 %tmp.21();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_275_55_283_4_stop:
+    }
+    //! Handles explicit action rejection from Android
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 286; @symbol_functiondef = [handleActionReject,286,21,39]; @symbol_param<0> = [dict,286,40,44]; @symbol_param<0>_type<0> = [Dictionary,286,48,58]; ]
+    private
+    function handleActionReject(dict as Dictionary) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_286_68_310_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 287 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_287_8_289_8_if_stmt:
+        symbol [ _timeoutTimer %tmp.2 287 12 25 ];
+        %tmp.2 = getv ? :_timeoutTimer;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_287_8_289_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_287_8_289_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_287_35_289_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 288 12 ]
+        symbol [ _timeoutTimer %tmp.6 288 12 25 ];
+        %tmp.6 = getv ? :_timeoutTimer;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ stop %tmp.8 288 26 30 ];
+        %tmp.8 = getv function %tmp.7 :stop;
+        invoke %tmp.7 %tmp.8();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_287_35_289_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_287_8_289_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_287_8_289_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 291 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_286_68_310_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_286_68_310_4_stop" ]
+        %reason.1 = local;
+        symbol [ reason %reason.1 291 12 18 ];
+        %tmp.9 = "Phone rejected action";
+        lputv %reason.1 %tmp.9;
+        symbol [ reason %reason.1 291 12 18 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 292 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_286_68_310_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_286_68_310_4_stop" ]
+        %rawMsg.2 = local;
+        symbol [ rawMsg %rawMsg.2 292 12 18 ];
+        %tmp.10 = lgetv %dict;
+        symbol [ dict %tmp.10 292 21 25 ];
+        symbol [ get %tmp.11 292 26 29 ];
+        %tmp.11 = getv function %tmp.10 :get;
+        %tmp.12 = "message";
+        %tmp.13 = invoke %tmp.10 %tmp.11(%tmp.12);
+        lputv %rawMsg.2 %tmp.13;
+        symbol [ rawMsg %rawMsg.2 292 12 18 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 293 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_293_8_295_8_if_stmt:
+        %tmp.14 = lgetv %rawMsg.2;
+        symbol [ rawMsg %tmp.14 293 12 18 ];
+        %tmp.15 = null;
+        %tmp.16 = ne %tmp.14 %tmp.15;
+        bf %tmp.16 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_293_8_295_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_293_8_295_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_293_28_295_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 294 12 ]
+        %tmp.17 = lgetv %rawMsg.2;
+        symbol [ rawMsg %tmp.17 294 21 27 ];
+        %tmp.18 = as %tmp.17 { (!Null) };
+        symbol [ toString %tmp.19 294 28 36 ];
+        %tmp.19 = getv function %tmp.18 :toString;
+        %tmp.20 = invoke %tmp.18 %tmp.19();
+        lputv %reason.1 %tmp.20;
+        symbol [ reason %reason.1 294 12 18 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_293_28_295_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_293_8_295_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_293_8_295_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 297 8 ]
+        symbol [ System %tmp.21 297 8 14 ];
+        %tmp.21 = getm $.Toybox.System;
+        symbol [ println %tmp.22 297 15 22 ];
+        %tmp.22 = getv function %tmp.21 :println;
+        %tmp.23 = "[SalarmModel] Action rejected: ";
+        %tmp.24 = lgetv %reason.1;
+        symbol [ reason %tmp.24 297 59 65 ];
+        %tmp.25 = add %tmp.23 %tmp.24;
+        invoke %tmp.21 %tmp.22(%tmp.25);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 298 8 ]
+        symbol [ ACTION_NONE %tmp.27 298 25 36 ];
+        %tmp.27 = getv ? :ACTION_NONE;
+        symbol [ _pendingAction ? 298 8 22 ];
+        putv self :_pendingAction %tmp.27;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 299 8 ]
+        %tmp.28 = "";
+        symbol [ _pendingRequestId ? 299 8 25 ];
+        putv self :_pendingRequestId %tmp.28;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 300 8 ]
+        %tmp.29 = lgetv %reason.1;
+        symbol [ reason %tmp.29 300 22 28 ];
+        symbol [ _statusText ? 300 8 19 ];
+        putv self :_statusText %tmp.29;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 302 8 ]
+        %tmp.30 = self;
+        symbol [ transitionToState %tmp.31 302 8 25 ];
+        %tmp.31 = getv function %tmp.30 :transitionToState;
+        symbol [ STATE_ACTION_FAILED %tmp.33 302 26 45 ];
+        %tmp.33 = getv ? :STATE_ACTION_FAILED;
+        %tmp.34 = lgetv %reason.1;
+        symbol [ reason %tmp.34 302 47 53 ];
+        invoke %tmp.30 %tmp.31(%tmp.33, %tmp.34);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 305 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_305_8_309_8_if_stmt:
+        symbol [ _previousState %tmp.36 305 12 26 ];
+        %tmp.36 = getv ? :_previousState;
+        symbol [ STATE_RINGING %tmp.38 305 30 43 ];
+        %tmp.38 = getv ? :STATE_RINGING;
+        %tmp.39 = eq %tmp.36 %tmp.38;
+        bf %tmp.39 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_305_8_309_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_305_8_309_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_305_45_309_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 306 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_306_12_308_12_if_stmt:
+        symbol [ _alertManager %tmp.41 306 16 29 ];
+        %tmp.41 = getv ? :_alertManager;
+        %tmp.42 = null;
+        %tmp.43 = ne %tmp.41 %tmp.42;
+        bf %tmp.43 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_306_12_308_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_306_12_308_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_306_39_308_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 307 16 ]
+        symbol [ _alertManager %tmp.45 307 16 29 ];
+        %tmp.45 = getv ? :_alertManager;
+        %tmp.46 = as %tmp.45 { (!Null) };
+        symbol [ startAlert %tmp.47 307 30 40 ];
+        %tmp.47 = getv function %tmp.46 :startAlert;
+        invoke %tmp.46 %tmp.47();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_306_39_308_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_306_12_308_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_306_12_308_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_305_45_309_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_305_8_309_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_305_8_309_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_286_68_310_4_stop:
+    }
+    //! Clears the alarm state
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 313; @symbol_functiondef = [clearAlarm,313,20,30]; ]
+    public
+    function clearAlarm() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_313_41_325_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 314 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_314_8_316_8_if_stmt:
+        symbol [ _alertManager %tmp.2 314 12 25 ];
+        %tmp.2 = getv ? :_alertManager;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_314_8_316_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_314_8_316_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_314_35_316_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 315 12 ]
+        symbol [ _alertManager %tmp.6 315 12 25 ];
+        %tmp.6 = getv ? :_alertManager;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ stopAlert %tmp.8 315 26 35 ];
+        %tmp.8 = getv function %tmp.7 :stopAlert;
+        invoke %tmp.7 %tmp.8();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_314_35_316_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_314_8_316_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_314_8_316_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 317 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_317_8_319_8_if_stmt:
+        symbol [ _timeoutTimer %tmp.10 317 12 25 ];
+        %tmp.10 = getv ? :_timeoutTimer;
+        %tmp.11 = null;
+        %tmp.12 = ne %tmp.10 %tmp.11;
+        bf %tmp.12 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_317_8_319_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_317_8_319_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_317_35_319_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 318 12 ]
+        symbol [ _timeoutTimer %tmp.14 318 12 25 ];
+        %tmp.14 = getv ? :_timeoutTimer;
+        %tmp.15 = as %tmp.14 { (!Null) };
+        symbol [ stop %tmp.16 318 26 30 ];
+        %tmp.16 = getv function %tmp.15 :stop;
+        invoke %tmp.15 %tmp.16();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_317_35_319_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_317_8_319_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_317_8_319_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 320 8 ]
+        %tmp.17 = "";
+        symbol [ _alarmId ? 320 8 16 ];
+        putv self :_alarmId %tmp.17;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 321 8 ]
+        %tmp.18 = 0;
+        symbol [ _triggerTime ? 321 8 20 ];
+        putv self :_triggerTime %tmp.18;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 322 8 ]
+        symbol [ ACTION_NONE %tmp.20 322 25 36 ];
+        %tmp.20 = getv ? :ACTION_NONE;
+        symbol [ _pendingAction ? 322 8 22 ];
+        putv self :_pendingAction %tmp.20;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 323 8 ]
+        %tmp.21 = "";
+        symbol [ _pendingRequestId ? 323 8 25 ];
+        putv self :_pendingRequestId %tmp.21;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 324 8 ]
+        %tmp.22 = self;
+        symbol [ transitionToState %tmp.23 324 8 25 ];
+        %tmp.23 = getv function %tmp.22 :transitionToState;
+        symbol [ STATE_IDLE %tmp.25 324 26 36 ];
+        %tmp.25 = getv ? :STATE_IDLE;
+        %tmp.26 = "No active alarms";
+        invoke %tmp.22 %tmp.23(%tmp.25, %tmp.26);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_313_41_325_4_stop:
+    }
+    //! Requests Snooze action to phone
+    //! @return true if request was sent, false if rejected/busy
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 333; @symbol_functiondef = [requestSnooze,333,20,33]; @symbol_return<0> = [Boolean,333,39,46]; ]
+    public
+    function requestSnooze() as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_333_47_335_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 334 8 ]
+        %tmp.1 = self;
+        symbol [ sendActionRequest %tmp.2 334 15 32 ];
+        %tmp.2 = getv function %tmp.1 :sendActionRequest;
+        symbol [ ACTION_SNOOZE %tmp.4 334 33 46 ];
+        %tmp.4 = getv ? :ACTION_SNOOZE;
+        %tmp.5 = "snooze";
+        %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.4, %tmp.5);
+        ret %tmp.6;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_333_47_335_4_stop:
+    }
+    //! Requests Dismiss action to phone
+    //! @return true if request was sent, false if rejected/busy
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 339; @symbol_functiondef = [requestDismiss,339,20,34]; @symbol_return<0> = [Boolean,339,40,47]; ]
+    public
+    function requestDismiss() as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_339_48_341_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 340 8 ]
+        %tmp.1 = self;
+        symbol [ sendActionRequest %tmp.2 340 15 32 ];
+        %tmp.2 = getv function %tmp.1 :sendActionRequest;
+        symbol [ ACTION_DISMISS %tmp.4 340 33 47 ];
+        %tmp.4 = getv ? :ACTION_DISMISS;
+        %tmp.5 = "dismiss";
+        %tmp.6 = invoke %tmp.1 %tmp.2(%tmp.4, %tmp.5);
+        ret %tmp.6;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_339_48_341_4_stop:
+    }
+    //! Sends action request over BLE transmit
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 344; @symbol_functiondef = [sendActionRequest,344,21,38]; @symbol_param<0> = [actionType,344,39,49]; @symbol_param<0>_type<0> = [ActionType,344,53,63]; @symbol_param<1> = [actionName,344,65,75]; @symbol_param<1>_type<0> = [String,344,79,85]; @symbol_return<0> = [Boolean,344,90,97]; ]
+    private
+    function sendActionRequest(actionType as ActionType, actionName as String) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_344_98_384_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 345 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_345_8_348_8_if_stmt:
+        symbol [ _state %tmp.2 345 12 18 ];
+        %tmp.2 = getv ? :_state;
+        symbol [ STATE_ACTION_PENDING %tmp.4 345 22 42 ];
+        %tmp.4 = getv ? :STATE_ACTION_PENDING;
+        %tmp.5 = eq %tmp.2 %tmp.4;
+        bf %tmp.5 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_345_8_348_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_345_8_348_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_345_44_348_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 346 12 ]
+        symbol [ System %tmp.6 346 12 18 ];
+        %tmp.6 = getm $.Toybox.System;
+        symbol [ println %tmp.7 346 19 26 ];
+        %tmp.7 = getv function %tmp.6 :println;
+        %tmp.8 = "[SalarmModel] Request already pending. Ignoring duplicate.";
+        invoke %tmp.6 %tmp.7(%tmp.8);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 347 12 ]
+        %tmp.9 = false;
+        ret %tmp.9;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_345_44_348_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_345_8_348_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_345_8_348_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 350 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_344_98_384_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_344_98_384_4_stop" ]
+        %now.1 = local;
+        symbol [ now %now.1 350 12 15 ];
+        symbol [ Time %tmp.10 350 18 22 ];
+        %tmp.10 = getm $.Toybox.Time;
+        symbol [ now %tmp.11 350 23 26 ];
+        %tmp.11 = getv function %tmp.10 :now;
+        %tmp.12 = invoke %tmp.10 %tmp.11();
+        symbol [ value %tmp.13 350 29 34 ];
+        %tmp.13 = getv function %tmp.12 :value;
+        %tmp.14 = invoke %tmp.12 %tmp.13();
+        lputv %now.1 %tmp.14;
+        symbol [ now %now.1 350 12 15 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 351 8 ]
+        %tmp.15 = lgetv %actionType;
+        symbol [ actionType %tmp.15 351 25 35 ];
+        symbol [ _pendingAction ? 351 8 22 ];
+        putv self :_pendingAction %tmp.15;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 352 8 ]
+        %tmp.16 = "req_";
+        %tmp.17 = lgetv %actionName;
+        symbol [ actionName %tmp.17 352 37 47 ];
+        %tmp.18 = add %tmp.16 %tmp.17;
+        %tmp.19 = "_";
+        %tmp.20 = add %tmp.18 %tmp.19;
+        %tmp.21 = lgetv %now.1;
+        symbol [ now %tmp.21 352 56 59 ];
+        symbol [ toString %tmp.22 352 60 68 ];
+        %tmp.22 = getv function %tmp.21 :toString;
+        %tmp.23 = invoke %tmp.21 %tmp.22();
+        %tmp.24 = add %tmp.20 %tmp.23;
+        symbol [ _pendingRequestId ? 352 8 25 ];
+        putv self :_pendingRequestId %tmp.24;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 353 8 ]
+        symbol [ _state %tmp.26 353 25 31 ];
+        %tmp.26 = getv ? :_state;
+        symbol [ _previousState ? 353 8 22 ];
+        putv self :_previousState %tmp.26;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 355 8 ]
+        %tmp.27 = self;
+        symbol [ transitionToState %tmp.28 355 8 25 ];
+        %tmp.28 = getv function %tmp.27 :transitionToState;
+        symbol [ STATE_ACTION_PENDING %tmp.30 355 26 46 ];
+        %tmp.30 = getv ? :STATE_ACTION_PENDING;
+        %tmp.31 = "Contacting phone...";
+        invoke %tmp.27 %tmp.28(%tmp.30, %tmp.31);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 357 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_344_98_384_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_344_98_384_4_stop" ]
+        %payload.2 = local;
+        symbol [ payload %payload.2 357 12 19 ];
+        %tmp.32 = newd 5;
+        %tmp.33 = "action";
+        %tmp.34 = lgetv %actionName;
+        symbol [ actionName %tmp.34 358 24 34 ];
+        %tmp.35 = dup %tmp.32;
+        %tmp.36 = aputv %tmp.35 %tmp.33 %tmp.34;
+        %tmp.37 = "alarmId";
+        symbol [ _alarmId %tmp.39 359 25 33 ];
+        %tmp.39 = getv ? :_alarmId;
+        %tmp.40 = dup %tmp.36;
+        %tmp.41 = aputv %tmp.40 %tmp.37 %tmp.39;
+        %tmp.42 = "requestId";
+        symbol [ _pendingRequestId %tmp.44 360 27 44 ];
+        %tmp.44 = getv ? :_pendingRequestId;
+        %tmp.45 = dup %tmp.41;
+        %tmp.46 = aputv %tmp.45 %tmp.42 %tmp.44;
+        %tmp.47 = "timestamp";
+        %tmp.48 = lgetv %now.1;
+        symbol [ now %tmp.48 361 27 30 ];
+        %tmp.49 = dup %tmp.46;
+        %tmp.50 = aputv %tmp.49 %tmp.47 %tmp.48;
+        %tmp.51 = "snoozeDuration";
+        symbol [ _snoozeDuration %tmp.53 362 32 47 ];
+        %tmp.53 = getv ? :_snoozeDuration;
+        %tmp.54 = dup %tmp.50;
+        %tmp.55 = aputv %tmp.54 %tmp.51 %tmp.53;
+        lputv %payload.2 %tmp.55;
+        symbol [ payload %payload.2 357 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 365 8 ]
+        symbol [ System %tmp.56 365 8 14 ];
+        %tmp.56 = getm $.Toybox.System;
+        symbol [ println %tmp.57 365 15 22 ];
+        %tmp.57 = getv function %tmp.56 :println;
+        %tmp.58 = "[SalarmModel] Transmitting to phone: ";
+        %tmp.59 = lgetv %payload.2;
+        symbol [ payload %tmp.59 365 65 72 ];
+        symbol [ toString %tmp.60 365 73 81 ];
+        %tmp.60 = getv function %tmp.59 :toString;
+        %tmp.61 = invoke %tmp.59 %tmp.60();
+        %tmp.62 = add %tmp.58 %tmp.61;
+        invoke %tmp.56 %tmp.57(%tmp.62);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 368 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_368_8_370_8_if_stmt:
+        symbol [ _timeoutTimer %tmp.64 368 12 25 ];
+        %tmp.64 = getv ? :_timeoutTimer;
+        %tmp.65 = null;
+        %tmp.66 = ne %tmp.64 %tmp.65;
+        bf %tmp.66 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_368_8_370_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_368_8_370_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_368_35_370_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 369 12 ]
+        symbol [ _timeoutTimer %tmp.68 369 12 25 ];
+        %tmp.68 = getv ? :_timeoutTimer;
+        %tmp.69 = as %tmp.68 { (!Null) };
+        symbol [ start %tmp.70 369 26 31 ];
+        %tmp.70 = getv function %tmp.69 :start;
+        %tmp.71 = self;
+        symbol [ method %tmp.72 369 32 38 ];
+        %tmp.72 = getv function %tmp.71 :method;
+        %tmp.74 = const :onActionTimeout;
+        symbol [ onActionTimeout %tmp.74 369 40 55 const ];
+        %tmp.75 = invoke %tmp.71 %tmp.72(%tmp.74);
+        symbol [ ACTION_TIMEOUT_MS %tmp.77 369 58 75 ];
+        %tmp.77 = getv ? :ACTION_TIMEOUT_MS;
+        %tmp.78 = false;
+        invoke %tmp.69 %tmp.70(%tmp.75, %tmp.77, %tmp.78);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_368_35_370_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_368_8_370_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_368_8_370_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 373 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_344_98_384_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_344_98_384_4_stop" ]
+        %listener.3 = local;
+        symbol [ listener %listener.3 373 12 20 ];
+        symbol [ SalarmCommListener %tmp.82 373 27 45 ];
+        %tmp.82 = getv ? :SalarmCommListener;
+        %tmp.83 = self;
+        symbol [ self %tmp.83 373 46 50 ];
+        %tmp.79 = newc %tmp.82 (%tmp.83);
+        lputv %listener.3 %tmp.79;
+        symbol [ listener %listener.3 373 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 374 8 ]
+        try @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_beginTry @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_endTry @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_catch @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_finally;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_beginTry:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_12_376_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 375 12 ]
+        symbol [ Communications %tmp.84 375 12 26 ];
+        %tmp.84 = getm $.Toybox.Communications;
+        symbol [ transmit %tmp.85 375 27 35 ];
+        %tmp.85 = getv function %tmp.84 :transmit;
+        %tmp.86 = lgetv %payload.2;
+        symbol [ payload %tmp.86 375 36 43 ];
+        %tmp.87 = null;
+        %tmp.88 = lgetv %listener.3;
+        symbol [ listener %tmp.88 375 51 59 ];
+        invoke %tmp.84 %tmp.85(%tmp.86, %tmp.87, %tmp.88);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_12_376_8_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_endTry:
+        jsr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_finally;
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_catch:
+        %tmp.89 = exception;
+        push %tmp.89;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 376 10 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_catch" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_376_10_380_8_end" ]
+        %e.4 = local;
+        symbol [ e %e.4 376 17 18 ];
+        %tmp.90 = dup %tmp.89;
+        lputv %e.4 %tmp.90;
+        symbol [ e %e.4 376 17 18 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_376_20_380_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 377 12 ]
+        symbol [ System %tmp.91 377 12 18 ];
+        %tmp.91 = getm $.Toybox.System;
+        symbol [ println %tmp.92 377 19 26 ];
+        %tmp.92 = getv function %tmp.91 :println;
+        %tmp.93 = "[SalarmModel] Transmit exception: ";
+        %tmp.94 = lgetv %e.4;
+        symbol [ e %tmp.94 377 66 67 ];
+        symbol [ getErrorMessage %tmp.95 377 68 83 ];
+        %tmp.95 = getv function %tmp.94 :getErrorMessage;
+        %tmp.96 = invoke %tmp.94 %tmp.95();
+        %tmp.97 = add %tmp.93 %tmp.96;
+        invoke %tmp.91 %tmp.92(%tmp.97);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 378 12 ]
+        %tmp.98 = self;
+        symbol [ onTransmitError %tmp.99 378 12 27 ];
+        %tmp.99 = getv function %tmp.98 :onTransmitError;
+        invoke %tmp.98 %tmp.99();
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 379 12 ]
+        pop;
+        %tmp.100 = false;
+        jsr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_finally;
+        ret %tmp.100;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_376_20_380_8_stop:
+        jsr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_finally;
+        pop;
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_376_10_380_8_end:
+        try @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_catch @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_376_10_380_8_end @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_376_10_380_8_end @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_finally;
+        jsr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_finally;
+        throw %tmp.89;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_finally:
+        jsrret;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_374_8_380_8_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 382 8 ]
+        symbol [ WatchUi %tmp.101 382 8 15 ];
+        %tmp.101 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.102 382 16 29 ];
+        %tmp.102 = getv function %tmp.101 :requestUpdate;
+        invoke %tmp.101 %tmp.102();
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 383 8 ]
+        %tmp.103 = true;
+        ret %tmp.103;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_344_98_384_4_stop:
+    }
+    //! Called when transmission fails at BLE layer
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 387; @symbol_functiondef = [onTransmitError,387,20,35]; ]
+    public
+    function onTransmitError() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_387_46_401_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 388 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_388_8_390_8_if_stmt:
+        symbol [ _timeoutTimer %tmp.2 388 12 25 ];
+        %tmp.2 = getv ? :_timeoutTimer;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_388_8_390_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_388_8_390_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_388_35_390_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 389 12 ]
+        symbol [ _timeoutTimer %tmp.6 389 12 25 ];
+        %tmp.6 = getv ? :_timeoutTimer;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ stop %tmp.8 389 26 30 ];
+        %tmp.8 = getv function %tmp.7 :stop;
+        invoke %tmp.7 %tmp.8();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_388_35_390_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_388_8_390_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_388_8_390_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 391 8 ]
+        symbol [ System %tmp.9 391 8 14 ];
+        %tmp.9 = getm $.Toybox.System;
+        symbol [ println %tmp.10 391 15 22 ];
+        %tmp.10 = getv function %tmp.9 :println;
+        %tmp.11 = "[SalarmModel] Transmit failed.";
+        invoke %tmp.9 %tmp.10(%tmp.11);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 392 8 ]
+        symbol [ ACTION_NONE %tmp.13 392 25 36 ];
+        %tmp.13 = getv ? :ACTION_NONE;
+        symbol [ _pendingAction ? 392 8 22 ];
+        putv self :_pendingAction %tmp.13;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 393 8 ]
+        %tmp.14 = "Bluetooth transmit failed";
+        symbol [ _statusText ? 393 8 19 ];
+        putv self :_statusText %tmp.14;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 394 8 ]
+        %tmp.15 = self;
+        symbol [ transitionToState %tmp.16 394 8 25 ];
+        %tmp.16 = getv function %tmp.15 :transitionToState;
+        symbol [ STATE_ACTION_FAILED %tmp.18 394 26 45 ];
+        %tmp.18 = getv ? :STATE_ACTION_FAILED;
+        %tmp.19 = "Phone unreachable";
+        invoke %tmp.15 %tmp.16(%tmp.18, %tmp.19);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 397 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_8_399_8_if_stmt:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_12_397_64_begin:
+        symbol [ _previousState %tmp.21 397 12 26 ];
+        %tmp.21 = getv ? :_previousState;
+        symbol [ STATE_RINGING %tmp.23 397 30 43 ];
+        %tmp.23 = getv ? :STATE_RINGING;
+        %tmp.24 = eq %tmp.21 %tmp.23;
+        bf %tmp.24 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_8_399_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_47_397_64_true:
+        symbol [ _alertManager %tmp.26 397 47 60 ];
+        %tmp.26 = getv ? :_alertManager;
+        %tmp.27 = null;
+        %tmp.28 = ne %tmp.26 %tmp.27;
+        push %tmp.28;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_47_397_64_end:
+        %tmp.29 = phi [%tmp.24 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_12_397_64_begin] [%tmp.28 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_47_397_64_true] [%tmp.29 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_47_397_64_end];
+        bf %tmp.29 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_8_399_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_8_399_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_70_399_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 398 12 ]
+        symbol [ _alertManager %tmp.31 398 12 25 ];
+        %tmp.31 = getv ? :_alertManager;
+        %tmp.32 = as %tmp.31 { (!Null) };
+        symbol [ startAlert %tmp.33 398 26 36 ];
+        %tmp.33 = getv function %tmp.32 :startAlert;
+        invoke %tmp.32 %tmp.33();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_70_399_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_8_399_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_397_8_399_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 400 8 ]
+        symbol [ WatchUi %tmp.34 400 8 15 ];
+        %tmp.34 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.35 400 16 29 ];
+        %tmp.35 = getv function %tmp.34 :requestUpdate;
+        invoke %tmp.34 %tmp.35();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_387_46_401_4_stop:
+    }
+    //! Called when action confirmation times out
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 404; @symbol_functiondef = [onActionTimeout,404,20,35]; ]
+    public
+    function onActionTimeout() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_404_46_419_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 405 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_405_8_407_8_if_stmt:
+        symbol [ _state %tmp.2 405 12 18 ];
+        %tmp.2 = getv ? :_state;
+        symbol [ STATE_ACTION_PENDING %tmp.4 405 22 42 ];
+        %tmp.4 = getv ? :STATE_ACTION_PENDING;
+        %tmp.5 = ne %tmp.2 %tmp.4;
+        bf %tmp.5 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_405_8_407_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_405_8_407_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_405_44_407_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 406 12 ]
+        ret ?;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_405_44_407_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_405_8_407_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_405_8_407_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 408 8 ]
+        symbol [ System %tmp.6 408 8 14 ];
+        %tmp.6 = getm $.Toybox.System;
+        symbol [ println %tmp.7 408 15 22 ];
+        %tmp.7 = getv function %tmp.6 :println;
+        %tmp.8 = "[SalarmModel] Action timed out waiting for phone confirmation.";
+        invoke %tmp.6 %tmp.7(%tmp.8);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 409 8 ]
+        symbol [ ACTION_NONE %tmp.10 409 25 36 ];
+        %tmp.10 = getv ? :ACTION_NONE;
+        symbol [ _pendingAction ? 409 8 22 ];
+        putv self :_pendingAction %tmp.10;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 410 8 ]
+        %tmp.11 = "";
+        symbol [ _pendingRequestId ? 410 8 25 ];
+        putv self :_pendingRequestId %tmp.11;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 411 8 ]
+        %tmp.12 = "No response from phone";
+        symbol [ _statusText ? 411 8 19 ];
+        putv self :_statusText %tmp.12;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 412 8 ]
+        %tmp.13 = self;
+        symbol [ transitionToState %tmp.14 412 8 25 ];
+        %tmp.14 = getv function %tmp.13 :transitionToState;
+        symbol [ STATE_ACTION_FAILED %tmp.16 412 26 45 ];
+        %tmp.16 = getv ? :STATE_ACTION_FAILED;
+        %tmp.17 = "No phone response";
+        invoke %tmp.13 %tmp.14(%tmp.16, %tmp.17);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 415 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_8_417_8_if_stmt:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_12_415_64_begin:
+        symbol [ _previousState %tmp.19 415 12 26 ];
+        %tmp.19 = getv ? :_previousState;
+        symbol [ STATE_RINGING %tmp.21 415 30 43 ];
+        %tmp.21 = getv ? :STATE_RINGING;
+        %tmp.22 = eq %tmp.19 %tmp.21;
+        bf %tmp.22 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_8_417_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_47_415_64_true:
+        symbol [ _alertManager %tmp.24 415 47 60 ];
+        %tmp.24 = getv ? :_alertManager;
+        %tmp.25 = null;
+        %tmp.26 = ne %tmp.24 %tmp.25;
+        push %tmp.26;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_47_415_64_end:
+        %tmp.27 = phi [%tmp.22 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_12_415_64_begin] [%tmp.26 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_47_415_64_true] [%tmp.27 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_47_415_64_end];
+        bf %tmp.27 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_8_417_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_8_417_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_70_417_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 416 12 ]
+        symbol [ _alertManager %tmp.29 416 12 25 ];
+        %tmp.29 = getv ? :_alertManager;
+        %tmp.30 = as %tmp.29 { (!Null) };
+        symbol [ startAlert %tmp.31 416 26 36 ];
+        %tmp.31 = getv function %tmp.30 :startAlert;
+        invoke %tmp.30 %tmp.31();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_70_417_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_8_417_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_415_8_417_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 418 8 ]
+        symbol [ WatchUi %tmp.32 418 8 15 ];
+        %tmp.32 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.33 418 16 29 ];
+        %tmp.33 = getv function %tmp.32 :requestUpdate;
+        invoke %tmp.32 %tmp.33();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_404_46_419_4_stop:
+    }
+    //! Retries the previous action or clears failure state
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 422; @symbol_functiondef = [retryOrDismissFailure,422,20,41]; ]
+    public
+    function retryOrDismissFailure() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_422_52_437_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 423 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_423_8_435_8_if_stmt:
+        symbol [ _previousState %tmp.2 423 12 26 ];
+        %tmp.2 = getv ? :_previousState;
+        symbol [ STATE_RINGING %tmp.4 423 30 43 ];
+        %tmp.4 = getv ? :STATE_RINGING;
+        %tmp.5 = eq %tmp.2 %tmp.4;
+        bf %tmp.5 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_423_8_435_8_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_423_8_435_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_423_45_428_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 424 12 ]
+        %tmp.6 = self;
+        symbol [ transitionToState %tmp.7 424 12 29 ];
+        %tmp.7 = getv function %tmp.6 :transitionToState;
+        symbol [ STATE_RINGING %tmp.9 424 30 43 ];
+        %tmp.9 = getv ? :STATE_RINGING;
+        %tmp.10 = "Alarm is ringing";
+        invoke %tmp.6 %tmp.7(%tmp.9, %tmp.10);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 425 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_425_12_427_12_if_stmt:
+        symbol [ _alertManager %tmp.12 425 16 29 ];
+        %tmp.12 = getv ? :_alertManager;
+        %tmp.13 = null;
+        %tmp.14 = ne %tmp.12 %tmp.13;
+        bf %tmp.14 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_425_12_427_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_425_12_427_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_425_39_427_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 426 16 ]
+        symbol [ _alertManager %tmp.16 426 16 29 ];
+        %tmp.16 = getv ? :_alertManager;
+        %tmp.17 = as %tmp.16 { (!Null) };
+        symbol [ startAlert %tmp.18 426 30 40 ];
+        %tmp.18 = getv function %tmp.17 :startAlert;
+        invoke %tmp.17 %tmp.18();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_425_39_427_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_425_12_427_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_425_12_427_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_423_45_428_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_423_8_435_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_423_8_435_8_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_428_15_435_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 429 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_428_15_435_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_428_15_435_8_stop" ]
+        %now.1 = local;
+        symbol [ now %now.1 429 16 19 ];
+        symbol [ Time %tmp.19 429 22 26 ];
+        %tmp.19 = getm $.Toybox.Time;
+        symbol [ now %tmp.20 429 27 30 ];
+        %tmp.20 = getv function %tmp.19 :now;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        symbol [ value %tmp.22 429 33 38 ];
+        %tmp.22 = getv function %tmp.21 :value;
+        %tmp.23 = invoke %tmp.21 %tmp.22();
+        lputv %now.1 %tmp.23;
+        symbol [ now %now.1 429 16 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 430 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_430_12_434_12_if_stmt:
+        symbol [ _triggerTime %tmp.25 430 16 28 ];
+        %tmp.25 = getv ? :_triggerTime;
+        %tmp.26 = lgetv %now.1;
+        symbol [ now %tmp.26 430 31 34 ];
+        %tmp.27 = gt %tmp.25 %tmp.26;
+        bf %tmp.27 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_430_12_434_12_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_430_12_434_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_430_36_432_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 431 16 ]
+        %tmp.28 = self;
+        symbol [ transitionToState %tmp.29 431 16 33 ];
+        %tmp.29 = getv function %tmp.28 :transitionToState;
+        symbol [ STATE_UPCOMING %tmp.31 431 34 48 ];
+        %tmp.31 = getv ? :STATE_UPCOMING;
+        %tmp.32 = "Upcoming alarm";
+        invoke %tmp.28 %tmp.29(%tmp.31, %tmp.32);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_430_36_432_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_430_12_434_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_430_12_434_12_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_432_19_434_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 433 16 ]
+        %tmp.33 = self;
+        symbol [ transitionToState %tmp.34 433 16 33 ];
+        %tmp.34 = getv function %tmp.33 :transitionToState;
+        symbol [ STATE_IDLE %tmp.36 433 34 44 ];
+        %tmp.36 = getv ? :STATE_IDLE;
+        %tmp.37 = "No upcoming alarms";
+        invoke %tmp.33 %tmp.34(%tmp.36, %tmp.37);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_432_19_434_12_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_430_12_434_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_428_15_435_8_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_423_8_435_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 436 8 ]
+        symbol [ WatchUi %tmp.38 436 8 15 ];
+        %tmp.38 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.39 436 16 29 ];
+        %tmp.39 = getv function %tmp.38 :requestUpdate;
+        invoke %tmp.38 %tmp.39();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_422_52_437_4_stop:
+    }
+    //! State transition handler
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 440; @symbol_functiondef = [transitionToState,440,21,38]; @symbol_param<0> = [newState,440,39,47]; @symbol_param<0>_type<0> = [AlarmState,440,51,61]; @symbol_param<1> = [status,440,63,69]; @symbol_param<1>_type<0> = [String,440,73,79]; ]
+    private
+    function transitionToState(newState as AlarmState, status as String) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_440_89_455_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 441 8 ]
+        %tmp.1 = lgetv %newState;
+        symbol [ newState %tmp.1 441 17 25 ];
+        symbol [ _state ? 441 8 14 ];
+        putv self :_state %tmp.1;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 442 8 ]
+        %tmp.2 = lgetv %status;
+        symbol [ status %tmp.2 442 22 28 ];
+        symbol [ _statusText ? 442 8 19 ];
+        putv self :_statusText %tmp.2;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 444 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_444_8_452_8_if_stmt:
+        symbol [ _state %tmp.4 444 12 18 ];
+        %tmp.4 = getv ? :_state;
+        symbol [ STATE_RINGING %tmp.6 444 22 35 ];
+        %tmp.6 = getv ? :STATE_RINGING;
+        %tmp.7 = eq %tmp.4 %tmp.6;
+        bf %tmp.7 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_444_8_452_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_444_8_452_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_444_37_448_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 445 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_445_12_447_12_if_stmt:
+        symbol [ _alertManager %tmp.9 445 16 29 ];
+        %tmp.9 = getv ? :_alertManager;
+        %tmp.10 = null;
+        %tmp.11 = ne %tmp.9 %tmp.10;
+        bf %tmp.11 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_445_12_447_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_445_12_447_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_445_39_447_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 446 16 ]
+        symbol [ _alertManager %tmp.13 446 16 29 ];
+        %tmp.13 = getv ? :_alertManager;
+        %tmp.14 = as %tmp.13 { (!Null) };
+        symbol [ startAlert %tmp.15 446 30 40 ];
+        %tmp.15 = getv function %tmp.14 :startAlert;
+        invoke %tmp.14 %tmp.15();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_445_39_447_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_445_12_447_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_445_12_447_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_444_37_448_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_444_8_452_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_444_8_452_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 448 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_15_452_8_if_stmt:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_19_448_63_begin:
+        symbol [ _state %tmp.17 448 19 25 ];
+        %tmp.17 = getv ? :_state;
+        symbol [ STATE_ACTION_PENDING %tmp.19 448 29 49 ];
+        %tmp.19 = getv ? :STATE_ACTION_PENDING;
+        %tmp.20 = ne %tmp.17 %tmp.19;
+        bf %tmp.20 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_15_452_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_53_448_63_true:
+        symbol [ _state %tmp.22 448 53 59 ];
+        %tmp.22 = getv ? :_state;
+        symbol [ STATE_ACTION_FAILED %tmp.24 448 63 82 ];
+        %tmp.24 = getv ? :STATE_ACTION_FAILED;
+        %tmp.25 = ne %tmp.22 %tmp.24;
+        push %tmp.25;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_53_448_63_end:
+        %tmp.26 = phi [%tmp.20 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_19_448_63_begin] [%tmp.25 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_53_448_63_true] [%tmp.26 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_53_448_63_end];
+        bf %tmp.26 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_15_452_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_15_452_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_84_452_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 449 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_449_12_451_12_if_stmt:
+        symbol [ _alertManager %tmp.28 449 16 29 ];
+        %tmp.28 = getv ? :_alertManager;
+        %tmp.29 = null;
+        %tmp.30 = ne %tmp.28 %tmp.29;
+        bf %tmp.30 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_449_12_451_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_449_12_451_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_449_39_451_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 450 16 ]
+        symbol [ _alertManager %tmp.32 450 16 29 ];
+        %tmp.32 = getv ? :_alertManager;
+        %tmp.33 = as %tmp.32 { (!Null) };
+        symbol [ stopAlert %tmp.34 450 30 39 ];
+        %tmp.34 = getv function %tmp.33 :stopAlert;
+        invoke %tmp.33 %tmp.34();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_449_39_451_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_449_12_451_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_449_12_451_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_84_452_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_15_452_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_448_15_452_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_444_8_452_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc" 454 8 ]
+        symbol [ WatchUi %tmp.35 454 8 15 ];
+        %tmp.35 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.36 454 16 29 ];
+        %tmp.36 = getv function %tmp.35 :requestUpdate;
+        invoke %tmp.35 %tmp.36();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmModel_mc_440_89_455_4_stop:
+    }
+}
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmModel.mc"; @line = 1; ]
+<init> {
+}

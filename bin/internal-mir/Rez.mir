@@ -1,0 +1,1462 @@
+[ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [WatchUi,2,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [WatchUi,3,13,20]; @symbol_usingAlias = [Ui,3,24,26]; ]
+using Toybox.WatchUi as :Ui;
+[ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Graphics,4,13,21]; ]
+using Toybox.Graphics;
+[ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [Graphics,5,13,21]; @symbol_usingAlias = [Gfx,5,25,28]; ]
+using Toybox.Graphics as :Gfx;
+[ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 7; @symbol_moduledef = [Rez,7,7,10]; ]
+module Rez {
+    [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 8; @symbol_moduledef = [Drawables,8,11,20]; ]
+    module Drawables {
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 8; ]
+        <init> {
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 9; @position = 27; initialized = true; @symbol_vardef = [LauncherIcon,9,27,39]; @symbol_type<0> = [ResourceId,9,43,53]; ]
+        var LauncherIcon as ResourceId;
+    }
+    [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 12; @symbol_moduledef = [Strings,12,11,18]; ]
+    module Strings {
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 12; ]
+        <init> {
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 13; @position = 27; initialized = true; @symbol_vardef = [AppName,13,27,34]; @symbol_type<0> = [ResourceId,13,38,48]; ]
+        var AppName as ResourceId;
+    }
+    [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 16; @symbol_moduledef = [Styles,16,11,17]; ]
+    module Styles {
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 16; ]
+        <init> {
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 17; @symbol_moduledef = [prompt_font_enhanced_readability__body_with_title,17,15,64]; ]
+        module prompt_font_enhanced_readability__body_with_title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 17; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 18; @position = 18; @symbol_constdef = [exclude,18,18,25]; @symbol_type<0> = [Boolean,18,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 21; @symbol_moduledef = [system_size__menu_header,21,15,39]; ]
+        module system_size__menu_header {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 21; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 22; @position = 18; @symbol_constdef = [width,22,18,23]; @symbol_type<0> = [Number,22,27,33]; ]
+            const width as Number = 390;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 23; @position = 18; @symbol_constdef = [height,23,18,24]; @symbol_type<0> = [Number,23,28,34]; ]
+            const height as Number = 121;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 26; @symbol_moduledef = [system_loc__hint_button_left_bottom,26,15,50]; ]
+        module system_loc__hint_button_left_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 26; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 27; @position = 18; @symbol_constdef = [x,27,18,19]; @symbol_type<0> = [Number,27,23,29]; ]
+            const x as Number = 12;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 28; @position = 18; @symbol_constdef = [y,28,18,19]; @symbol_type<0> = [Number,28,23,29]; ]
+            const y as Number = 252;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 31; @symbol_moduledef = [prompt_font_enhanced_readability__body_no_title,31,15,62]; ]
+        module prompt_font_enhanced_readability__body_no_title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 31; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 32; @position = 18; @symbol_constdef = [exclude,32,18,25]; @symbol_type<0> = [Boolean,32,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 35; @symbol_moduledef = [prompt_loc__body_no_title,35,15,40]; ]
+        module prompt_loc__body_no_title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 35; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 36; @position = 18; @symbol_constdef = [x,36,18,19]; @symbol_type<0> = [Number,36,23,29]; ]
+            const x as Number = 65;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 37; @position = 18; @symbol_constdef = [y,37,18,19]; @symbol_type<0> = [Number,37,23,29]; ]
+            const y as Number = 60;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 40; @symbol_moduledef = [system_icon_dark__about,40,15,38]; ]
+        module system_icon_dark__about {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 40; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 41; @position = 18; @symbol_constdef = [filename,41,18,26]; @symbol_type<0> = [String,41,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__about.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 42; @position = 18; @symbol_constdef = [compress,42,18,26]; @symbol_type<0> = [String,42,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 43; @position = 18; @symbol_constdef = [dithering,43,18,27]; @symbol_type<0> = [String,43,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 44; @position = 18; @symbol_constdef = [automaticPalette,44,18,34]; @symbol_type<0> = [String,44,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 47; @symbol_moduledef = [system_icon_light__question,47,15,42]; ]
+        module system_icon_light__question {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 47; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 48; @position = 18; @symbol_constdef = [filename,48,18,26]; @symbol_type<0> = [String,48,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__question.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 49; @position = 18; @symbol_constdef = [compress,49,18,26]; @symbol_type<0> = [String,49,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 50; @position = 18; @symbol_constdef = [dithering,50,18,27]; @symbol_type<0> = [String,50,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 51; @position = 18; @symbol_constdef = [automaticPalette,51,18,34]; @symbol_type<0> = [String,51,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 54; @symbol_moduledef = [system_loc__hint_button_left_top,54,15,47]; ]
+        module system_loc__hint_button_left_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 54; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 55; @position = 18; @symbol_constdef = [exclude,55,18,25]; @symbol_type<0> = [Boolean,55,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 58; @symbol_moduledef = [prompt_font__title,58,15,33]; ]
+        module prompt_font__title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 58; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 59 18 ]
+                symbol [ Graphics %tmp.1 59 34 42 ];
+                %tmp.1 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.2 59 43 62 ];
+                %tmp.2 = getv %tmp.1 :TEXT_JUSTIFY_CENTER;
+                symbol [ Graphics %tmp.3 59 63 71 ];
+                %tmp.3 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_VCENTER %tmp.4 59 72 92 ];
+                %tmp.4 = getv %tmp.3 :TEXT_JUSTIFY_VCENTER;
+                %tmp.5 = bitor %tmp.2 %tmp.4;
+                putv self :justification %tmp.5;
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 60 18 ]
+                symbol [ Graphics %tmp.6 60 25 33 ];
+                %tmp.6 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.7 60 34 43 ];
+                %tmp.7 = getv %tmp.6 :FONT_TINY;
+                putv self :font %tmp.7;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 59; @position = 18; @symbol_constdef = [justification,59,18,31]; ]
+            const justification;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 60; @position = 18; @symbol_constdef = [font,60,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 63; @symbol_moduledef = [system_icon_dark__discard,63,15,40]; ]
+        module system_icon_dark__discard {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 63; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 64; @position = 18; @symbol_constdef = [filename,64,18,26]; @symbol_type<0> = [String,64,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__discard.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 65; @position = 18; @symbol_constdef = [compress,65,18,26]; @symbol_type<0> = [String,65,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 66; @position = 18; @symbol_constdef = [dithering,66,18,27]; @symbol_type<0> = [String,66,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 67; @position = 18; @symbol_constdef = [automaticPalette,67,18,34]; @symbol_type<0> = [String,67,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 70; @symbol_moduledef = [system_size__menu_item,70,15,37]; ]
+        module system_size__menu_item {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 70; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 71; @position = 18; @symbol_constdef = [width,71,18,23]; @symbol_type<0> = [Number,71,27,33]; ]
+            const width as Number = 390;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 72; @position = 18; @symbol_constdef = [height,72,18,24]; @symbol_type<0> = [Number,72,28,34]; ]
+            const height as Number = 93;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 75; @symbol_moduledef = [system_color_dark__text,75,15,38]; ]
+        module system_color_dark__text {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 75; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 77 18 ]
+                symbol [ Graphics %tmp.8 77 31 39 ];
+                %tmp.8 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.9 77 40 57 ];
+                %tmp.9 = getv %tmp.8 :COLOR_TRANSPARENT;
+                putv self :background %tmp.9;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 76; @position = 18; @symbol_constdef = [color,76,18,23]; @symbol_type<0> = [Number,76,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 77; @position = 18; @symbol_constdef = [background,77,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 80; @symbol_moduledef = [system_icon_destructive__discard,80,15,47]; ]
+        module system_icon_destructive__discard {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 80; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 81; @position = 18; @symbol_constdef = [filename,81,18,26]; @symbol_type<0> = [String,81,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_destructive__discard.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 82; @position = 18; @symbol_constdef = [dithering,82,18,27]; @symbol_type<0> = [String,82,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 85; @symbol_moduledef = [system_icon_dark__hint_action_menu,85,15,49]; ]
+        module system_icon_dark__hint_action_menu {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 85; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 86; @position = 18; @symbol_constdef = [filename,86,18,26]; @symbol_type<0> = [String,86,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__hint_button_right_top.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 87; @position = 18; @symbol_constdef = [dithering,87,18,27]; @symbol_type<0> = [String,87,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 90; @symbol_moduledef = [prompt_size__title,90,15,33]; ]
+        module prompt_size__title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 90; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 91; @position = 18; @symbol_constdef = [width,91,18,23]; @symbol_type<0> = [Number,91,27,33]; ]
+            const width as Number = 248;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 92; @position = 18; @symbol_constdef = [height,92,18,24]; @symbol_type<0> = [Number,92,28,34]; ]
+            const height as Number = 83;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 95; @symbol_moduledef = [confirmation_font__body,95,15,38]; ]
+        module confirmation_font__body {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 95; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 96 18 ]
+                symbol [ Graphics %tmp.10 96 34 42 ];
+                %tmp.10 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.11 96 43 62 ];
+                %tmp.11 = getv %tmp.10 :TEXT_JUSTIFY_CENTER;
+                symbol [ Graphics %tmp.12 96 63 71 ];
+                %tmp.12 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_VCENTER %tmp.13 96 72 92 ];
+                %tmp.13 = getv %tmp.12 :TEXT_JUSTIFY_VCENTER;
+                %tmp.14 = bitor %tmp.11 %tmp.13;
+                putv self :justification %tmp.14;
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 97 18 ]
+                symbol [ Graphics %tmp.15 97 25 33 ];
+                %tmp.15 = getm $.Toybox.Graphics;
+                symbol [ FONT_TINY %tmp.16 97 34 43 ];
+                %tmp.16 = getv %tmp.15 :FONT_TINY;
+                putv self :font %tmp.16;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 96; @position = 18; @symbol_constdef = [justification,96,18,31]; ]
+            const justification;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 97; @position = 18; @symbol_constdef = [font,97,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 100; @symbol_moduledef = [system_color_dark__background,100,15,44]; ]
+        module system_color_dark__background {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 100; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 101; @position = 18; @symbol_constdef = [color,101,18,23]; @symbol_type<0> = [Number,101,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 102; @position = 18; @symbol_constdef = [background,102,18,28]; @symbol_type<0> = [Number,102,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 105; @symbol_moduledef = [system_icon_destructive__hint_button_left_top,105,15,60]; ]
+        module system_icon_destructive__hint_button_left_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 105; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 106; @position = 18; @symbol_constdef = [exclude,106,18,25]; @symbol_type<0> = [Boolean,106,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 109; @symbol_moduledef = [system_size__launch_icon,109,15,39]; ]
+        module system_size__launch_icon {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 109; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 110; @position = 18; @symbol_constdef = [scaleX,110,18,24]; @symbol_type<0> = [Number,110,28,34]; ]
+            const scaleX as Number = 54;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 111; @position = 18; @symbol_constdef = [scaleY,111,18,24]; @symbol_type<0> = [Number,111,28,34]; ]
+            const scaleY as Number = 54;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 112; @position = 18; @symbol_constdef = [scaleRelativeTo,112,18,33]; @symbol_type<0> = [String,112,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 115; @symbol_moduledef = [confirmation_input__confirm,115,15,42]; ]
+        module confirmation_input__confirm {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 115; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 116 18 ]
+                symbol [ WatchUi %tmp.17 116 27 34 ];
+                %tmp.17 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.18 116 35 44 ];
+                %tmp.18 = getv %tmp.17 :KEY_ENTER;
+                putv self :button %tmp.18;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 116; @position = 18; @symbol_constdef = [button,116,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 119; @symbol_moduledef = [prompt_font__body_with_title,119,15,43]; ]
+        module prompt_font__body_with_title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 119; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 120 18 ]
+                symbol [ Graphics %tmp.19 120 34 42 ];
+                %tmp.19 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.20 120 43 62 ];
+                %tmp.20 = getv %tmp.19 :TEXT_JUSTIFY_CENTER;
+                putv self :justification %tmp.20;
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 121 18 ]
+                symbol [ Graphics %tmp.21 121 25 33 ];
+                %tmp.21 = getm $.Toybox.Graphics;
+                symbol [ FONT_XTINY %tmp.22 121 34 44 ];
+                %tmp.22 = getv %tmp.21 :FONT_XTINY;
+                putv self :font %tmp.22;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 120; @position = 18; @symbol_constdef = [justification,120,18,31]; ]
+            const justification;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 121; @position = 18; @symbol_constdef = [font,121,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 124; @symbol_moduledef = [confirmation_loc__body,124,15,37]; ]
+        module confirmation_loc__body {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 124; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 125; @position = 18; @symbol_constdef = [x,125,18,19]; @symbol_type<0> = [Number,125,23,29]; ]
+            const x as Number = 61;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 126; @position = 18; @symbol_constdef = [y,126,18,19]; @symbol_type<0> = [Number,126,23,29]; ]
+            const y as Number = 89;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 129; @symbol_moduledef = [system_icon_destructive__hint_button_left_bottom,129,15,63]; ]
+        module system_icon_destructive__hint_button_left_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 129; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 130; @position = 18; @symbol_constdef = [filename,130,18,26]; @symbol_type<0> = [String,130,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_destructive__hint_button_left_bottom.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 131; @position = 18; @symbol_constdef = [dithering,131,18,27]; @symbol_type<0> = [String,131,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 134; @symbol_moduledef = [prompt_color_dark__background,134,15,44]; ]
+        module prompt_color_dark__background {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 134; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 135; @position = 18; @symbol_constdef = [color,135,18,23]; @symbol_type<0> = [Number,135,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 136; @position = 18; @symbol_constdef = [background,136,18,28]; @symbol_type<0> = [Number,136,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 139; @symbol_moduledef = [system_icon_destructive__hint_action_menu,139,15,56]; ]
+        module system_icon_destructive__hint_action_menu {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 139; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 140; @position = 18; @symbol_constdef = [filename,140,18,26]; @symbol_type<0> = [String,140,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_destructive__hint_button_right_top.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 141; @position = 18; @symbol_constdef = [dithering,141,18,27]; @symbol_type<0> = [String,141,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 144; @symbol_moduledef = [system_loc__hint_action_menu,144,15,43]; ]
+        module system_loc__hint_action_menu {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 144; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 145; @position = 18; @symbol_constdef = [x,145,18,19]; @symbol_type<0> = [Number,145,23,29]; ]
+            const x as Number = 323;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 146; @position = 18; @symbol_constdef = [y,146,18,19]; @symbol_type<0> = [Number,146,23,29]; ]
+            const y as Number = 73;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 149; @symbol_moduledef = [confirmation_icon__hint_confirm,149,15,46]; ]
+        module confirmation_icon__hint_confirm {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 149; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 150; @position = 18; @symbol_constdef = [filename,150,18,26]; @symbol_type<0> = [String,150,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 151; @position = 18; @symbol_constdef = [dithering,151,18,27]; @symbol_type<0> = [String,151,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 154; @symbol_moduledef = [system_loc__hint_button_left_middle,154,15,50]; ]
+        module system_loc__hint_button_left_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 154; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 155; @position = 18; @symbol_constdef = [x,155,18,19]; @symbol_type<0> = [Number,155,23,29]; ]
+            const x as Number = 2;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 156; @position = 18; @symbol_constdef = [y,156,18,19]; @symbol_type<0> = [Number,156,23,29]; ]
+            const y as Number = 157;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 159; @symbol_moduledef = [prompt_size__body_no_title,159,15,41]; ]
+        module prompt_size__body_no_title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 159; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 160; @position = 18; @symbol_constdef = [width,160,18,23]; @symbol_type<0> = [Number,160,27,33]; ]
+            const width as Number = 260;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 161; @position = 18; @symbol_constdef = [height,161,18,24]; @symbol_type<0> = [Number,161,28,34]; ]
+            const height as Number = 270;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 164; @symbol_moduledef = [system_icon_light__hint_button_left_top,164,15,54]; ]
+        module system_icon_light__hint_button_left_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 164; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 165; @position = 18; @symbol_constdef = [exclude,165,18,25]; @symbol_type<0> = [Boolean,165,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 168; @symbol_moduledef = [prompt_color_light__background,168,15,45]; ]
+        module prompt_color_light__background {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 168; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 169; @position = 18; @symbol_constdef = [color,169,18,23]; @symbol_type<0> = [Number,169,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 170; @position = 18; @symbol_constdef = [background,170,18,28]; @symbol_type<0> = [Number,170,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 173; @symbol_moduledef = [confirmation_input__delete,173,15,41]; ]
+        module confirmation_input__delete {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 173; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 174 18 ]
+                symbol [ WatchUi %tmp.23 174 27 34 ];
+                %tmp.23 = getm $.Toybox.WatchUi;
+                symbol [ KEY_DOWN %tmp.24 174 35 43 ];
+                %tmp.24 = getv %tmp.23 :KEY_DOWN;
+                putv self :button %tmp.24;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 174; @position = 18; @symbol_constdef = [button,174,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 177; @symbol_moduledef = [system_icon_dark__hint_button_left_top,177,15,53]; ]
+        module system_icon_dark__hint_button_left_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 177; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 178; @position = 18; @symbol_constdef = [exclude,178,18,25]; @symbol_type<0> = [Boolean,178,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 181; @symbol_moduledef = [system_input__action_menu,181,15,40]; ]
+        module system_input__action_menu {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 181; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 182 18 ]
+                symbol [ WatchUi %tmp.25 182 27 34 ];
+                %tmp.25 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ENTER %tmp.26 182 35 44 ];
+                %tmp.26 = getv %tmp.25 :KEY_ENTER;
+                putv self :button %tmp.26;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 182; @position = 18; @symbol_constdef = [button,182,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 185; @symbol_moduledef = [system_icon_light__save,185,15,38]; ]
+        module system_icon_light__save {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 185; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 186; @position = 18; @symbol_constdef = [filename,186,18,26]; @symbol_type<0> = [String,186,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__save.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 187; @position = 18; @symbol_constdef = [compress,187,18,26]; @symbol_type<0> = [String,187,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 188; @position = 18; @symbol_constdef = [dithering,188,18,27]; @symbol_type<0> = [String,188,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 189; @position = 18; @symbol_constdef = [automaticPalette,189,18,34]; @symbol_type<0> = [String,189,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 192; @symbol_moduledef = [prompt_color_light__body,192,15,39]; ]
+        module prompt_color_light__body {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 192; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 194 18 ]
+                symbol [ Graphics %tmp.27 194 31 39 ];
+                %tmp.27 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.28 194 40 57 ];
+                %tmp.28 = getv %tmp.27 :COLOR_TRANSPARENT;
+                putv self :background %tmp.28;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 193; @position = 18; @symbol_constdef = [color,193,18,23]; @symbol_type<0> = [Number,193,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 194; @position = 18; @symbol_constdef = [background,194,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 197; @symbol_moduledef = [system_loc__subwindow,197,15,36]; ]
+        module system_loc__subwindow {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 197; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 198; @position = 18; @symbol_constdef = [exclude,198,18,25]; @symbol_type<0> = [Boolean,198,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 201; @symbol_moduledef = [system_icon_light__warning,201,15,41]; ]
+        module system_icon_light__warning {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 201; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 202; @position = 18; @symbol_constdef = [filename,202,18,26]; @symbol_type<0> = [String,202,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__warning.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 203; @position = 18; @symbol_constdef = [compress,203,18,26]; @symbol_type<0> = [String,203,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 204; @position = 18; @symbol_constdef = [dithering,204,18,27]; @symbol_type<0> = [String,204,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 205; @position = 18; @symbol_constdef = [automaticPalette,205,18,34]; @symbol_type<0> = [String,205,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 208; @symbol_moduledef = [confirmation_color_light__body,208,15,45]; ]
+        module confirmation_color_light__body {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 208; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 210 18 ]
+                symbol [ Graphics %tmp.29 210 31 39 ];
+                %tmp.29 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.30 210 40 57 ];
+                %tmp.30 = getv %tmp.29 :COLOR_TRANSPARENT;
+                putv self :background %tmp.30;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 209; @position = 18; @symbol_constdef = [color,209,18,23]; @symbol_type<0> = [Number,209,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 210; @position = 18; @symbol_constdef = [background,210,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 213; @symbol_moduledef = [confirmation_icon_light__hint_keep,213,15,49]; ]
+        module confirmation_icon_light__hint_keep {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 213; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 214; @position = 18; @symbol_constdef = [filename,214,18,26]; @symbol_type<0> = [String,214,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 215; @position = 18; @symbol_constdef = [dithering,215,18,27]; @symbol_type<0> = [String,215,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 218; @symbol_moduledef = [activity_color_light__background,218,15,47]; ]
+        module activity_color_light__background {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 218; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 219; @position = 18; @symbol_constdef = [color,219,18,23]; @symbol_type<0> = [Number,219,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 220; @position = 18; @symbol_constdef = [background,220,18,28]; @symbol_type<0> = [Number,220,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 223; @symbol_moduledef = [system_icon_positive__hint_button_right_top,223,15,58]; ]
+        module system_icon_positive__hint_button_right_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 223; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 224; @position = 18; @symbol_constdef = [filename,224,18,26]; @symbol_type<0> = [String,224,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_positive__hint_button_right_top.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 225; @position = 18; @symbol_constdef = [dithering,225,18,27]; @symbol_type<0> = [String,225,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 228; @symbol_moduledef = [system_size__screen,228,15,34]; ]
+        module system_size__screen {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 228; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 229; @position = 18; @symbol_constdef = [width,229,18,23]; @symbol_type<0> = [Number,229,27,33]; ]
+            const width as Number = 390;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 230; @position = 18; @symbol_constdef = [height,230,18,24]; @symbol_type<0> = [Number,230,28,34]; ]
+            const height as Number = 390;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 233; @symbol_moduledef = [system_icon_destructive__hint_button_right_bottom,233,15,64]; ]
+        module system_icon_destructive__hint_button_right_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 233; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 234; @position = 18; @symbol_constdef = [filename,234,18,26]; @symbol_type<0> = [String,234,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_destructive__hint_button_right_bottom.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 235; @position = 18; @symbol_constdef = [dithering,235,18,27]; @symbol_type<0> = [String,235,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 238; @symbol_moduledef = [system_color_light__background,238,15,45]; ]
+        module system_color_light__background {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 238; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 239; @position = 18; @symbol_constdef = [color,239,18,23]; @symbol_type<0> = [Number,239,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 240; @position = 18; @symbol_constdef = [background,240,18,28]; @symbol_type<0> = [Number,240,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 243; @symbol_moduledef = [system_icon_destructive__hint_button_right_top,243,15,61]; ]
+        module system_icon_destructive__hint_button_right_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 243; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 244; @position = 18; @symbol_constdef = [filename,244,18,26]; @symbol_type<0> = [String,244,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_destructive__hint_button_right_top.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 245; @position = 18; @symbol_constdef = [dithering,245,18,27]; @symbol_type<0> = [String,245,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 248; @symbol_moduledef = [confirmation_loc__hint_confirm,248,15,45]; ]
+        module confirmation_loc__hint_confirm {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 248; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 249; @position = 18; @symbol_constdef = [x,249,18,19]; @symbol_type<0> = [Number,249,23,29]; ]
+            const x as Number = 323;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 250; @position = 18; @symbol_constdef = [y,250,18,19]; @symbol_type<0> = [Number,250,23,29]; ]
+            const y as Number = 75;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 253; @symbol_moduledef = [activity_color_dark__text,253,15,40]; ]
+        module activity_color_dark__text {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 253; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 255 18 ]
+                symbol [ Graphics %tmp.31 255 31 39 ];
+                %tmp.31 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.32 255 40 57 ];
+                %tmp.32 = getv %tmp.31 :COLOR_TRANSPARENT;
+                putv self :background %tmp.32;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 254; @position = 18; @symbol_constdef = [color,254,18,23]; @symbol_type<0> = [Number,254,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 255; @position = 18; @symbol_constdef = [background,255,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 258; @symbol_moduledef = [confirmation_input__keep,258,15,39]; ]
+        module confirmation_input__keep {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 258; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 259 18 ]
+                symbol [ WatchUi %tmp.33 259 27 34 ];
+                %tmp.33 = getm $.Toybox.WatchUi;
+                symbol [ KEY_ESC %tmp.34 259 35 42 ];
+                %tmp.34 = getv %tmp.33 :KEY_ESC;
+                putv self :button %tmp.34;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 259; @position = 18; @symbol_constdef = [button,259,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 262; @symbol_moduledef = [prompt_loc__body_with_title,262,15,42]; ]
+        module prompt_loc__body_with_title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 262; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 263; @position = 18; @symbol_constdef = [x,263,18,19]; @symbol_type<0> = [Number,263,23,29]; ]
+            const x as Number = 65;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 264; @position = 18; @symbol_constdef = [y,264,18,19]; @symbol_type<0> = [Number,264,23,29]; ]
+            const y as Number = 133;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 267; @symbol_moduledef = [system_icon_dark__search,267,15,39]; ]
+        module system_icon_dark__search {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 267; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 268; @position = 18; @symbol_constdef = [filename,268,18,26]; @symbol_type<0> = [String,268,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__search.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 269; @position = 18; @symbol_constdef = [compress,269,18,26]; @symbol_type<0> = [String,269,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 270; @position = 18; @symbol_constdef = [dithering,270,18,27]; @symbol_type<0> = [String,270,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 271; @position = 18; @symbol_constdef = [automaticPalette,271,18,34]; @symbol_type<0> = [String,271,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 274; @symbol_moduledef = [activity_color_light__text,274,15,41]; ]
+        module activity_color_light__text {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 274; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 276 18 ]
+                symbol [ Graphics %tmp.35 276 31 39 ];
+                %tmp.35 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.36 276 40 57 ];
+                %tmp.36 = getv %tmp.35 :COLOR_TRANSPARENT;
+                putv self :background %tmp.36;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 275; @position = 18; @symbol_constdef = [color,275,18,23]; @symbol_type<0> = [Number,275,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 276; @position = 18; @symbol_constdef = [background,276,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 279; @symbol_moduledef = [confirmation_icon__hint_keep,279,15,43]; ]
+        module confirmation_icon__hint_keep {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 279; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 280; @position = 18; @symbol_constdef = [filename,280,18,26]; @symbol_type<0> = [String,280,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 281; @position = 18; @symbol_constdef = [dithering,281,18,27]; @symbol_type<0> = [String,281,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 284; @symbol_moduledef = [system_icon_dark__save,284,15,37]; ]
+        module system_icon_dark__save {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 284; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 285; @position = 18; @symbol_constdef = [filename,285,18,26]; @symbol_type<0> = [String,285,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__save.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 286; @position = 18; @symbol_constdef = [compress,286,18,26]; @symbol_type<0> = [String,286,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 287; @position = 18; @symbol_constdef = [dithering,287,18,27]; @symbol_type<0> = [String,287,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 288; @position = 18; @symbol_constdef = [automaticPalette,288,18,34]; @symbol_type<0> = [String,288,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 291; @symbol_moduledef = [system_icon_destructive__hint_button_left_middle,291,15,63]; ]
+        module system_icon_destructive__hint_button_left_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 291; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 292; @position = 18; @symbol_constdef = [filename,292,18,26]; @symbol_type<0> = [String,292,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_destructive__hint_button_left_middle.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 293; @position = 18; @symbol_constdef = [dithering,293,18,27]; @symbol_type<0> = [String,293,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 296; @symbol_moduledef = [system_icon_light__search,296,15,40]; ]
+        module system_icon_light__search {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 296; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 297; @position = 18; @symbol_constdef = [filename,297,18,26]; @symbol_type<0> = [String,297,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__search.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 298; @position = 18; @symbol_constdef = [compress,298,18,26]; @symbol_type<0> = [String,298,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 299; @position = 18; @symbol_constdef = [dithering,299,18,27]; @symbol_type<0> = [String,299,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 300; @position = 18; @symbol_constdef = [automaticPalette,300,18,34]; @symbol_type<0> = [String,300,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 303; @symbol_moduledef = [system_icon_dark__hint_button_left_bottom,303,15,56]; ]
+        module system_icon_dark__hint_button_left_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 303; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 304; @position = 18; @symbol_constdef = [filename,304,18,26]; @symbol_type<0> = [String,304,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__hint_button_left_bottom.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 305; @position = 18; @symbol_constdef = [dithering,305,18,27]; @symbol_type<0> = [String,305,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 308; @symbol_moduledef = [system_icon_positive__hint_button_left_top,308,15,57]; ]
+        module system_icon_positive__hint_button_left_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 308; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 309; @position = 18; @symbol_constdef = [exclude,309,18,25]; @symbol_type<0> = [Boolean,309,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 312; @symbol_moduledef = [system_loc__hint_button_right_bottom,312,15,51]; ]
+        module system_loc__hint_button_right_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 312; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 313; @position = 18; @symbol_constdef = [x,313,18,19]; @symbol_type<0> = [Number,313,23,29]; ]
+            const x as Number = 318;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 314; @position = 18; @symbol_constdef = [y,314,18,19]; @symbol_type<0> = [Number,314,23,29]; ]
+            const y as Number = 241;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 317; @symbol_moduledef = [confirmation_icon_dark__hint_reject,317,15,50]; ]
+        module confirmation_icon_dark__hint_reject {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 317; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 318; @position = 18; @symbol_constdef = [filename,318,18,26]; @symbol_type<0> = [String,318,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 319; @position = 18; @symbol_constdef = [dithering,319,18,27]; @symbol_type<0> = [String,319,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 322; @symbol_moduledef = [confirmation_color_dark__body,322,15,44]; ]
+        module confirmation_color_dark__body {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 322; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 324 18 ]
+                symbol [ Graphics %tmp.37 324 31 39 ];
+                %tmp.37 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.38 324 40 57 ];
+                %tmp.38 = getv %tmp.37 :COLOR_TRANSPARENT;
+                putv self :background %tmp.38;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 323; @position = 18; @symbol_constdef = [color,323,18,23]; @symbol_type<0> = [Number,323,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 324; @position = 18; @symbol_constdef = [background,324,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 327; @symbol_moduledef = [confirmation_icon_light__hint_confirm,327,15,52]; ]
+        module confirmation_icon_light__hint_confirm {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 327; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 328; @position = 18; @symbol_constdef = [filename,328,18,26]; @symbol_type<0> = [String,328,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 329; @position = 18; @symbol_constdef = [dithering,329,18,27]; @symbol_type<0> = [String,329,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 332; @symbol_moduledef = [prompt_color_dark__title,332,15,39]; ]
+        module prompt_color_dark__title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 332; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 334 18 ]
+                symbol [ Graphics %tmp.39 334 31 39 ];
+                %tmp.39 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.40 334 40 57 ];
+                %tmp.40 = getv %tmp.39 :COLOR_TRANSPARENT;
+                putv self :background %tmp.40;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 333; @position = 18; @symbol_constdef = [color,333,18,23]; @symbol_type<0> = [Number,333,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 334; @position = 18; @symbol_constdef = [background,334,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 337; @symbol_moduledef = [system_icon_destructive__cancel,337,15,46]; ]
+        module system_icon_destructive__cancel {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 337; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 338; @position = 18; @symbol_constdef = [filename,338,18,26]; @symbol_type<0> = [String,338,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_destructive__cancel.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 339; @position = 18; @symbol_constdef = [dithering,339,18,27]; @symbol_type<0> = [String,339,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 342; @symbol_moduledef = [system_icon_light__hint_button_right_bottom,342,15,58]; ]
+        module system_icon_light__hint_button_right_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 342; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 343; @position = 18; @symbol_constdef = [filename,343,18,26]; @symbol_type<0> = [String,343,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__hint_button_right_bottom.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 344; @position = 18; @symbol_constdef = [dithering,344,18,27]; @symbol_type<0> = [String,344,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 347; @symbol_moduledef = [prompt_loc__title,347,15,32]; ]
+        module prompt_loc__title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 347; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 348; @position = 18; @symbol_constdef = [x,348,18,19]; @symbol_type<0> = [Number,348,23,29]; ]
+            const x as Number = 71;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 349; @position = 18; @symbol_constdef = [y,349,18,19]; @symbol_type<0> = [Number,349,23,29]; ]
+            const y as Number = 33;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 352; @symbol_moduledef = [confirmation_font_enhanced_readability__body,352,15,59]; ]
+        module confirmation_font_enhanced_readability__body {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 352; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 353; @position = 18; @symbol_constdef = [exclude,353,18,25]; @symbol_type<0> = [Boolean,353,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 356; @symbol_moduledef = [prompt_color_light__title,356,15,40]; ]
+        module prompt_color_light__title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 356; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 358 18 ]
+                symbol [ Graphics %tmp.41 358 31 39 ];
+                %tmp.41 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.42 358 40 57 ];
+                %tmp.42 = getv %tmp.41 :COLOR_TRANSPARENT;
+                putv self :background %tmp.42;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 357; @position = 18; @symbol_constdef = [color,357,18,23]; @symbol_type<0> = [Number,357,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 358; @position = 18; @symbol_constdef = [background,358,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 361; @symbol_moduledef = [system_icon_dark__hint_button_right_top,361,15,54]; ]
+        module system_icon_dark__hint_button_right_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 361; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 362; @position = 18; @symbol_constdef = [filename,362,18,26]; @symbol_type<0> = [String,362,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__hint_button_right_top.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 363; @position = 18; @symbol_constdef = [dithering,363,18,27]; @symbol_type<0> = [String,363,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 366; @symbol_moduledef = [system_icon_dark__hint_button_left_middle,366,15,56]; ]
+        module system_icon_dark__hint_button_left_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 366; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 367; @position = 18; @symbol_constdef = [filename,367,18,26]; @symbol_type<0> = [String,367,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__hint_button_left_middle.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 368; @position = 18; @symbol_constdef = [dithering,368,18,27]; @symbol_type<0> = [String,368,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 371; @symbol_moduledef = [confirmation_icon_dark__hint_keep,371,15,48]; ]
+        module confirmation_icon_dark__hint_keep {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 371; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 372; @position = 18; @symbol_constdef = [filename,372,18,26]; @symbol_type<0> = [String,372,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_keep.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 373; @position = 18; @symbol_constdef = [dithering,373,18,27]; @symbol_type<0> = [String,373,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 376; @symbol_moduledef = [system_icon_light__cancel,376,15,40]; ]
+        module system_icon_light__cancel {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 376; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 377; @position = 18; @symbol_constdef = [filename,377,18,26]; @symbol_type<0> = [String,377,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__cancel.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 378; @position = 18; @symbol_constdef = [compress,378,18,26]; @symbol_type<0> = [String,378,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 379; @position = 18; @symbol_constdef = [dithering,379,18,27]; @symbol_type<0> = [String,379,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 380; @position = 18; @symbol_constdef = [automaticPalette,380,18,34]; @symbol_type<0> = [String,380,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 383; @symbol_moduledef = [confirmation_icon_light__hint_reject,383,15,51]; ]
+        module confirmation_icon_light__hint_reject {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 383; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 384; @position = 18; @symbol_constdef = [filename,384,18,26]; @symbol_type<0> = [String,384,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 385; @position = 18; @symbol_constdef = [dithering,385,18,27]; @symbol_type<0> = [String,385,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 388; @symbol_moduledef = [system_icon_light__about,388,15,39]; ]
+        module system_icon_light__about {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 388; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 389; @position = 18; @symbol_constdef = [filename,389,18,26]; @symbol_type<0> = [String,389,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__about.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 390; @position = 18; @symbol_constdef = [compress,390,18,26]; @symbol_type<0> = [String,390,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 391; @position = 18; @symbol_constdef = [dithering,391,18,27]; @symbol_type<0> = [String,391,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 392; @position = 18; @symbol_constdef = [automaticPalette,392,18,34]; @symbol_type<0> = [String,392,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 395; @symbol_moduledef = [system_size__toast_icon,395,15,38]; ]
+        module system_size__toast_icon {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 395; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 396; @position = 18; @symbol_constdef = [scaleX,396,18,24]; @symbol_type<0> = [Number,396,28,34]; ]
+            const scaleX as Number = 49;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 397; @position = 18; @symbol_constdef = [scaleY,397,18,24]; @symbol_type<0> = [Number,397,28,34]; ]
+            const scaleY as Number = 49;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 398; @position = 18; @symbol_constdef = [scaleRelativeTo,398,18,33]; @symbol_type<0> = [String,398,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 401; @symbol_moduledef = [system_icon_dark__hint_button_right_middle,401,15,57]; ]
+        module system_icon_dark__hint_button_right_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 401; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 402; @position = 18; @symbol_constdef = [exclude,402,18,25]; @symbol_type<0> = [Boolean,402,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 405; @symbol_moduledef = [confirmation_icon__hint_reject,405,15,45]; ]
+        module confirmation_icon__hint_reject {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 405; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 406; @position = 18; @symbol_constdef = [filename,406,18,26]; @symbol_type<0> = [String,406,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_reject.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 407; @position = 18; @symbol_constdef = [dithering,407,18,27]; @symbol_type<0> = [String,407,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 410; @symbol_moduledef = [system_icon_light__hint_action_menu,410,15,50]; ]
+        module system_icon_light__hint_action_menu {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 410; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 411; @position = 18; @symbol_constdef = [filename,411,18,26]; @symbol_type<0> = [String,411,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__hint_button_right_top.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 412; @position = 18; @symbol_constdef = [dithering,412,18,27]; @symbol_type<0> = [String,412,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 415; @symbol_moduledef = [system_icon_light__hint_button_right_middle,415,15,58]; ]
+        module system_icon_light__hint_button_right_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 415; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 416; @position = 18; @symbol_constdef = [exclude,416,18,25]; @symbol_type<0> = [Boolean,416,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 419; @symbol_moduledef = [system_icon_destructive__hint_button_right_middle,419,15,64]; ]
+        module system_icon_destructive__hint_button_right_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 419; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 420; @position = 18; @symbol_constdef = [exclude,420,18,25]; @symbol_type<0> = [Boolean,420,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 423; @symbol_moduledef = [confirmation_loc__hint_reject,423,15,44]; ]
+        module confirmation_loc__hint_reject {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 423; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 424; @position = 18; @symbol_constdef = [x,424,18,19]; @symbol_type<0> = [Number,424,23,29]; ]
+            const x as Number = 13;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 425; @position = 18; @symbol_constdef = [y,425,18,19]; @symbol_type<0> = [Number,425,23,29]; ]
+            const y as Number = 246;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 428; @symbol_moduledef = [confirmation_icon_dark__hint_delete,428,15,50]; ]
+        module confirmation_icon_dark__hint_delete {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 428; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 429; @position = 18; @symbol_constdef = [filename,429,18,26]; @symbol_type<0> = [String,429,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 430; @position = 18; @symbol_constdef = [dithering,430,18,27]; @symbol_type<0> = [String,430,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 433; @symbol_moduledef = [activity_color_dark__background,433,15,46]; ]
+        module activity_color_dark__background {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 433; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 434; @position = 18; @symbol_constdef = [color,434,18,23]; @symbol_type<0> = [Number,434,27,33]; ]
+            const color as Number = 0x000000;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 435; @position = 18; @symbol_constdef = [background,435,18,28]; @symbol_type<0> = [Number,435,32,38]; ]
+            const background as Number = 0x000000;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 438; @symbol_moduledef = [system_icon_light__hint_button_left_bottom,438,15,57]; ]
+        module system_icon_light__hint_button_left_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 438; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 439; @position = 18; @symbol_constdef = [filename,439,18,26]; @symbol_type<0> = [String,439,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__hint_button_left_bottom.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 440; @position = 18; @symbol_constdef = [dithering,440,18,27]; @symbol_type<0> = [String,440,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 443; @symbol_moduledef = [system_icon_positive__hint_button_left_middle,443,15,60]; ]
+        module system_icon_positive__hint_button_left_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 443; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 444; @position = 18; @symbol_constdef = [filename,444,18,26]; @symbol_type<0> = [String,444,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_positive__hint_button_left_middle.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 445; @position = 18; @symbol_constdef = [dithering,445,18,27]; @symbol_type<0> = [String,445,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 448; @symbol_moduledef = [system_size__menu_icon,448,15,37]; ]
+        module system_size__menu_icon {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 448; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 449; @position = 18; @symbol_constdef = [scaleX,449,18,24]; @symbol_type<0> = [Number,449,28,34]; ]
+            const scaleX as Number = 65;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 450; @position = 18; @symbol_constdef = [scaleY,450,18,24]; @symbol_type<0> = [Number,450,28,34]; ]
+            const scaleY as Number = 91;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 451; @position = 18; @symbol_constdef = [scaleRelativeTo,451,18,33]; @symbol_type<0> = [String,451,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 454; @symbol_moduledef = [system_icon_destructive__warning,454,15,47]; ]
+        module system_icon_destructive__warning {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 454; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 455; @position = 18; @symbol_constdef = [filename,455,18,26]; @symbol_type<0> = [String,455,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_destructive__warning.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 456; @position = 18; @symbol_constdef = [dithering,456,18,27]; @symbol_type<0> = [String,456,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 459; @symbol_moduledef = [system_loc__hint_button_right_middle,459,15,51]; ]
+        module system_loc__hint_button_right_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 459; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 460; @position = 18; @symbol_constdef = [exclude,460,18,25]; @symbol_type<0> = [Boolean,460,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 463; @symbol_moduledef = [system_icon_dark__cancel,463,15,39]; ]
+        module system_icon_dark__cancel {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 463; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 464; @position = 18; @symbol_constdef = [filename,464,18,26]; @symbol_type<0> = [String,464,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__cancel.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 465; @position = 18; @symbol_constdef = [compress,465,18,26]; @symbol_type<0> = [String,465,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 466; @position = 18; @symbol_constdef = [dithering,466,18,27]; @symbol_type<0> = [String,466,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 467; @position = 18; @symbol_constdef = [automaticPalette,467,18,34]; @symbol_type<0> = [String,467,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 470; @symbol_moduledef = [prompt_size__body_with_title,470,15,43]; ]
+        module prompt_size__body_with_title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 470; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 471; @position = 18; @symbol_constdef = [width,471,18,23]; @symbol_type<0> = [Number,471,27,33]; ]
+            const width as Number = 260;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 472; @position = 18; @symbol_constdef = [height,472,18,24]; @symbol_type<0> = [Number,472,28,34]; ]
+            const height as Number = 214;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 475; @symbol_moduledef = [system_loc__hint_button_right_top,475,15,48]; ]
+        module system_loc__hint_button_right_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 475; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 476; @position = 18; @symbol_constdef = [x,476,18,19]; @symbol_type<0> = [Number,476,23,29]; ]
+            const x as Number = 323;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 477; @position = 18; @symbol_constdef = [y,477,18,19]; @symbol_type<0> = [Number,477,23,29]; ]
+            const y as Number = 73;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 480; @symbol_moduledef = [system_color_light__text,480,15,39]; ]
+        module system_color_light__text {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 480; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 482 18 ]
+                symbol [ Graphics %tmp.43 482 31 39 ];
+                %tmp.43 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.44 482 40 57 ];
+                %tmp.44 = getv %tmp.43 :COLOR_TRANSPARENT;
+                putv self :background %tmp.44;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 481; @position = 18; @symbol_constdef = [color,481,18,23]; @symbol_type<0> = [Number,481,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 482; @position = 18; @symbol_constdef = [background,482,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 485; @symbol_moduledef = [system_icon_light__check,485,15,39]; ]
+        module system_icon_light__check {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 485; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 486; @position = 18; @symbol_constdef = [filename,486,18,26]; @symbol_type<0> = [String,486,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__check.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 487; @position = 18; @symbol_constdef = [compress,487,18,26]; @symbol_type<0> = [String,487,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 488; @position = 18; @symbol_constdef = [dithering,488,18,27]; @symbol_type<0> = [String,488,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 489; @position = 18; @symbol_constdef = [automaticPalette,489,18,34]; @symbol_type<0> = [String,489,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 492; @symbol_moduledef = [confirmation_input__reject,492,15,41]; ]
+        module confirmation_input__reject {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 492; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 493 18 ]
+                symbol [ WatchUi %tmp.45 493 27 34 ];
+                %tmp.45 = getm $.Toybox.WatchUi;
+                symbol [ KEY_DOWN %tmp.46 493 35 43 ];
+                %tmp.46 = getv %tmp.45 :KEY_DOWN;
+                putv self :button %tmp.46;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 493; @position = 18; @symbol_constdef = [button,493,18,24]; ]
+            const button;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 496; @symbol_moduledef = [system_icon_light__revert,496,15,40]; ]
+        module system_icon_light__revert {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 496; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 497; @position = 18; @symbol_constdef = [filename,497,18,26]; @symbol_type<0> = [String,497,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__revert.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 498; @position = 18; @symbol_constdef = [compress,498,18,26]; @symbol_type<0> = [String,498,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 499; @position = 18; @symbol_constdef = [dithering,499,18,27]; @symbol_type<0> = [String,499,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 500; @position = 18; @symbol_constdef = [automaticPalette,500,18,34]; @symbol_type<0> = [String,500,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 503; @symbol_moduledef = [system_size__subwindow,503,15,37]; ]
+        module system_size__subwindow {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 503; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 504; @position = 18; @symbol_constdef = [exclude,504,18,25]; @symbol_type<0> = [Boolean,504,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 507; @symbol_moduledef = [system_icon_positive__hint_button_left_bottom,507,15,60]; ]
+        module system_icon_positive__hint_button_left_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 507; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 508; @position = 18; @symbol_constdef = [filename,508,18,26]; @symbol_type<0> = [String,508,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_positive__hint_button_left_bottom.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 509; @position = 18; @symbol_constdef = [dithering,509,18,27]; @symbol_type<0> = [String,509,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 512; @symbol_moduledef = [system_icon_dark__check,512,15,38]; ]
+        module system_icon_dark__check {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 512; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 513; @position = 18; @symbol_constdef = [filename,513,18,26]; @symbol_type<0> = [String,513,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__check.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 514; @position = 18; @symbol_constdef = [compress,514,18,26]; @symbol_type<0> = [String,514,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 515; @position = 18; @symbol_constdef = [dithering,515,18,27]; @symbol_type<0> = [String,515,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 516; @position = 18; @symbol_constdef = [automaticPalette,516,18,34]; @symbol_type<0> = [String,516,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 519; @symbol_moduledef = [confirmation_loc__hint_keep,519,15,42]; ]
+        module confirmation_loc__hint_keep {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 519; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 520; @position = 18; @symbol_constdef = [x,520,18,19]; @symbol_type<0> = [Number,520,23,29]; ]
+            const x as Number = 13;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 521; @position = 18; @symbol_constdef = [y,521,18,19]; @symbol_type<0> = [Number,521,23,29]; ]
+            const y as Number = 246;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 524; @symbol_moduledef = [confirmation_loc__hint_delete,524,15,44]; ]
+        module confirmation_loc__hint_delete {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 524; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 525; @position = 18; @symbol_constdef = [x,525,18,19]; @symbol_type<0> = [Number,525,23,29]; ]
+            const x as Number = 323;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 526; @position = 18; @symbol_constdef = [y,526,18,19]; @symbol_type<0> = [Number,526,23,29]; ]
+            const y as Number = 75;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 529; @symbol_moduledef = [system_icon_positive__hint_action_menu,529,15,53]; ]
+        module system_icon_positive__hint_action_menu {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 529; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 530; @position = 18; @symbol_constdef = [filename,530,18,26]; @symbol_type<0> = [String,530,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_positive__hint_button_right_top.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 531; @position = 18; @symbol_constdef = [dithering,531,18,27]; @symbol_type<0> = [String,531,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 534; @symbol_moduledef = [system_icon_positive__hint_button_right_middle,534,15,61]; ]
+        module system_icon_positive__hint_button_right_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 534; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 535; @position = 18; @symbol_constdef = [exclude,535,18,25]; @symbol_type<0> = [Boolean,535,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 538; @symbol_moduledef = [system_icon_light__hint_button_left_middle,538,15,57]; ]
+        module system_icon_light__hint_button_left_middle {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 538; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 539; @position = 18; @symbol_constdef = [filename,539,18,26]; @symbol_type<0> = [String,539,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__hint_button_left_middle.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 540; @position = 18; @symbol_constdef = [dithering,540,18,27]; @symbol_type<0> = [String,540,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 543; @symbol_moduledef = [system_icon_dark__hint_button_right_bottom,543,15,57]; ]
+        module system_icon_dark__hint_button_right_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 543; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 544; @position = 18; @symbol_constdef = [filename,544,18,26]; @symbol_type<0> = [String,544,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__hint_button_right_bottom.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 545; @position = 18; @symbol_constdef = [dithering,545,18,27]; @symbol_type<0> = [String,545,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 548; @symbol_moduledef = [system_icon_positive__hint_button_right_bottom,548,15,61]; ]
+        module system_icon_positive__hint_button_right_bottom {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 548; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 549; @position = 18; @symbol_constdef = [filename,549,18,26]; @symbol_type<0> = [String,549,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_positive__hint_button_right_bottom.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 550; @position = 18; @symbol_constdef = [dithering,550,18,27]; @symbol_type<0> = [String,550,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 553; @symbol_moduledef = [system_icon_dark__revert,553,15,39]; ]
+        module system_icon_dark__revert {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 553; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 554; @position = 18; @symbol_constdef = [filename,554,18,26]; @symbol_type<0> = [String,554,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__revert.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 555; @position = 18; @symbol_constdef = [compress,555,18,26]; @symbol_type<0> = [String,555,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 556; @position = 18; @symbol_constdef = [dithering,556,18,27]; @symbol_type<0> = [String,556,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 557; @position = 18; @symbol_constdef = [automaticPalette,557,18,34]; @symbol_type<0> = [String,557,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 560; @symbol_moduledef = [confirmation_icon_light__hint_delete,560,15,51]; ]
+        module confirmation_icon_light__hint_delete {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 560; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 561; @position = 18; @symbol_constdef = [filename,561,18,26]; @symbol_type<0> = [String,561,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 562; @position = 18; @symbol_constdef = [dithering,562,18,27]; @symbol_type<0> = [String,562,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 565; @symbol_moduledef = [system_icon_dark__question,565,15,41]; ]
+        module system_icon_dark__question {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 565; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 566; @position = 18; @symbol_constdef = [filename,566,18,26]; @symbol_type<0> = [String,566,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__question.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 567; @position = 18; @symbol_constdef = [compress,567,18,26]; @symbol_type<0> = [String,567,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 568; @position = 18; @symbol_constdef = [dithering,568,18,27]; @symbol_type<0> = [String,568,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 569; @position = 18; @symbol_constdef = [automaticPalette,569,18,34]; @symbol_type<0> = [String,569,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 572; @symbol_moduledef = [system_icon_light__discard,572,15,41]; ]
+        module system_icon_light__discard {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 572; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 573; @position = 18; @symbol_constdef = [filename,573,18,26]; @symbol_type<0> = [String,573,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__discard.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 574; @position = 18; @symbol_constdef = [compress,574,18,26]; @symbol_type<0> = [String,574,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 575; @position = 18; @symbol_constdef = [dithering,575,18,27]; @symbol_type<0> = [String,575,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 576; @position = 18; @symbol_constdef = [automaticPalette,576,18,34]; @symbol_type<0> = [String,576,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 579; @symbol_moduledef = [device_info,579,15,26]; ]
+        module device_info {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 579; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 581 18 ]
+                symbol [ Toybox %tmp.48 581 32 38 ];
+                %tmp.48 = getv ? :Toybox;
+                symbol [ System %tmp.49 581 39 45 ];
+                %tmp.49 = getv %tmp.48 :System;
+                symbol [ SCREEN_SHAPE_ROUND %tmp.50 581 46 64 ];
+                %tmp.50 = getv %tmp.49 :SCREEN_SHAPE_ROUND;
+                putv self :screenShape %tmp.50;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 580; @position = 18; @symbol_constdef = [screenWidth,580,18,29]; @symbol_type<0> = [Number,580,33,39]; ]
+            const screenWidth as Number = 390;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 581; @position = 18; @symbol_constdef = [screenShape,581,18,29]; ]
+            const screenShape;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 582; @position = 18; @symbol_constdef = [hasNightMode,582,18,30]; @symbol_type<0> = [Boolean,582,34,41]; ]
+            const hasNightMode as Boolean = false;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 583; @position = 18; @symbol_constdef = [hasGpu,583,18,24]; @symbol_type<0> = [Boolean,583,28,35]; ]
+            const hasGpu as Boolean = false;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 584; @position = 18; @symbol_constdef = [screenHeight,584,18,30]; @symbol_type<0> = [Number,584,34,40]; ]
+            const screenHeight as Number = 390;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 585; @position = 18; @symbol_constdef = [hasTouchScreen,585,18,32]; @symbol_type<0> = [Boolean,585,36,43]; ]
+            const hasTouchScreen as Boolean = true;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 586; @position = 18; @symbol_constdef = [hasEnhancedReadabilityMode,586,18,44]; @symbol_type<0> = [Boolean,586,48,55]; ]
+            const hasEnhancedReadabilityMode as Boolean = false;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 589; @symbol_moduledef = [confirmation_icon_dark__hint_confirm,589,15,51]; ]
+        module confirmation_icon_dark__hint_confirm {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 589; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 590; @position = 18; @symbol_constdef = [filename,590,18,26]; @symbol_type<0> = [String,590,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_completion.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 591; @position = 18; @symbol_constdef = [dithering,591,18,27]; @symbol_type<0> = [String,591,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 594; @symbol_moduledef = [prompt_font__body_no_title,594,15,41]; ]
+        module prompt_font__body_no_title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 594; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 595 18 ]
+                symbol [ Graphics %tmp.51 595 34 42 ];
+                %tmp.51 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_CENTER %tmp.52 595 43 62 ];
+                %tmp.52 = getv %tmp.51 :TEXT_JUSTIFY_CENTER;
+                symbol [ Graphics %tmp.53 595 63 71 ];
+                %tmp.53 = getm $.Toybox.Graphics;
+                symbol [ TEXT_JUSTIFY_VCENTER %tmp.54 595 72 92 ];
+                %tmp.54 = getv %tmp.53 :TEXT_JUSTIFY_VCENTER;
+                %tmp.55 = bitor %tmp.52 %tmp.54;
+                putv self :justification %tmp.55;
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 596 18 ]
+                symbol [ Graphics %tmp.56 596 25 33 ];
+                %tmp.56 = getm $.Toybox.Graphics;
+                symbol [ FONT_XTINY %tmp.57 596 34 44 ];
+                %tmp.57 = getv %tmp.56 :FONT_XTINY;
+                putv self :font %tmp.57;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 595; @position = 18; @symbol_constdef = [justification,595,18,31]; ]
+            const justification;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 596; @position = 18; @symbol_constdef = [font,596,18,22]; ]
+            const font;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 599; @symbol_moduledef = [prompt_size__title_icon,599,15,38]; ]
+        module prompt_size__title_icon {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 599; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 600; @position = 18; @symbol_constdef = [scaleX,600,18,24]; @symbol_type<0> = [Float,600,28,33]; ]
+            const scaleX as Float = 0.13;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 601; @position = 18; @symbol_constdef = [scaleRelativeTo,601,18,33]; @symbol_type<0> = [String,601,37,43]; ]
+            const scaleRelativeTo as String = "screen";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 604; @symbol_moduledef = [system_icon_dark__warning,604,15,40]; ]
+        module system_icon_dark__warning {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 604; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 605; @position = 18; @symbol_constdef = [filename,605,18,26]; @symbol_type<0> = [String,605,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_dark__warning.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 606; @position = 18; @symbol_constdef = [compress,606,18,26]; @symbol_type<0> = [String,606,30,36]; ]
+            const compress as String = "true";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 607; @position = 18; @symbol_constdef = [dithering,607,18,27]; @symbol_type<0> = [String,607,31,37]; ]
+            const dithering as String = "none";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 608; @position = 18; @symbol_constdef = [automaticPalette,608,18,34]; @symbol_type<0> = [String,608,38,44]; ]
+            const automaticPalette as String = "true";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 611; @symbol_moduledef = [prompt_loc__title_icon,611,15,37]; ]
+        module prompt_loc__title_icon {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 611; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 612; @position = 18; @symbol_constdef = [x,612,18,19]; @symbol_type<0> = [Number,612,23,29]; ]
+            const x as Number = 195;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 613; @position = 18; @symbol_constdef = [y,613,18,19]; @symbol_type<0> = [Number,613,23,29]; ]
+            const y as Number = 32;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 614; @position = 18; @symbol_constdef = [horizontalJustification,614,18,41]; @symbol_type<0> = [String,614,45,51]; ]
+            const horizontalJustification as String = "center";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 615; @position = 18; @symbol_constdef = [verticalJustification,615,18,39]; @symbol_type<0> = [String,615,43,49]; ]
+            const verticalJustification as String = "center";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 618; @symbol_moduledef = [prompt_font_enhanced_readability__title,618,15,54]; ]
+        module prompt_font_enhanced_readability__title {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 618; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 619; @position = 18; @symbol_constdef = [exclude,619,18,25]; @symbol_type<0> = [Boolean,619,29,36]; ]
+            const exclude as Boolean = true;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 622; @symbol_moduledef = [prompt_color_dark__body,622,15,38]; ]
+        module prompt_color_dark__body {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 622; ]
+            <init> {
+[ "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen" 624 18 ]
+                symbol [ Graphics %tmp.58 624 31 39 ];
+                %tmp.58 = getm $.Toybox.Graphics;
+                symbol [ COLOR_TRANSPARENT %tmp.59 624 40 57 ];
+                %tmp.59 = getv %tmp.58 :COLOR_TRANSPARENT;
+                putv self :background %tmp.59;
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 623; @position = 18; @symbol_constdef = [color,623,18,23]; @symbol_type<0> = [Number,623,27,33]; ]
+            const color as Number = 0xFFFFFF;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 624; @position = 18; @symbol_constdef = [background,624,18,28]; ]
+            const background;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 627; @symbol_moduledef = [confirmation_icon__hint_delete,627,15,45]; ]
+        module confirmation_icon__hint_delete {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 627; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 628; @position = 18; @symbol_constdef = [filename,628,18,26]; @symbol_type<0> = [String,628,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/confirmation_icon__hint_delete.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 629; @position = 18; @symbol_constdef = [dithering,629,18,27]; @symbol_type<0> = [String,629,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 632; @symbol_moduledef = [system_icon_light__hint_button_right_top,632,15,55]; ]
+        module system_icon_light__hint_button_right_top {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 632; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 633; @position = 18; @symbol_constdef = [filename,633,18,26]; @symbol_type<0> = [String,633,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_light__hint_button_right_top.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 634; @position = 18; @symbol_constdef = [dithering,634,18,27]; @symbol_type<0> = [String,634,31,37]; ]
+            const dithering as String = "none";
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 637; @symbol_moduledef = [confirmation_size__body,637,15,38]; ]
+        module confirmation_size__body {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 637; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 638; @position = 18; @symbol_constdef = [width,638,18,23]; @symbol_type<0> = [Number,638,27,33]; ]
+            const width as Number = 268;
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 639; @position = 18; @symbol_constdef = [height,639,18,24]; @symbol_type<0> = [Number,639,28,34]; ]
+            const height as Number = 212;
+        }
+        [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 642; @symbol_moduledef = [system_icon_positive__check,642,15,42]; ]
+        module system_icon_positive__check {
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 642; ]
+            <init> {
+            }
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 643; @position = 18; @symbol_constdef = [filename,643,18,26]; @symbol_type<0> = [String,643,30,36]; ]
+            const filename as String = "/var/home/hzaman/.Garmin/ConnectIQ/Devices/fr165/system_icon_positive__check.svg";
+            [ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 644; @position = 18; @symbol_constdef = [dithering,644,18,27]; @symbol_type<0> = [String,644,31,37]; ]
+            const dithering as String = "none";
+        }
+    }
+}
+[ @file = "/home/hzaman/Programs/GarminApp/Salarm/bin/gen/006-B4432-00/source/Rez.mcgen"; @line = 1; ]
+<init> {
+}

@@ -1,0 +1,78 @@
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Communications,1,14,28]; ]
+import Toybox.Communications;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Lang,2,14,18]; ]
+import Toybox.Lang;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [System,3,14,20]; ]
+import Toybox.System;
+//! Connection listener for BLE transmissions to the Android companion app
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 6; @symbol_classdef = [SalarmCommListener,6,6,24]; @symbol_extends<0> = [Communications,6,33,47]; @symbol_extends<1> = [ConnectionListener,6,48,66]; ]
+class SalarmCommListener extends Communications.ConnectionListener {
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 6; ]
+    <init> {
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 6; ]
+    static
+    <init> {
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 8; @position = 16; @symbol_vardef = [_model,8,16,22]; @symbol_type<0> = [SalarmModel,8,26,37]; ]
+    private
+    var _model as SalarmModel;
+    //! Constructor
+    //! @param model The data model to notify of transmit events
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 12; @symbol_functiondef = [initialize,12,20,30]; @symbol_param<0> = [model,12,31,36]; @symbol_param<0>_type<0> = [SalarmModel,12,40,51]; ]
+    public
+    function initialize(model as SalarmModel) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmCommListener_mc_12_53_15_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc" 13 8 ]
+        symbol [ Communications %tmp.1 13 8 22 ];
+        %tmp.1 = getm $.Toybox.Communications;
+        symbol [ ConnectionListener %tmp.2 13 23 41 ];
+        %tmp.2 = getv %tmp.1 :ConnectionListener;
+        symbol [ initialize %tmp.3 13 42 52 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc" 14 8 ]
+        %tmp.4 = lgetv %model;
+        symbol [ model %tmp.4 14 17 22 ];
+        symbol [ _model ? 14 8 14 ];
+        putv self :_model %tmp.4;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmCommListener_mc_12_53_15_4_stop:
+    }
+    //! Called when transmission completes successfully
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 18; @symbol_functiondef = [onComplete,18,20,30]; ]
+    public
+    function onComplete() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmCommListener_mc_18_41_20_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc" 19 8 ]
+        symbol [ System %tmp.1 19 8 14 ];
+        %tmp.1 = getm $.Toybox.System;
+        symbol [ println %tmp.2 19 15 22 ];
+        %tmp.2 = getv function %tmp.1 :println;
+        %tmp.3 = "[SalarmCommListener] Transmit to phone completed.";
+        invoke %tmp.1 %tmp.2(%tmp.3);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmCommListener_mc_18_41_20_4_stop:
+    }
+    //! Called when transmission fails
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 23; @symbol_functiondef = [onError,23,20,27]; ]
+    public
+    function onError() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmCommListener_mc_23_38_26_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc" 24 8 ]
+        symbol [ System %tmp.1 24 8 14 ];
+        %tmp.1 = getm $.Toybox.System;
+        symbol [ println %tmp.2 24 15 22 ];
+        %tmp.2 = getv function %tmp.1 :println;
+        %tmp.3 = "[SalarmCommListener] Transmit to phone failed.";
+        invoke %tmp.1 %tmp.2(%tmp.3);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc" 25 8 ]
+        symbol [ _model %tmp.5 25 8 14 ];
+        %tmp.5 = getv ? :_model;
+        symbol [ onTransmitError %tmp.6 25 15 30 ];
+        %tmp.6 = getv function %tmp.5 :onTransmitError;
+        invoke %tmp.5 %tmp.6();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmCommListener_mc_23_38_26_4_stop:
+    }
+}
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmCommListener.mc"; @line = 1; ]
+<init> {
+}

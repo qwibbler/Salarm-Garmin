@@ -1,0 +1,788 @@
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Lang,1,14,18]; ]
+import Toybox.Lang;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Test,2,14,18]; ]
+import Toybox.Test;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [Time,3,14,18]; ]
+import Toybox.Time;
+//! Unit tests for SalarmWatch model, message validation, and state logic
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 7; test = true; @symbol_classdef = [SalarmTests,7,6,17]; ]
+class SalarmTests {
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 7; ]
+    static
+    <init> {
+    }
+    //! Test message validation for upcoming alarm
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 11; test = true; @symbol_functiondef = [testMessageValidationUpcoming,11,27,56]; @symbol_param<0> = [logger,11,57,63]; @symbol_param<0>_type<0> = [Test,11,67,71]; @symbol_param<0>_type<1> = [Logger,11,72,78]; @symbol_return<0> = [Boolean,11,83,90]; ]
+    public static
+    function testMessageValidationUpcoming(logger as Test.Logger) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 12 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_stop" ]
+        %model.1 = local;
+        symbol [ model %model.1 12 12 17 ];
+        symbol [ SalarmModel %tmp.4 12 24 35 ];
+        %tmp.4 = getv ? :SalarmModel;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %model.1 %tmp.1;
+        symbol [ model %model.1 12 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 13 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_stop" ]
+        %testTrigger.2 = local;
+        symbol [ testTrigger %testTrigger.2 13 12 23 ];
+        symbol [ Time %tmp.5 13 26 30 ];
+        %tmp.5 = getm $.Toybox.Time;
+        symbol [ now %tmp.6 13 31 34 ];
+        %tmp.6 = getv function %tmp.5 :now;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        symbol [ value %tmp.8 13 37 42 ];
+        %tmp.8 = getv function %tmp.7 :value;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        %tmp.10 = 3600;
+        %tmp.11 = add %tmp.9 %tmp.10;
+        lputv %testTrigger.2 %tmp.11;
+        symbol [ testTrigger %testTrigger.2 13 12 23 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 15 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_stop" ]
+        %msgData.3 = local;
+        symbol [ msgData %msgData.3 15 12 19 ];
+        %tmp.12 = newd 6;
+        %tmp.13 = "type";
+        %tmp.14 = "ALARM_UPDATE";
+        %tmp.15 = dup %tmp.12;
+        %tmp.16 = aputv %tmp.15 %tmp.13 %tmp.14;
+        %tmp.17 = "state";
+        %tmp.18 = "upcoming";
+        %tmp.19 = dup %tmp.16;
+        %tmp.20 = aputv %tmp.19 %tmp.17 %tmp.18;
+        %tmp.21 = "title";
+        %tmp.22 = "Morning Run";
+        %tmp.23 = dup %tmp.20;
+        %tmp.24 = aputv %tmp.23 %tmp.21 %tmp.22;
+        %tmp.25 = "id";
+        %tmp.26 = "alarm_42";
+        %tmp.27 = dup %tmp.24;
+        %tmp.28 = aputv %tmp.27 %tmp.25 %tmp.26;
+        %tmp.29 = "triggerTime";
+        %tmp.30 = lgetv %testTrigger.2;
+        symbol [ testTrigger %tmp.30 20 29 40 ];
+        %tmp.31 = dup %tmp.28;
+        %tmp.32 = aputv %tmp.31 %tmp.29 %tmp.30;
+        %tmp.33 = "snoozeDuration";
+        %tmp.34 = 600;
+        %tmp.35 = dup %tmp.32;
+        %tmp.36 = aputv %tmp.35 %tmp.33 %tmp.34;
+        lputv %msgData.3 %tmp.36;
+        symbol [ msgData %msgData.3 15 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 24 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_stop" ]
+        %handled.4 = local;
+        symbol [ handled %handled.4 24 12 19 ];
+        %tmp.37 = lgetv %model.1;
+        symbol [ model %tmp.37 24 22 27 ];
+        symbol [ processIncomingMessage %tmp.38 24 28 50 ];
+        %tmp.38 = getv function %tmp.37 :processIncomingMessage;
+        %tmp.39 = lgetv %msgData.3;
+        symbol [ msgData %tmp.39 24 51 58 ];
+        %tmp.40 = invoke %tmp.37 %tmp.38(%tmp.39);
+        lputv %handled.4 %tmp.40;
+        symbol [ handled %handled.4 24 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 25 8 ]
+        symbol [ Test %tmp.41 25 8 12 ];
+        %tmp.41 = getm $.Toybox.Test;
+        symbol [ assertMessage %tmp.42 25 13 26 ];
+        %tmp.42 = getv function %tmp.41 :assertMessage;
+        %tmp.43 = lgetv %handled.4;
+        symbol [ handled %tmp.43 25 27 34 ];
+        %tmp.44 = "Message should be handled successfully";
+        invoke %tmp.41 %tmp.42(%tmp.43, %tmp.44);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 26 8 ]
+        symbol [ Test %tmp.45 26 8 12 ];
+        %tmp.45 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.46 26 13 31 ];
+        %tmp.46 = getv function %tmp.45 :assertEqualMessage;
+        %tmp.47 = lgetv %model.1;
+        symbol [ model %tmp.47 26 32 37 ];
+        symbol [ getState %tmp.48 26 38 46 ];
+        %tmp.48 = getv function %tmp.47 :getState;
+        %tmp.49 = invoke %tmp.47 %tmp.48();
+        symbol [ SalarmModel %tmp.51 26 50 61 ];
+        %tmp.51 = getv ? :SalarmModel;
+        symbol [ STATE_UPCOMING %tmp.52 26 62 76 ];
+        %tmp.52 = getv %tmp.51 :STATE_UPCOMING;
+        %tmp.53 = "State should be upcoming";
+        invoke %tmp.45 %tmp.46(%tmp.49, %tmp.52, %tmp.53);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 27 8 ]
+        symbol [ Test %tmp.54 27 8 12 ];
+        %tmp.54 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.55 27 13 31 ];
+        %tmp.55 = getv function %tmp.54 :assertEqualMessage;
+        %tmp.56 = lgetv %model.1;
+        symbol [ model %tmp.56 27 32 37 ];
+        symbol [ getTitle %tmp.57 27 38 46 ];
+        %tmp.57 = getv function %tmp.56 :getTitle;
+        %tmp.58 = invoke %tmp.56 %tmp.57();
+        %tmp.59 = "Morning Run";
+        %tmp.60 = "Title should match";
+        invoke %tmp.54 %tmp.55(%tmp.58, %tmp.59, %tmp.60);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 28 8 ]
+        symbol [ Test %tmp.61 28 8 12 ];
+        %tmp.61 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.62 28 13 31 ];
+        %tmp.62 = getv function %tmp.61 :assertEqualMessage;
+        %tmp.63 = lgetv %model.1;
+        symbol [ model %tmp.63 28 32 37 ];
+        symbol [ getAlarmId %tmp.64 28 38 48 ];
+        %tmp.64 = getv function %tmp.63 :getAlarmId;
+        %tmp.65 = invoke %tmp.63 %tmp.64();
+        %tmp.66 = "alarm_42";
+        %tmp.67 = "Alarm ID should match";
+        invoke %tmp.61 %tmp.62(%tmp.65, %tmp.66, %tmp.67);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 29 8 ]
+        symbol [ Test %tmp.68 29 8 12 ];
+        %tmp.68 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.69 29 13 31 ];
+        %tmp.69 = getv function %tmp.68 :assertEqualMessage;
+        %tmp.70 = lgetv %model.1;
+        symbol [ model %tmp.70 29 32 37 ];
+        symbol [ getTriggerTime %tmp.71 29 38 52 ];
+        %tmp.71 = getv function %tmp.70 :getTriggerTime;
+        %tmp.72 = invoke %tmp.70 %tmp.71();
+        %tmp.73 = lgetv %testTrigger.2;
+        symbol [ testTrigger %tmp.73 29 56 67 ];
+        %tmp.74 = "Trigger time should match";
+        invoke %tmp.68 %tmp.69(%tmp.72, %tmp.73, %tmp.74);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 30 8 ]
+        symbol [ Test %tmp.75 30 8 12 ];
+        %tmp.75 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.76 30 13 31 ];
+        %tmp.76 = getv function %tmp.75 :assertEqualMessage;
+        %tmp.77 = lgetv %model.1;
+        symbol [ model %tmp.77 30 32 37 ];
+        symbol [ getSnoozeDuration %tmp.78 30 38 55 ];
+        %tmp.78 = getv function %tmp.77 :getSnoozeDuration;
+        %tmp.79 = invoke %tmp.77 %tmp.78();
+        %tmp.80 = 600;
+        %tmp.81 = "Snooze duration should match";
+        invoke %tmp.75 %tmp.76(%tmp.79, %tmp.80, %tmp.81);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 32 8 ]
+        %tmp.82 = true;
+        ret %tmp.82;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_11_91_33_4_stop:
+    }
+    //! Test active ringing state triggered by phone
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 37; test = true; @symbol_functiondef = [testMessageValidationRinging,37,27,55]; @symbol_param<0> = [logger,37,56,62]; @symbol_param<0>_type<0> = [Test,37,66,70]; @symbol_param<0>_type<1> = [Logger,37,71,77]; @symbol_return<0> = [Boolean,37,82,89]; ]
+    public static
+    function testMessageValidationRinging(logger as Test.Logger) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_37_90_52_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 38 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_37_90_52_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_37_90_52_4_stop" ]
+        %model.1 = local;
+        symbol [ model %model.1 38 12 17 ];
+        symbol [ SalarmModel %tmp.4 38 24 35 ];
+        %tmp.4 = getv ? :SalarmModel;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %model.1 %tmp.1;
+        symbol [ model %model.1 38 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 40 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_37_90_52_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_37_90_52_4_stop" ]
+        %msgData.2 = local;
+        symbol [ msgData %msgData.2 40 12 19 ];
+        %tmp.5 = newd 3;
+        %tmp.6 = "type";
+        %tmp.7 = "ALARM_TRIGGER";
+        %tmp.8 = dup %tmp.5;
+        %tmp.9 = aputv %tmp.8 %tmp.6 %tmp.7;
+        %tmp.10 = "title";
+        %tmp.11 = "Wake Up Now";
+        %tmp.12 = dup %tmp.9;
+        %tmp.13 = aputv %tmp.12 %tmp.10 %tmp.11;
+        %tmp.14 = "id";
+        %tmp.15 = "alarm_99";
+        %tmp.16 = dup %tmp.13;
+        %tmp.17 = aputv %tmp.16 %tmp.14 %tmp.15;
+        lputv %msgData.2 %tmp.17;
+        symbol [ msgData %msgData.2 40 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 46 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_37_90_52_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_37_90_52_4_stop" ]
+        %handled.3 = local;
+        symbol [ handled %handled.3 46 12 19 ];
+        %tmp.18 = lgetv %model.1;
+        symbol [ model %tmp.18 46 22 27 ];
+        symbol [ processIncomingMessage %tmp.19 46 28 50 ];
+        %tmp.19 = getv function %tmp.18 :processIncomingMessage;
+        %tmp.20 = lgetv %msgData.2;
+        symbol [ msgData %tmp.20 46 51 58 ];
+        %tmp.21 = invoke %tmp.18 %tmp.19(%tmp.20);
+        lputv %handled.3 %tmp.21;
+        symbol [ handled %handled.3 46 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 47 8 ]
+        symbol [ Test %tmp.22 47 8 12 ];
+        %tmp.22 = getm $.Toybox.Test;
+        symbol [ assertMessage %tmp.23 47 13 26 ];
+        %tmp.23 = getv function %tmp.22 :assertMessage;
+        %tmp.24 = lgetv %handled.3;
+        symbol [ handled %tmp.24 47 27 34 ];
+        %tmp.25 = "Trigger message should be handled";
+        invoke %tmp.22 %tmp.23(%tmp.24, %tmp.25);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 48 8 ]
+        symbol [ Test %tmp.26 48 8 12 ];
+        %tmp.26 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.27 48 13 31 ];
+        %tmp.27 = getv function %tmp.26 :assertEqualMessage;
+        %tmp.28 = lgetv %model.1;
+        symbol [ model %tmp.28 48 32 37 ];
+        symbol [ getState %tmp.29 48 38 46 ];
+        %tmp.29 = getv function %tmp.28 :getState;
+        %tmp.30 = invoke %tmp.28 %tmp.29();
+        symbol [ SalarmModel %tmp.32 48 50 61 ];
+        %tmp.32 = getv ? :SalarmModel;
+        symbol [ STATE_RINGING %tmp.33 48 62 75 ];
+        %tmp.33 = getv %tmp.32 :STATE_RINGING;
+        %tmp.34 = "State should be ringing";
+        invoke %tmp.26 %tmp.27(%tmp.30, %tmp.33, %tmp.34);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 49 8 ]
+        symbol [ Test %tmp.35 49 8 12 ];
+        %tmp.35 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.36 49 13 31 ];
+        %tmp.36 = getv function %tmp.35 :assertEqualMessage;
+        %tmp.37 = lgetv %model.1;
+        symbol [ model %tmp.37 49 32 37 ];
+        symbol [ getTitle %tmp.38 49 38 46 ];
+        %tmp.38 = getv function %tmp.37 :getTitle;
+        %tmp.39 = invoke %tmp.37 %tmp.38();
+        %tmp.40 = "Wake Up Now";
+        %tmp.41 = "Title should match";
+        invoke %tmp.35 %tmp.36(%tmp.39, %tmp.40, %tmp.41);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 51 8 ]
+        %tmp.42 = true;
+        ret %tmp.42;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_37_90_52_4_stop:
+    }
+    //! Test resilience against null and malformed payloads
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 56; test = true; @symbol_functiondef = [testMalformedPayloads,56,27,48]; @symbol_param<0> = [logger,56,49,55]; @symbol_param<0>_type<0> = [Test,56,59,63]; @symbol_param<0>_type<1> = [Logger,56,64,70]; @symbol_return<0> = [Boolean,56,75,82]; ]
+    public static
+    function testMalformedPayloads(logger as Test.Logger) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 57 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_stop" ]
+        %model.1 = local;
+        symbol [ model %model.1 57 12 17 ];
+        symbol [ SalarmModel %tmp.4 57 24 35 ];
+        %tmp.4 = getv ? :SalarmModel;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %model.1 %tmp.1;
+        symbol [ model %model.1 57 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 60 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_stop" ]
+        %handledNull.2 = local;
+        symbol [ handledNull %handledNull.2 60 12 23 ];
+        %tmp.5 = lgetv %model.1;
+        symbol [ model %tmp.5 60 26 31 ];
+        symbol [ processIncomingMessage %tmp.6 60 32 54 ];
+        %tmp.6 = getv function %tmp.5 :processIncomingMessage;
+        %tmp.7 = null;
+        %tmp.8 = invoke %tmp.5 %tmp.6(%tmp.7);
+        lputv %handledNull.2 %tmp.8;
+        symbol [ handledNull %handledNull.2 60 12 23 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 61 8 ]
+        symbol [ Test %tmp.9 61 8 12 ];
+        %tmp.9 = getm $.Toybox.Test;
+        symbol [ assertMessage %tmp.10 61 13 26 ];
+        %tmp.10 = getv function %tmp.9 :assertMessage;
+        %tmp.11 = lgetv %handledNull.2;
+        symbol [ handledNull %tmp.11 61 28 39 ];
+        %tmp.12 = not %tmp.11;
+        %tmp.13 = "Null message should return false without exception";
+        invoke %tmp.9 %tmp.10(%tmp.12, %tmp.13);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 64 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_stop" ]
+        %handledEmpty.3 = local;
+        symbol [ handledEmpty %handledEmpty.3 64 12 24 ];
+        %tmp.14 = lgetv %model.1;
+        symbol [ model %tmp.14 64 27 32 ];
+        symbol [ processIncomingMessage %tmp.15 64 33 55 ];
+        %tmp.15 = getv function %tmp.14 :processIncomingMessage;
+        %tmp.16 = newd 0;
+        %tmp.17 = invoke %tmp.14 %tmp.15(%tmp.16);
+        lputv %handledEmpty.3 %tmp.17;
+        symbol [ handledEmpty %handledEmpty.3 64 12 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 65 8 ]
+        symbol [ Test %tmp.18 65 8 12 ];
+        %tmp.18 = getm $.Toybox.Test;
+        symbol [ assertMessage %tmp.19 65 13 26 ];
+        %tmp.19 = getv function %tmp.18 :assertMessage;
+        %tmp.20 = lgetv %handledEmpty.3;
+        symbol [ handledEmpty %tmp.20 65 27 39 ];
+        %tmp.21 = "Empty dict should be processed safely";
+        invoke %tmp.18 %tmp.19(%tmp.20, %tmp.21);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 66 8 ]
+        symbol [ Test %tmp.22 66 8 12 ];
+        %tmp.22 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.23 66 13 31 ];
+        %tmp.23 = getv function %tmp.22 :assertEqualMessage;
+        %tmp.24 = lgetv %model.1;
+        symbol [ model %tmp.24 66 32 37 ];
+        symbol [ getState %tmp.25 66 38 46 ];
+        %tmp.25 = getv function %tmp.24 :getState;
+        %tmp.26 = invoke %tmp.24 %tmp.25();
+        symbol [ SalarmModel %tmp.28 66 50 61 ];
+        %tmp.28 = getv ? :SalarmModel;
+        symbol [ STATE_IDLE %tmp.29 66 62 72 ];
+        %tmp.29 = getv %tmp.28 :STATE_IDLE;
+        %tmp.30 = "Default state should remain idle";
+        invoke %tmp.22 %tmp.23(%tmp.26, %tmp.29, %tmp.30);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 69 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_stop" ]
+        %arrayMsg.4 = local;
+        symbol [ arrayMsg %arrayMsg.4 69 12 20 ];
+        %tmp.31 = newa 1;
+        %tmp.32 = newd 2;
+        %tmp.33 = "state";
+        %tmp.34 = "ringing";
+        %tmp.35 = dup %tmp.32;
+        %tmp.36 = aputv %tmp.35 %tmp.33 %tmp.34;
+        %tmp.37 = "title";
+        %tmp.38 = "Wrapped Alarm";
+        %tmp.39 = dup %tmp.36;
+        %tmp.40 = aputv %tmp.39 %tmp.37 %tmp.38;
+        %tmp.41 = dup %tmp.31;
+        %tmp.42 = aputv %tmp.41 0 %tmp.40;
+        lputv %arrayMsg.4 %tmp.42;
+        symbol [ arrayMsg %arrayMsg.4 69 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 75 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_stop" ]
+        %handledArray.5 = local;
+        symbol [ handledArray %handledArray.5 75 12 24 ];
+        %tmp.43 = lgetv %model.1;
+        symbol [ model %tmp.43 75 27 32 ];
+        symbol [ processIncomingMessage %tmp.44 75 33 55 ];
+        %tmp.44 = getv function %tmp.43 :processIncomingMessage;
+        %tmp.45 = lgetv %arrayMsg.4;
+        symbol [ arrayMsg %tmp.45 75 56 64 ];
+        %tmp.46 = invoke %tmp.43 %tmp.44(%tmp.45);
+        lputv %handledArray.5 %tmp.46;
+        symbol [ handledArray %handledArray.5 75 12 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 76 8 ]
+        symbol [ Test %tmp.47 76 8 12 ];
+        %tmp.47 = getm $.Toybox.Test;
+        symbol [ assertMessage %tmp.48 76 13 26 ];
+        %tmp.48 = getv function %tmp.47 :assertMessage;
+        %tmp.49 = lgetv %handledArray.5;
+        symbol [ handledArray %tmp.49 76 27 39 ];
+        %tmp.50 = "Array-wrapped dict should be extracted and handled";
+        invoke %tmp.47 %tmp.48(%tmp.49, %tmp.50);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 77 8 ]
+        symbol [ Test %tmp.51 77 8 12 ];
+        %tmp.51 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.52 77 13 31 ];
+        %tmp.52 = getv function %tmp.51 :assertEqualMessage;
+        %tmp.53 = lgetv %model.1;
+        symbol [ model %tmp.53 77 32 37 ];
+        symbol [ getState %tmp.54 77 38 46 ];
+        %tmp.54 = getv function %tmp.53 :getState;
+        %tmp.55 = invoke %tmp.53 %tmp.54();
+        symbol [ SalarmModel %tmp.57 77 50 61 ];
+        %tmp.57 = getv ? :SalarmModel;
+        symbol [ STATE_RINGING %tmp.58 77 62 75 ];
+        %tmp.58 = getv %tmp.57 :STATE_RINGING;
+        %tmp.59 = "State should be ringing";
+        invoke %tmp.51 %tmp.52(%tmp.55, %tmp.58, %tmp.59);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 80 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_stop" ]
+        %handledString.6 = local;
+        symbol [ handledString %handledString.6 80 12 25 ];
+        %tmp.60 = lgetv %model.1;
+        symbol [ model %tmp.60 80 28 33 ];
+        symbol [ processIncomingMessage %tmp.61 80 34 56 ];
+        %tmp.61 = getv function %tmp.60 :processIncomingMessage;
+        %tmp.62 = "Random String";
+        %tmp.63 = invoke %tmp.60 %tmp.61(%tmp.62);
+        lputv %handledString.6 %tmp.63;
+        symbol [ handledString %handledString.6 80 12 25 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 81 8 ]
+        symbol [ Test %tmp.64 81 8 12 ];
+        %tmp.64 = getm $.Toybox.Test;
+        symbol [ assertMessage %tmp.65 81 13 26 ];
+        %tmp.65 = getv function %tmp.64 :assertMessage;
+        %tmp.66 = lgetv %handledString.6;
+        symbol [ handledString %tmp.66 81 28 41 ];
+        %tmp.67 = not %tmp.66;
+        %tmp.68 = "Arbitrary string should safely return false";
+        invoke %tmp.64 %tmp.65(%tmp.67, %tmp.68);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 83 8 ]
+        %tmp.69 = true;
+        ret %tmp.69;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_56_83_84_4_stop:
+    }
+    //! Test action confirmation flow (Snooze & Dismiss)
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 88; test = true; @symbol_functiondef = [testActionConfirmationFlow,88,27,53]; @symbol_param<0> = [logger,88,54,60]; @symbol_param<0>_type<0> = [Test,88,64,68]; @symbol_param<0>_type<1> = [Logger,88,69,75]; @symbol_return<0> = [Boolean,88,80,87]; ]
+    public static
+    function testActionConfirmationFlow(logger as Test.Logger) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_88_88_118_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 89 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_88_88_118_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_88_88_118_4_stop" ]
+        %model.1 = local;
+        symbol [ model %model.1 89 12 17 ];
+        symbol [ SalarmModel %tmp.4 89 24 35 ];
+        %tmp.4 = getv ? :SalarmModel;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %model.1 %tmp.1;
+        symbol [ model %model.1 89 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 92 8 ]
+        %tmp.5 = lgetv %model.1;
+        symbol [ model %tmp.5 92 8 13 ];
+        symbol [ processIncomingMessage %tmp.6 92 14 36 ];
+        %tmp.6 = getv function %tmp.5 :processIncomingMessage;
+        %tmp.7 = newd 2;
+        %tmp.8 = "type";
+        %tmp.9 = "ALARM_TRIGGER";
+        %tmp.10 = dup %tmp.7;
+        %tmp.11 = aputv %tmp.10 %tmp.8 %tmp.9;
+        %tmp.12 = "id";
+        %tmp.13 = "alarm_1";
+        %tmp.14 = dup %tmp.11;
+        %tmp.15 = aputv %tmp.14 %tmp.12 %tmp.13;
+        invoke %tmp.5 %tmp.6(%tmp.15);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 96 8 ]
+        symbol [ Test %tmp.16 96 8 12 ];
+        %tmp.16 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.17 96 13 31 ];
+        %tmp.17 = getv function %tmp.16 :assertEqualMessage;
+        %tmp.18 = lgetv %model.1;
+        symbol [ model %tmp.18 96 32 37 ];
+        symbol [ getState %tmp.19 96 38 46 ];
+        %tmp.19 = getv function %tmp.18 :getState;
+        %tmp.20 = invoke %tmp.18 %tmp.19();
+        symbol [ SalarmModel %tmp.22 96 50 61 ];
+        %tmp.22 = getv ? :SalarmModel;
+        symbol [ STATE_RINGING %tmp.23 96 62 75 ];
+        %tmp.23 = getv %tmp.22 :STATE_RINGING;
+        %tmp.24 = "Should be ringing";
+        invoke %tmp.16 %tmp.17(%tmp.20, %tmp.23, %tmp.24);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 99 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_88_88_118_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_88_88_118_4_stop" ]
+        %newTrigger.2 = local;
+        symbol [ newTrigger %newTrigger.2 99 12 22 ];
+        symbol [ Time %tmp.25 99 25 29 ];
+        %tmp.25 = getm $.Toybox.Time;
+        symbol [ now %tmp.26 99 30 33 ];
+        %tmp.26 = getv function %tmp.25 :now;
+        %tmp.27 = invoke %tmp.25 %tmp.26();
+        symbol [ value %tmp.28 99 36 41 ];
+        %tmp.28 = getv function %tmp.27 :value;
+        %tmp.29 = invoke %tmp.27 %tmp.28();
+        %tmp.30 = 540;
+        %tmp.31 = add %tmp.29 %tmp.30;
+        lputv %newTrigger.2 %tmp.31;
+        symbol [ newTrigger %newTrigger.2 99 12 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 100 8 ]
+        %tmp.32 = lgetv %model.1;
+        symbol [ model %tmp.32 100 8 13 ];
+        symbol [ processIncomingMessage %tmp.33 100 14 36 ];
+        %tmp.33 = getv function %tmp.32 :processIncomingMessage;
+        %tmp.34 = newd 3;
+        %tmp.35 = "type";
+        %tmp.36 = "ACTION_CONFIRM";
+        %tmp.37 = dup %tmp.34;
+        %tmp.38 = aputv %tmp.37 %tmp.35 %tmp.36;
+        %tmp.39 = "action";
+        %tmp.40 = "snooze";
+        %tmp.41 = dup %tmp.38;
+        %tmp.42 = aputv %tmp.41 %tmp.39 %tmp.40;
+        %tmp.43 = "triggerTime";
+        %tmp.44 = lgetv %newTrigger.2;
+        symbol [ newTrigger %tmp.44 103 29 39 ];
+        %tmp.45 = dup %tmp.42;
+        %tmp.46 = aputv %tmp.45 %tmp.43 %tmp.44;
+        invoke %tmp.32 %tmp.33(%tmp.46);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 106 8 ]
+        symbol [ Test %tmp.47 106 8 12 ];
+        %tmp.47 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.48 106 13 31 ];
+        %tmp.48 = getv function %tmp.47 :assertEqualMessage;
+        %tmp.49 = lgetv %model.1;
+        symbol [ model %tmp.49 106 32 37 ];
+        symbol [ getState %tmp.50 106 38 46 ];
+        %tmp.50 = getv function %tmp.49 :getState;
+        %tmp.51 = invoke %tmp.49 %tmp.50();
+        symbol [ SalarmModel %tmp.53 106 50 61 ];
+        %tmp.53 = getv ? :SalarmModel;
+        symbol [ STATE_ACTION_CONFIRMED %tmp.54 106 62 84 ];
+        %tmp.54 = getv %tmp.53 :STATE_ACTION_CONFIRMED;
+        %tmp.55 = "State should be action confirmed";
+        invoke %tmp.47 %tmp.48(%tmp.51, %tmp.54, %tmp.55);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 107 8 ]
+        symbol [ Test %tmp.56 107 8 12 ];
+        %tmp.56 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.57 107 13 31 ];
+        %tmp.57 = getv function %tmp.56 :assertEqualMessage;
+        %tmp.58 = lgetv %model.1;
+        symbol [ model %tmp.58 107 32 37 ];
+        symbol [ getTriggerTime %tmp.59 107 38 52 ];
+        %tmp.59 = getv function %tmp.58 :getTriggerTime;
+        %tmp.60 = invoke %tmp.58 %tmp.59();
+        %tmp.61 = lgetv %newTrigger.2;
+        symbol [ newTrigger %tmp.61 107 56 66 ];
+        %tmp.62 = "Trigger time should update to snooze time";
+        invoke %tmp.56 %tmp.57(%tmp.60, %tmp.61, %tmp.62);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 110 8 ]
+        %tmp.63 = lgetv %model.1;
+        symbol [ model %tmp.63 110 8 13 ];
+        symbol [ processIncomingMessage %tmp.64 110 14 36 ];
+        %tmp.64 = getv function %tmp.63 :processIncomingMessage;
+        %tmp.65 = newd 2;
+        %tmp.66 = "type";
+        %tmp.67 = "ACTION_CONFIRM";
+        %tmp.68 = dup %tmp.65;
+        %tmp.69 = aputv %tmp.68 %tmp.66 %tmp.67;
+        %tmp.70 = "action";
+        %tmp.71 = "dismiss";
+        %tmp.72 = dup %tmp.69;
+        %tmp.73 = aputv %tmp.72 %tmp.70 %tmp.71;
+        invoke %tmp.63 %tmp.64(%tmp.73);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 114 8 ]
+        symbol [ Test %tmp.74 114 8 12 ];
+        %tmp.74 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.75 114 13 31 ];
+        %tmp.75 = getv function %tmp.74 :assertEqualMessage;
+        %tmp.76 = lgetv %model.1;
+        symbol [ model %tmp.76 114 32 37 ];
+        symbol [ getState %tmp.77 114 38 46 ];
+        %tmp.77 = getv function %tmp.76 :getState;
+        %tmp.78 = invoke %tmp.76 %tmp.77();
+        symbol [ SalarmModel %tmp.80 114 50 61 ];
+        %tmp.80 = getv ? :SalarmModel;
+        symbol [ STATE_ACTION_CONFIRMED %tmp.81 114 62 84 ];
+        %tmp.81 = getv %tmp.80 :STATE_ACTION_CONFIRMED;
+        %tmp.82 = "State should be confirmed";
+        invoke %tmp.74 %tmp.75(%tmp.78, %tmp.81, %tmp.82);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 115 8 ]
+        symbol [ Test %tmp.83 115 8 12 ];
+        %tmp.83 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.84 115 13 31 ];
+        %tmp.84 = getv function %tmp.83 :assertEqualMessage;
+        %tmp.85 = lgetv %model.1;
+        symbol [ model %tmp.85 115 32 37 ];
+        symbol [ getTriggerTime %tmp.86 115 38 52 ];
+        %tmp.86 = getv function %tmp.85 :getTriggerTime;
+        %tmp.87 = invoke %tmp.85 %tmp.86();
+        %tmp.88 = 0;
+        %tmp.89 = "Trigger time should be cleared";
+        invoke %tmp.83 %tmp.84(%tmp.87, %tmp.88, %tmp.89);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 117 8 ]
+        %tmp.90 = true;
+        ret %tmp.90;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_88_88_118_4_stop:
+    }
+    //! Test action rejection handling
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 122; test = true; @symbol_functiondef = [testActionRejection,122,27,46]; @symbol_param<0> = [logger,122,47,53]; @symbol_param<0>_type<0> = [Test,122,57,61]; @symbol_param<0>_type<1> = [Logger,122,62,68]; @symbol_return<0> = [Boolean,122,73,80]; ]
+    public static
+    function testActionRejection(logger as Test.Logger) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_122_81_134_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 123 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_122_81_134_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_122_81_134_4_stop" ]
+        %model.1 = local;
+        symbol [ model %model.1 123 12 17 ];
+        symbol [ SalarmModel %tmp.4 123 24 35 ];
+        %tmp.4 = getv ? :SalarmModel;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %model.1 %tmp.1;
+        symbol [ model %model.1 123 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 125 8 ]
+        %tmp.5 = lgetv %model.1;
+        symbol [ model %tmp.5 125 8 13 ];
+        symbol [ processIncomingMessage %tmp.6 125 14 36 ];
+        %tmp.6 = getv function %tmp.5 :processIncomingMessage;
+        %tmp.7 = newd 2;
+        %tmp.8 = "type";
+        %tmp.9 = "ACTION_REJECT";
+        %tmp.10 = dup %tmp.7;
+        %tmp.11 = aputv %tmp.10 %tmp.8 %tmp.9;
+        %tmp.12 = "message";
+        %tmp.13 = "Alarm already stopped on phone";
+        %tmp.14 = dup %tmp.11;
+        %tmp.15 = aputv %tmp.14 %tmp.12 %tmp.13;
+        invoke %tmp.5 %tmp.6(%tmp.15);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 130 8 ]
+        symbol [ Test %tmp.16 130 8 12 ];
+        %tmp.16 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.17 130 13 31 ];
+        %tmp.17 = getv function %tmp.16 :assertEqualMessage;
+        %tmp.18 = lgetv %model.1;
+        symbol [ model %tmp.18 130 32 37 ];
+        symbol [ getState %tmp.19 130 38 46 ];
+        %tmp.19 = getv function %tmp.18 :getState;
+        %tmp.20 = invoke %tmp.18 %tmp.19();
+        symbol [ SalarmModel %tmp.22 130 50 61 ];
+        %tmp.22 = getv ? :SalarmModel;
+        symbol [ STATE_ACTION_FAILED %tmp.23 130 62 81 ];
+        %tmp.23 = getv %tmp.22 :STATE_ACTION_FAILED;
+        %tmp.24 = "State should be failed";
+        invoke %tmp.16 %tmp.17(%tmp.20, %tmp.23, %tmp.24);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 131 8 ]
+        symbol [ Test %tmp.25 131 8 12 ];
+        %tmp.25 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.26 131 13 31 ];
+        %tmp.26 = getv function %tmp.25 :assertEqualMessage;
+        %tmp.27 = lgetv %model.1;
+        symbol [ model %tmp.27 131 32 37 ];
+        symbol [ getStatusText %tmp.28 131 38 51 ];
+        %tmp.28 = getv function %tmp.27 :getStatusText;
+        %tmp.29 = invoke %tmp.27 %tmp.28();
+        %tmp.30 = "Alarm already stopped on phone";
+        %tmp.31 = "Error message should match";
+        invoke %tmp.25 %tmp.26(%tmp.29, %tmp.30, %tmp.31);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 133 8 ]
+        %tmp.32 = true;
+        ret %tmp.32;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_122_81_134_4_stop:
+    }
+    //! Test action timeout handling
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 138; test = true; @symbol_functiondef = [testActionTimeout,138,27,44]; @symbol_param<0> = [logger,138,45,51]; @symbol_param<0>_type<0> = [Test,138,55,59]; @symbol_param<0>_type<1> = [Logger,138,60,66]; @symbol_return<0> = [Boolean,138,71,78]; ]
+    public static
+    function testActionTimeout(logger as Test.Logger) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_138_79_154_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 139 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_138_79_154_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_138_79_154_4_stop" ]
+        %model.1 = local;
+        symbol [ model %model.1 139 12 17 ];
+        symbol [ SalarmModel %tmp.4 139 24 35 ];
+        %tmp.4 = getv ? :SalarmModel;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %model.1 %tmp.1;
+        symbol [ model %model.1 139 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 142 8 ]
+        %tmp.5 = lgetv %model.1;
+        symbol [ model %tmp.5 142 8 13 ];
+        symbol [ processIncomingMessage %tmp.6 142 14 36 ];
+        %tmp.6 = getv function %tmp.5 :processIncomingMessage;
+        %tmp.7 = newd 2;
+        %tmp.8 = "type";
+        %tmp.9 = "ALARM_TRIGGER";
+        %tmp.10 = dup %tmp.7;
+        %tmp.11 = aputv %tmp.10 %tmp.8 %tmp.9;
+        %tmp.12 = "id";
+        %tmp.13 = "alarm_1";
+        %tmp.14 = dup %tmp.11;
+        %tmp.15 = aputv %tmp.14 %tmp.12 %tmp.13;
+        invoke %tmp.5 %tmp.6(%tmp.15);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 148 8 ]
+        %tmp.16 = lgetv %model.1;
+        symbol [ model %tmp.16 148 8 13 ];
+        symbol [ onActionTimeout %tmp.17 148 14 29 ];
+        %tmp.17 = getv function %tmp.16 :onActionTimeout;
+        invoke %tmp.16 %tmp.17();
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 151 8 ]
+        symbol [ Test %tmp.18 151 8 12 ];
+        %tmp.18 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.19 151 13 31 ];
+        %tmp.19 = getv function %tmp.18 :assertEqualMessage;
+        %tmp.20 = lgetv %model.1;
+        symbol [ model %tmp.20 151 32 37 ];
+        symbol [ getState %tmp.21 151 38 46 ];
+        %tmp.21 = getv function %tmp.20 :getState;
+        %tmp.22 = invoke %tmp.20 %tmp.21();
+        symbol [ SalarmModel %tmp.24 151 50 61 ];
+        %tmp.24 = getv ? :SalarmModel;
+        symbol [ STATE_RINGING %tmp.25 151 62 75 ];
+        %tmp.25 = getv %tmp.24 :STATE_RINGING;
+        %tmp.26 = "Should remain ringing if not pending";
+        invoke %tmp.18 %tmp.19(%tmp.22, %tmp.25, %tmp.26);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 153 8 ]
+        %tmp.27 = true;
+        ret %tmp.27;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_138_79_154_4_stop:
+    }
+    //! Test clear alarm
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 158; test = true; @symbol_functiondef = [testClearAlarm,158,27,41]; @symbol_param<0> = [logger,158,42,48]; @symbol_param<0>_type<0> = [Test,158,52,56]; @symbol_param<0>_type<1> = [Logger,158,57,63]; @symbol_return<0> = [Boolean,158,68,75]; ]
+    public static
+    function testClearAlarm(logger as Test.Logger) as Boolean {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_158_76_172_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 159 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_158_76_172_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_158_76_172_4_stop" ]
+        %model.1 = local;
+        symbol [ model %model.1 159 12 17 ];
+        symbol [ SalarmModel %tmp.4 159 24 35 ];
+        %tmp.4 = getv ? :SalarmModel;
+        %tmp.1 = newc %tmp.4 ();
+        lputv %model.1 %tmp.1;
+        symbol [ model %model.1 159 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 160 8 ]
+        %tmp.5 = lgetv %model.1;
+        symbol [ model %tmp.5 160 8 13 ];
+        symbol [ processIncomingMessage %tmp.6 160 14 36 ];
+        %tmp.6 = getv function %tmp.5 :processIncomingMessage;
+        %tmp.7 = newd 3;
+        %tmp.8 = "type";
+        %tmp.9 = "ALARM_TRIGGER";
+        %tmp.10 = dup %tmp.7;
+        %tmp.11 = aputv %tmp.10 %tmp.8 %tmp.9;
+        %tmp.12 = "title";
+        %tmp.13 = "Test";
+        %tmp.14 = dup %tmp.11;
+        %tmp.15 = aputv %tmp.14 %tmp.12 %tmp.13;
+        %tmp.16 = "id";
+        %tmp.17 = "alarm_1";
+        %tmp.18 = dup %tmp.15;
+        %tmp.19 = aputv %tmp.18 %tmp.16 %tmp.17;
+        invoke %tmp.5 %tmp.6(%tmp.19);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 166 8 ]
+        %tmp.20 = lgetv %model.1;
+        symbol [ model %tmp.20 166 8 13 ];
+        symbol [ clearAlarm %tmp.21 166 14 24 ];
+        %tmp.21 = getv function %tmp.20 :clearAlarm;
+        invoke %tmp.20 %tmp.21();
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 167 8 ]
+        symbol [ Test %tmp.22 167 8 12 ];
+        %tmp.22 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.23 167 13 31 ];
+        %tmp.23 = getv function %tmp.22 :assertEqualMessage;
+        %tmp.24 = lgetv %model.1;
+        symbol [ model %tmp.24 167 32 37 ];
+        symbol [ getState %tmp.25 167 38 46 ];
+        %tmp.25 = getv function %tmp.24 :getState;
+        %tmp.26 = invoke %tmp.24 %tmp.25();
+        symbol [ SalarmModel %tmp.28 167 50 61 ];
+        %tmp.28 = getv ? :SalarmModel;
+        symbol [ STATE_IDLE %tmp.29 167 62 72 ];
+        %tmp.29 = getv %tmp.28 :STATE_IDLE;
+        %tmp.30 = "State should be idle";
+        invoke %tmp.22 %tmp.23(%tmp.26, %tmp.29, %tmp.30);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 168 8 ]
+        symbol [ Test %tmp.31 168 8 12 ];
+        %tmp.31 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.32 168 13 31 ];
+        %tmp.32 = getv function %tmp.31 :assertEqualMessage;
+        %tmp.33 = lgetv %model.1;
+        symbol [ model %tmp.33 168 32 37 ];
+        symbol [ getAlarmId %tmp.34 168 38 48 ];
+        %tmp.34 = getv function %tmp.33 :getAlarmId;
+        %tmp.35 = invoke %tmp.33 %tmp.34();
+        %tmp.36 = "";
+        %tmp.37 = "Alarm id should be cleared";
+        invoke %tmp.31 %tmp.32(%tmp.35, %tmp.36, %tmp.37);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 169 8 ]
+        symbol [ Test %tmp.38 169 8 12 ];
+        %tmp.38 = getm $.Toybox.Test;
+        symbol [ assertEqualMessage %tmp.39 169 13 31 ];
+        %tmp.39 = getv function %tmp.38 :assertEqualMessage;
+        %tmp.40 = lgetv %model.1;
+        symbol [ model %tmp.40 169 32 37 ];
+        symbol [ getTriggerTime %tmp.41 169 38 52 ];
+        %tmp.41 = getv function %tmp.40 :getTriggerTime;
+        %tmp.42 = invoke %tmp.40 %tmp.41();
+        %tmp.43 = 0;
+        %tmp.44 = "Trigger time should be 0";
+        invoke %tmp.38 %tmp.39(%tmp.42, %tmp.43, %tmp.44);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc" 171 8 ]
+        %tmp.45 = true;
+        ret %tmp.45;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmTests_mc_158_76_172_4_stop:
+    }
+}
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmTests.mc"; @line = 1; ]
+<init> {
+}

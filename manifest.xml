@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="3">
+    <iq:application
+        id="a1b2c3d4-e5f6-7890-abcd-ef0123456789"
+        type="watch-app"
+        name="@Strings.AppName"
+        entry="SalarmWatchApp"
+        launcherIcon="@Drawables.LauncherIcon"
+        version="1.0.0"
+        minApiLevel="5.2.0">
+
+        <iq:products>
+            <iq:product id="fr265s"/>
+            <iq:product id="fr165"/>
+            <iq:product id="fr970"/>
+        </iq:products>
+
+        <iq:permissions>
+            <iq:uses-permission id="Communications"/>
+        </iq:permissions>
+    </iq:application>
+</iq:manifest>

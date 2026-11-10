@@ -1,0 +1,93 @@
+import Toybox.Lang;
+import Toybox.Test;
+
+(:typecheck(false) :languageServer(do_not_complete))
+function getTestObject() as RunNoEvil {
+    return new RunNoEvil();
+}
+
+(:typecheck(false) :languageServer(do_not_complete))
+class RunNoEvil extends Test.Test {
+    private var logger as Logger;
+    private var idToName as Array;
+
+    function initialize() {
+        Test.Test.initialize();
+        logger = new Test.Logger();
+        idToName = new [7];
+        populate_test_entries_0_to_7();
+    }
+
+    function getIndexOf(name as String) as Number {
+        if (idToName has :indexOf) {
+            return idToName.indexOf(name);
+        }
+
+        var j = idToName.size();
+        for (var i = 0; i < j; ++i) {
+            if (idToName[i].equals(name)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    function getTestName(id as Number) as String {
+        return idToName[id];
+    }
+
+    function getNumberOfTests() as Number {
+        return idToName.size();
+    }
+
+    function populate_test_entries_0_to_7() as Void {
+        idToName[0] = "SalarmTests.testMessageValidationUpcoming";
+        idToName[1] = "SalarmTests.testMessageValidationRinging";
+        idToName[2] = "SalarmTests.testMalformedPayloads";
+        idToName[3] = "SalarmTests.testActionConfirmationFlow";
+        idToName[4] = "SalarmTests.testActionRejection";
+        idToName[5] = "SalarmTests.testActionTimeout";
+        idToName[6] = "SalarmTests.testClearAlarm";
+    }
+
+    function evaluate_test_entries_0_to_7(id as Number, logger as Logger) {
+        var result = false;
+        if (id == 0) {
+            result = $.SalarmTests.testMessageValidationUpcoming(logger);
+        } else if (id == 1) {
+            result = $.SalarmTests.testMessageValidationRinging(logger);
+        } else if (id == 2) {
+            result = $.SalarmTests.testMalformedPayloads(logger);
+        } else if (id == 3) {
+            result = $.SalarmTests.testActionConfirmationFlow(logger);
+        } else if (id == 4) {
+            result = $.SalarmTests.testActionRejection(logger);
+        } else if (id == 5) {
+            result = $.SalarmTests.testActionTimeout(logger);
+        } else if (id == 6) {
+            result = $.SalarmTests.testClearAlarm(logger);
+        }
+
+        return result;
+    }
+
+    function runTest(test as String or Number) as Boolean {
+        var id = test;
+        if (test instanceof Lang.String) {
+            id = getIndexOf(test);
+        }
+
+        assertMessage(id >= 0, "Could not find '" + test + "'");
+        var result = false;
+        if (id < 7) {
+            result = self.evaluate_test_entries_0_to_7(id, logger);
+        }
+
+        if (result instanceof Boolean) {
+            return result;
+        }
+
+        return false;
+    }
+}

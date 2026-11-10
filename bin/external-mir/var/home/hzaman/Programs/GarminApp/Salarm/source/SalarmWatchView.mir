@@ -1,0 +1,3060 @@
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Graphics,1,14,22]; ]
+import Toybox.Graphics;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Lang,2,14,18]; ]
+import Toybox.Lang;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [Math,3,14,18]; ]
+import Toybox.Math;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 4; @symbol_importdef<0> = [Toybox,4,7,13]; @symbol_importdef<1> = [System,4,14,20]; ]
+import Toybox.System;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 5; @symbol_importdef<0> = [Toybox,5,7,13]; @symbol_importdef<1> = [Time,5,14,18]; ]
+import Toybox.Time;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 6; @symbol_importdef<0> = [Toybox,6,7,13]; @symbol_importdef<1> = [Time,6,14,18]; @symbol_importdef<2> = [Gregorian,6,19,28]; ]
+import Toybox.Time.Gregorian;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 7; @symbol_importdef<0> = [Toybox,7,7,13]; @symbol_importdef<1> = [Timer,7,14,19]; ]
+import Toybox.Timer;
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 8; @symbol_importdef<0> = [Toybox,8,7,13]; @symbol_importdef<1> = [WatchUi,8,14,21]; ]
+import Toybox.WatchUi;
+//! Main view rendering the perimeter ring, moving sun, countdown, and alarm screens
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 11; @symbol_classdef = [SalarmWatchView,11,6,21]; @symbol_extends<0> = [WatchUi,11,30,37]; @symbol_extends<1> = [View,11,38,42]; ]
+class SalarmWatchView extends WatchUi.View {
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 11; ]
+    <init> {
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 11; ]
+    static
+    <init> {
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 13; @position = 16; @symbol_vardef = [_model,13,16,22]; @symbol_type<0> = [SalarmModel,13,26,37]; ]
+    private
+    var _model as SalarmModel;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 14; @position = 16; @symbol_vardef = [_uiTimer,14,16,24]; @symbol_type<0> = [Timer,14,28,33]; @symbol_type<1> = [Timer,14,34,39]; ]
+    private
+    var _uiTimer as Timer.Timer or Null;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 15; @position = 16; @symbol_vardef = [_pulseCounter,15,16,29]; @symbol_type<0> = [Number,15,33,39]; ]
+    private
+    var _pulseCounter as Number = 0;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 18; @position = 18; @symbol_constdef = [COLOR_DARK_BLUE,18,18,33]; @symbol_type<0> = [Number,18,37,43]; ]
+    private
+    const COLOR_DARK_BLUE as Number = 0x0A2540;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 19; @position = 18; @symbol_constdef = [COLOR_LIGHT_BLUE,19,18,34]; @symbol_type<0> = [Number,19,38,44]; ]
+    private
+    const COLOR_LIGHT_BLUE as Number = 0x38BDF8;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 20; @position = 18; @symbol_constdef = [COLOR_SUN_CORE,20,18,32]; @symbol_type<0> = [Number,20,36,42]; ]
+    private
+    const COLOR_SUN_CORE as Number = 0xFFE043;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 21; @position = 18; @symbol_constdef = [COLOR_SUN_HALO,21,18,32]; @symbol_type<0> = [Number,21,36,42]; ]
+    private
+    const COLOR_SUN_HALO as Number = 0xF59E0B;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 22; @position = 18; @symbol_constdef = [COLOR_BG,22,18,26]; @symbol_type<0> = [Number,22,30,36]; ]
+    private
+    const COLOR_BG as Number = 0x000000;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 23; @position = 18; @symbol_constdef = [COLOR_ALERT_RED,23,18,33]; @symbol_type<0> = [Number,23,37,43]; ]
+    private
+    const COLOR_ALERT_RED as Number = 0xDC2626;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 24; @position = 18; @symbol_constdef = [COLOR_ALERT_AMB,24,18,33]; @symbol_type<0> = [Number,24,37,43]; ]
+    private
+    const COLOR_ALERT_AMB as Number = 0xD97706;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 25; @position = 18; @symbol_constdef = [COLOR_ALERT_BLUE,25,18,34]; @symbol_type<0> = [Number,25,38,44]; ]
+    private
+    const COLOR_ALERT_BLUE as Number = 0x0284C7;
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 26; @position = 18; @symbol_constdef = [COLOR_SUCCESS,26,18,31]; @symbol_type<0> = [Number,26,35,41]; ]
+    private
+    const COLOR_SUCCESS as Number = 0x16A34A;
+    //! Constructor
+    //! @param model The application state model
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 30; @symbol_functiondef = [initialize,30,20,30]; @symbol_param<0> = [model,30,31,36]; @symbol_param<0>_type<0> = [SalarmModel,30,40,51]; ]
+    public
+    function initialize(model as SalarmModel) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_30_53_34_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 31 8 ]
+        symbol [ View %tmp.2 31 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 31 13 23 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 32 8 ]
+        %tmp.4 = lgetv %model;
+        symbol [ model %tmp.4 32 17 22 ];
+        symbol [ _model ? 32 8 14 ];
+        putv self :_model %tmp.4;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 33 8 ]
+        symbol [ Timer %tmp.7 33 23 28 ];
+        %tmp.7 = getm $.Toybox.Timer;
+        symbol [ Timer %tmp.8 33 29 34 ];
+        %tmp.8 = getv function ? %tmp.7 :Timer;
+        %tmp.5 = newc %tmp.8 ();
+        symbol [ _uiTimer ? 33 8 16 ];
+        putv self :_uiTimer %tmp.5;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_30_53_34_4_stop:
+    }
+    //! Called when view is shown
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 37; @symbol_functiondef = [onShow,37,20,26]; ]
+    public
+    function onShow() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_37_37_42_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 38 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_38_8_41_8_if_stmt:
+        symbol [ _uiTimer %tmp.2 38 12 20 ];
+        %tmp.2 = getv ? :_uiTimer;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_38_8_41_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_38_8_41_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_38_30_41_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 40 12 ]
+        symbol [ _uiTimer %tmp.6 40 12 20 ];
+        %tmp.6 = getv ? :_uiTimer;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ start %tmp.8 40 21 26 ];
+        %tmp.8 = getv function %tmp.7 :start;
+        %tmp.9 = self;
+        symbol [ method %tmp.10 40 27 33 ];
+        %tmp.10 = getv function %tmp.9 :method;
+        %tmp.12 = const :onTimerTick;
+        symbol [ onTimerTick %tmp.12 40 35 46 const ];
+        %tmp.13 = invoke %tmp.9 %tmp.10(%tmp.12);
+        %tmp.14 = 1000;
+        %tmp.15 = true;
+        invoke %tmp.7 %tmp.8(%tmp.13, %tmp.14, %tmp.15);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_38_30_41_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_38_8_41_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_38_8_41_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_37_37_42_4_stop:
+    }
+    //! Called when view is hidden
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 45; @symbol_functiondef = [onHide,45,20,26]; ]
+    public
+    function onHide() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_45_37_49_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 46 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_46_8_48_8_if_stmt:
+        symbol [ _uiTimer %tmp.2 46 12 20 ];
+        %tmp.2 = getv ? :_uiTimer;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_46_8_48_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_46_8_48_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_46_30_48_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 47 12 ]
+        symbol [ _uiTimer %tmp.6 47 12 20 ];
+        %tmp.6 = getv ? :_uiTimer;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        symbol [ stop %tmp.8 47 21 25 ];
+        %tmp.8 = getv function %tmp.7 :stop;
+        invoke %tmp.7 %tmp.8();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_46_30_48_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_46_8_48_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_46_8_48_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_45_37_49_4_stop:
+    }
+    //! Timer callback
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 52; @symbol_functiondef = [onTimerTick,52,20,31]; ]
+    public
+    function onTimerTick() as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_52_42_55_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 53 8 ]
+        symbol [ _pulseCounter %tmp.2 53 25 38 ];
+        %tmp.2 = getv ? :_pulseCounter;
+        %tmp.3 = 1;
+        %tmp.4 = add %tmp.2 %tmp.3;
+        %tmp.5 = 60;
+        %tmp.6 = mod %tmp.4 %tmp.5;
+        symbol [ _pulseCounter ? 53 8 21 ];
+        putv self :_pulseCounter %tmp.6;
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 54 8 ]
+        symbol [ WatchUi %tmp.7 54 8 15 ];
+        %tmp.7 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.8 54 16 29 ];
+        %tmp.8 = getv function %tmp.7 :requestUpdate;
+        invoke %tmp.7 %tmp.8();
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_52_42_55_4_stop:
+    }
+    //! Main draw function
+    //! @param dc Device Context
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 59; @symbol_functiondef = [onUpdate,59,20,28]; @symbol_param<0> = [dc,59,29,31]; @symbol_param<0>_type<0> = [Graphics,59,35,43]; @symbol_param<0>_type<1> = [Dc,59,44,46]; ]
+    public
+    function onUpdate(dc as Graphics.Dc) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 60 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_stop" ]
+        %w.1 = local;
+        symbol [ w %w.1 60 12 13 ];
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 60 16 18 ];
+        symbol [ getWidth %tmp.2 60 19 27 ];
+        %tmp.2 = getv function %tmp.1 :getWidth;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %w.1 %tmp.3;
+        symbol [ w %w.1 60 12 13 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 61 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_stop" ]
+        %h.2 = local;
+        symbol [ h %h.2 61 12 13 ];
+        %tmp.4 = lgetv %dc;
+        symbol [ dc %tmp.4 61 16 18 ];
+        symbol [ getHeight %tmp.5 61 19 28 ];
+        %tmp.5 = getv function %tmp.4 :getHeight;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        lputv %h.2 %tmp.6;
+        symbol [ h %h.2 61 12 13 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 62 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_stop" ]
+        %cx.3 = local;
+        symbol [ cx %cx.3 62 12 14 ];
+        %tmp.7 = lgetv %w.1;
+        symbol [ w %tmp.7 62 17 18 ];
+        %tmp.8 = 2;
+        %tmp.9 = div %tmp.7 %tmp.8;
+        lputv %cx.3 %tmp.9;
+        symbol [ cx %cx.3 62 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 63 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_stop" ]
+        %cy.4 = local;
+        symbol [ cy %cy.4 63 12 14 ];
+        %tmp.10 = lgetv %h.2;
+        symbol [ h %tmp.10 63 17 18 ];
+        %tmp.11 = 2;
+        %tmp.12 = div %tmp.10 %tmp.11;
+        lputv %cy.4 %tmp.12;
+        symbol [ cy %cy.4 63 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 66 8 ]
+        %tmp.13 = lgetv %dc;
+        symbol [ dc %tmp.13 66 8 10 ];
+        symbol [ setColor %tmp.14 66 11 19 ];
+        %tmp.14 = getv function %tmp.13 :setColor;
+        symbol [ Graphics %tmp.15 66 20 28 ];
+        %tmp.15 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.16 66 29 40 ];
+        %tmp.16 = getv %tmp.15 :COLOR_WHITE;
+        symbol [ COLOR_BG %tmp.18 66 42 50 ];
+        %tmp.18 = getv ? :COLOR_BG;
+        invoke %tmp.13 %tmp.14(%tmp.16, %tmp.18);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 67 8 ]
+        %tmp.19 = lgetv %dc;
+        symbol [ dc %tmp.19 67 8 10 ];
+        symbol [ clear %tmp.20 67 11 16 ];
+        %tmp.20 = getv function %tmp.19 :clear;
+        invoke %tmp.19 %tmp.20();
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 69 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_stop" ]
+        %state.5 = local;
+        symbol [ state %state.5 69 12 17 ];
+        symbol [ _model %tmp.22 69 20 26 ];
+        %tmp.22 = getv ? :_model;
+        symbol [ getState %tmp.23 69 27 35 ];
+        %tmp.23 = getv function %tmp.22 :getState;
+        %tmp.24 = invoke %tmp.22 %tmp.23();
+        lputv %state.5 %tmp.24;
+        symbol [ state %state.5 69 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 71 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_71_8_84_8_if_stmt:
+        %tmp.25 = lgetv %state.5;
+        symbol [ state %tmp.25 71 12 17 ];
+        symbol [ SalarmModel %tmp.27 71 21 32 ];
+        %tmp.27 = getv ? :SalarmModel;
+        symbol [ STATE_RINGING %tmp.28 71 33 46 ];
+        %tmp.28 = getv %tmp.27 :STATE_RINGING;
+        %tmp.29 = eq %tmp.25 %tmp.28;
+        bf %tmp.29 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_71_8_84_8_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_71_8_84_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_71_48_73_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 72 12 ]
+        %tmp.30 = self;
+        symbol [ drawRingingScreen %tmp.31 72 12 29 ];
+        %tmp.31 = getv function %tmp.30 :drawRingingScreen;
+        %tmp.32 = lgetv %dc;
+        symbol [ dc %tmp.32 72 30 32 ];
+        %tmp.33 = lgetv %w.1;
+        symbol [ w %tmp.33 72 34 35 ];
+        %tmp.34 = lgetv %h.2;
+        symbol [ h %tmp.34 72 37 38 ];
+        %tmp.35 = lgetv %cx.3;
+        symbol [ cx %tmp.35 72 40 42 ];
+        %tmp.36 = lgetv %cy.4;
+        symbol [ cy %tmp.36 72 44 46 ];
+        invoke %tmp.30 %tmp.31(%tmp.32, %tmp.33, %tmp.34, %tmp.35, %tmp.36);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_71_48_73_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_71_8_84_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_71_8_84_8_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_73_15_84_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 75 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_73_15_84_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_73_15_84_8_stop" ]
+        %ringRadius.6 = local;
+        symbol [ ringRadius %ringRadius.6 75 16 26 ];
+        %tmp.37 = lgetv %cx.3;
+        symbol [ cx %tmp.37 75 29 31 ];
+        %tmp.38 = 8;
+        %tmp.39 = sub %tmp.37 %tmp.38;
+        lputv %ringRadius.6 %tmp.39;
+        symbol [ ringRadius %ringRadius.6 75 16 26 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 76 12 ]
+        %tmp.40 = self;
+        symbol [ drawPerimeterRing %tmp.41 76 12 29 ];
+        %tmp.41 = getv function %tmp.40 :drawPerimeterRing;
+        %tmp.42 = lgetv %dc;
+        symbol [ dc %tmp.42 76 30 32 ];
+        %tmp.43 = lgetv %cx.3;
+        symbol [ cx %tmp.43 76 34 36 ];
+        %tmp.44 = lgetv %cy.4;
+        symbol [ cy %tmp.44 76 38 40 ];
+        %tmp.45 = lgetv %ringRadius.6;
+        symbol [ ringRadius %tmp.45 76 42 52 ];
+        invoke %tmp.40 %tmp.41(%tmp.42, %tmp.43, %tmp.44, %tmp.45);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 77 12 ]
+        %tmp.46 = self;
+        symbol [ drawMovingSun %tmp.47 77 12 25 ];
+        %tmp.47 = getv function %tmp.46 :drawMovingSun;
+        %tmp.48 = lgetv %dc;
+        symbol [ dc %tmp.48 77 26 28 ];
+        %tmp.49 = lgetv %cx.3;
+        symbol [ cx %tmp.49 77 30 32 ];
+        %tmp.50 = lgetv %cy.4;
+        symbol [ cy %tmp.50 77 34 36 ];
+        %tmp.51 = lgetv %ringRadius.6;
+        symbol [ ringRadius %tmp.51 77 38 48 ];
+        invoke %tmp.46 %tmp.47(%tmp.48, %tmp.49, %tmp.50, %tmp.51);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 79 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_79_12_83_12_if_stmt:
+        %tmp.52 = lgetv %state.5;
+        symbol [ state %tmp.52 79 16 21 ];
+        symbol [ SalarmModel %tmp.54 79 25 36 ];
+        %tmp.54 = getv ? :SalarmModel;
+        symbol [ STATE_UPCOMING %tmp.55 79 37 51 ];
+        %tmp.55 = getv %tmp.54 :STATE_UPCOMING;
+        %tmp.56 = eq %tmp.52 %tmp.55;
+        bf %tmp.56 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_79_12_83_12_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_79_12_83_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_79_53_81_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 80 16 ]
+        %tmp.57 = self;
+        symbol [ drawUpcomingScreen %tmp.58 80 16 34 ];
+        %tmp.58 = getv function %tmp.57 :drawUpcomingScreen;
+        %tmp.59 = lgetv %dc;
+        symbol [ dc %tmp.59 80 35 37 ];
+        %tmp.60 = lgetv %w.1;
+        symbol [ w %tmp.60 80 39 40 ];
+        %tmp.61 = lgetv %h.2;
+        symbol [ h %tmp.61 80 42 43 ];
+        %tmp.62 = lgetv %cx.3;
+        symbol [ cx %tmp.62 80 45 47 ];
+        %tmp.63 = lgetv %cy.4;
+        symbol [ cy %tmp.63 80 49 51 ];
+        invoke %tmp.57 %tmp.58(%tmp.59, %tmp.60, %tmp.61, %tmp.62, %tmp.63);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_79_53_81_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_79_12_83_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_79_12_83_12_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_81_19_83_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 82 16 ]
+        %tmp.64 = self;
+        symbol [ drawIdleScreen %tmp.65 82 16 30 ];
+        %tmp.65 = getv function %tmp.64 :drawIdleScreen;
+        %tmp.66 = lgetv %dc;
+        symbol [ dc %tmp.66 82 31 33 ];
+        %tmp.67 = lgetv %w.1;
+        symbol [ w %tmp.67 82 35 36 ];
+        %tmp.68 = lgetv %h.2;
+        symbol [ h %tmp.68 82 38 39 ];
+        %tmp.69 = lgetv %cx.3;
+        symbol [ cx %tmp.69 82 41 43 ];
+        %tmp.70 = lgetv %cy.4;
+        symbol [ cy %tmp.70 82 45 47 ];
+        invoke %tmp.64 %tmp.65(%tmp.66, %tmp.67, %tmp.68, %tmp.69, %tmp.70);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_81_19_83_12_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_79_12_83_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_73_15_84_8_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_71_8_84_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 87 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_87_8_93_8_if_stmt:
+        %tmp.71 = lgetv %state.5;
+        symbol [ state %tmp.71 87 12 17 ];
+        symbol [ SalarmModel %tmp.73 87 21 32 ];
+        %tmp.73 = getv ? :SalarmModel;
+        symbol [ STATE_ACTION_PENDING %tmp.74 87 33 53 ];
+        %tmp.74 = getv %tmp.73 :STATE_ACTION_PENDING;
+        %tmp.75 = eq %tmp.71 %tmp.74;
+        bf %tmp.75 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_87_8_93_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_87_8_93_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_87_55_89_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 88 12 ]
+        %tmp.76 = self;
+        symbol [ drawPendingOverlay %tmp.77 88 12 30 ];
+        %tmp.77 = getv function %tmp.76 :drawPendingOverlay;
+        %tmp.78 = lgetv %dc;
+        symbol [ dc %tmp.78 88 31 33 ];
+        %tmp.79 = lgetv %w.1;
+        symbol [ w %tmp.79 88 35 36 ];
+        %tmp.80 = lgetv %h.2;
+        symbol [ h %tmp.80 88 38 39 ];
+        %tmp.81 = lgetv %cx.3;
+        symbol [ cx %tmp.81 88 41 43 ];
+        %tmp.82 = lgetv %cy.4;
+        symbol [ cy %tmp.82 88 45 47 ];
+        invoke %tmp.76 %tmp.77(%tmp.78, %tmp.79, %tmp.80, %tmp.81, %tmp.82);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_87_55_89_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_87_8_93_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_87_8_93_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 89 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_89_15_93_8_if_stmt:
+        %tmp.83 = lgetv %state.5;
+        symbol [ state %tmp.83 89 19 24 ];
+        symbol [ SalarmModel %tmp.85 89 28 39 ];
+        %tmp.85 = getv ? :SalarmModel;
+        symbol [ STATE_ACTION_CONFIRMED %tmp.86 89 40 62 ];
+        %tmp.86 = getv %tmp.85 :STATE_ACTION_CONFIRMED;
+        %tmp.87 = eq %tmp.83 %tmp.86;
+        bf %tmp.87 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_89_15_93_8_if_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_89_15_93_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_89_64_91_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 90 12 ]
+        %tmp.88 = self;
+        symbol [ drawConfirmedOverlay %tmp.89 90 12 32 ];
+        %tmp.89 = getv function %tmp.88 :drawConfirmedOverlay;
+        %tmp.90 = lgetv %dc;
+        symbol [ dc %tmp.90 90 33 35 ];
+        %tmp.91 = lgetv %w.1;
+        symbol [ w %tmp.91 90 37 38 ];
+        %tmp.92 = lgetv %h.2;
+        symbol [ h %tmp.92 90 40 41 ];
+        %tmp.93 = lgetv %cx.3;
+        symbol [ cx %tmp.93 90 43 45 ];
+        %tmp.94 = lgetv %cy.4;
+        symbol [ cy %tmp.94 90 47 49 ];
+        invoke %tmp.88 %tmp.89(%tmp.90, %tmp.91, %tmp.92, %tmp.93, %tmp.94);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_89_64_91_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_89_15_93_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_89_15_93_8_if_false:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 91 15 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_91_15_93_8_if_stmt:
+        %tmp.95 = lgetv %state.5;
+        symbol [ state %tmp.95 91 19 24 ];
+        symbol [ SalarmModel %tmp.97 91 28 39 ];
+        %tmp.97 = getv ? :SalarmModel;
+        symbol [ STATE_ACTION_FAILED %tmp.98 91 40 59 ];
+        %tmp.98 = getv %tmp.97 :STATE_ACTION_FAILED;
+        %tmp.99 = eq %tmp.95 %tmp.98;
+        bf %tmp.99 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_91_15_93_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_91_15_93_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_91_61_93_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 92 12 ]
+        %tmp.100 = self;
+        symbol [ drawFailedOverlay %tmp.101 92 12 29 ];
+        %tmp.101 = getv function %tmp.100 :drawFailedOverlay;
+        %tmp.102 = lgetv %dc;
+        symbol [ dc %tmp.102 92 30 32 ];
+        %tmp.103 = lgetv %w.1;
+        symbol [ w %tmp.103 92 34 35 ];
+        %tmp.104 = lgetv %h.2;
+        symbol [ h %tmp.104 92 37 38 ];
+        %tmp.105 = lgetv %cx.3;
+        symbol [ cx %tmp.105 92 40 42 ];
+        %tmp.106 = lgetv %cy.4;
+        symbol [ cy %tmp.106 92 44 46 ];
+        invoke %tmp.100 %tmp.101(%tmp.102, %tmp.103, %tmp.104, %tmp.105, %tmp.106);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_91_61_93_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_91_15_93_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_91_15_93_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_89_15_93_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_87_8_93_8_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_59_56_94_4_stop:
+    }
+    //! Draws circular perimeter ring: dark blue at bottom (270°), light blue at top (90°)
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 101; @symbol_functiondef = [drawPerimeterRing,101,21,38]; @symbol_param<0> = [dc,101,39,41]; @symbol_param<0>_type<0> = [Graphics,101,45,53]; @symbol_param<0>_type<1> = [Dc,101,54,56]; @symbol_param<1> = [cx,101,58,60]; @symbol_param<1>_type<0> = [Number,101,64,70]; @symbol_param<2> = [cy,101,72,74]; @symbol_param<2>_type<0> = [Number,101,78,84]; @symbol_param<3> = [radius,101,86,92]; @symbol_param<3>_type<0> = [Number,101,96,102]; ]
+    private
+    function drawPerimeterRing(dc as Graphics.Dc, cx as Number, cy as Number, radius as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 102 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %penWidth.1 = local;
+        symbol [ penWidth %penWidth.1 102 12 20 ];
+        %tmp.1 = 5;
+        lputv %penWidth.1 %tmp.1;
+        symbol [ penWidth %penWidth.1 102 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 103 8 ]
+        %tmp.2 = lgetv %dc;
+        symbol [ dc %tmp.2 103 8 10 ];
+        symbol [ setPenWidth %tmp.3 103 11 22 ];
+        %tmp.3 = getv function %tmp.2 :setPenWidth;
+        %tmp.4 = lgetv %penWidth.1;
+        symbol [ penWidth %tmp.4 103 23 31 ];
+        invoke %tmp.2 %tmp.3(%tmp.4);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 106 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %rDark.2 = local;
+        symbol [ rDark %rDark.2 106 12 17 ];
+        symbol [ COLOR_DARK_BLUE %tmp.6 106 21 36 ];
+        %tmp.6 = getv ? :COLOR_DARK_BLUE;
+        %tmp.7 = 16;
+        %tmp.8 = shr %tmp.6 %tmp.7;
+        %tmp.9 = 0xFF;
+        %tmp.10 = bitand %tmp.8 %tmp.9;
+        lputv %rDark.2 %tmp.10;
+        symbol [ rDark %rDark.2 106 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 107 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %gDark.3 = local;
+        symbol [ gDark %gDark.3 107 12 17 ];
+        symbol [ COLOR_DARK_BLUE %tmp.12 107 21 36 ];
+        %tmp.12 = getv ? :COLOR_DARK_BLUE;
+        %tmp.13 = 8;
+        %tmp.14 = shr %tmp.12 %tmp.13;
+        %tmp.15 = 0xFF;
+        %tmp.16 = bitand %tmp.14 %tmp.15;
+        lputv %gDark.3 %tmp.16;
+        symbol [ gDark %gDark.3 107 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 108 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %bDark.4 = local;
+        symbol [ bDark %bDark.4 108 12 17 ];
+        symbol [ COLOR_DARK_BLUE %tmp.18 108 20 35 ];
+        %tmp.18 = getv ? :COLOR_DARK_BLUE;
+        %tmp.19 = 0xFF;
+        %tmp.20 = bitand %tmp.18 %tmp.19;
+        lputv %bDark.4 %tmp.20;
+        symbol [ bDark %bDark.4 108 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 110 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %rLight.5 = local;
+        symbol [ rLight %rLight.5 110 12 18 ];
+        symbol [ COLOR_LIGHT_BLUE %tmp.22 110 22 38 ];
+        %tmp.22 = getv ? :COLOR_LIGHT_BLUE;
+        %tmp.23 = 16;
+        %tmp.24 = shr %tmp.22 %tmp.23;
+        %tmp.25 = 0xFF;
+        %tmp.26 = bitand %tmp.24 %tmp.25;
+        lputv %rLight.5 %tmp.26;
+        symbol [ rLight %rLight.5 110 12 18 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 111 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %gLight.6 = local;
+        symbol [ gLight %gLight.6 111 12 18 ];
+        symbol [ COLOR_LIGHT_BLUE %tmp.28 111 22 38 ];
+        %tmp.28 = getv ? :COLOR_LIGHT_BLUE;
+        %tmp.29 = 8;
+        %tmp.30 = shr %tmp.28 %tmp.29;
+        %tmp.31 = 0xFF;
+        %tmp.32 = bitand %tmp.30 %tmp.31;
+        lputv %gLight.6 %tmp.32;
+        symbol [ gLight %gLight.6 111 12 18 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 112 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %bLight.7 = local;
+        symbol [ bLight %bLight.7 112 12 18 ];
+        symbol [ COLOR_LIGHT_BLUE %tmp.34 112 21 37 ];
+        %tmp.34 = getv ? :COLOR_LIGHT_BLUE;
+        %tmp.35 = 0xFF;
+        %tmp.36 = bitand %tmp.34 %tmp.35;
+        lputv %bLight.7 %tmp.36;
+        symbol [ bLight %bLight.7 112 12 18 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 115 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %segments.8 = local;
+        symbol [ segments %segments.8 115 12 20 ];
+        %tmp.37 = 36;
+        lputv %segments.8 %tmp.37;
+        symbol [ segments %segments.8 115 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 116 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop" ]
+        %step.9 = local;
+        symbol [ step %step.9 116 12 16 ];
+        %tmp.38 = 360.0;
+        %tmp.39 = lgetv %segments.8;
+        symbol [ segments %tmp.39 116 27 35 ];
+        %tmp.40 = div %tmp.38 %tmp.39;
+        lputv %step.9 %tmp.40;
+        symbol [ step %step.9 116 12 16 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 118 8 ]
+        for @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_test @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_incr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_init:
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_begin" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_end" ]
+        %i.10 = local;
+        symbol [ i %i.10 118 17 18 ];
+        %tmp.41 = 0;
+        lputv %i.10 %tmp.41;
+        symbol [ i %i.10 118 17 18 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_test:
+        %tmp.42 = lgetv %i.10;
+        symbol [ i %tmp.42 118 24 25 ];
+        %tmp.43 = lgetv %segments.8;
+        symbol [ segments %tmp.43 118 28 36 ];
+        %tmp.44 = lt %tmp.42 %tmp.43;
+        bf %tmp.44 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_begin:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 119 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %startDeg.11 = local;
+        symbol [ startDeg %startDeg.11 119 16 24 ];
+        %tmp.45 = lgetv %i.10;
+        symbol [ i %tmp.45 119 27 28 ];
+        %tmp.46 = lgetv %step.9;
+        symbol [ step %tmp.46 119 31 35 ];
+        %tmp.47 = mul %tmp.45 %tmp.46;
+        lputv %startDeg.11 %tmp.47;
+        symbol [ startDeg %startDeg.11 119 16 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 120 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %endDeg.12 = local;
+        symbol [ endDeg %endDeg.12 120 16 22 ];
+        %tmp.48 = lgetv %i.10;
+        symbol [ i %tmp.48 120 26 27 ];
+        %tmp.49 = 1;
+        %tmp.50 = add %tmp.48 %tmp.49;
+        %tmp.51 = lgetv %step.9;
+        symbol [ step %tmp.51 120 35 39 ];
+        %tmp.52 = mul %tmp.50 %tmp.51;
+        lputv %endDeg.12 %tmp.52;
+        symbol [ endDeg %endDeg.12 120 16 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 121 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %midDeg.13 = local;
+        symbol [ midDeg %midDeg.13 121 16 22 ];
+        %tmp.53 = lgetv %startDeg.11;
+        symbol [ startDeg %tmp.53 121 25 33 ];
+        %tmp.54 = lgetv %step.9;
+        symbol [ step %tmp.54 121 37 41 ];
+        %tmp.55 = 2.0;
+        %tmp.56 = div %tmp.54 %tmp.55;
+        %tmp.57 = add %tmp.53 %tmp.56;
+        lputv %midDeg.13 %tmp.57;
+        symbol [ midDeg %midDeg.13 121 16 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 125 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %rad.14 = local;
+        symbol [ rad %rad.14 125 16 19 ];
+        symbol [ Math %tmp.58 125 22 26 ];
+        %tmp.58 = getm $.Toybox.Math;
+        symbol [ toRadians %tmp.59 125 27 36 ];
+        %tmp.59 = getv function %tmp.58 :toRadians;
+        %tmp.60 = lgetv %midDeg.13;
+        symbol [ midDeg %tmp.60 125 37 43 ];
+        %tmp.61 = invoke %tmp.58 %tmp.59(%tmp.60);
+        lputv %rad.14 %tmp.61;
+        symbol [ rad %rad.14 125 16 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 126 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %sinVal.15 = local;
+        symbol [ sinVal %sinVal.15 126 16 22 ];
+        symbol [ Math %tmp.62 126 25 29 ];
+        %tmp.62 = getm $.Toybox.Math;
+        symbol [ sin %tmp.63 126 30 33 ];
+        %tmp.63 = getv function %tmp.62 :sin;
+        %tmp.64 = lgetv %rad.14;
+        symbol [ rad %tmp.64 126 34 37 ];
+        %tmp.65 = invoke %tmp.62 %tmp.63(%tmp.64);
+        lputv %sinVal.15 %tmp.65;
+        symbol [ sinVal %sinVal.15 126 16 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 127 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %t.16 = local;
+        symbol [ t %t.16 127 16 17 ];
+        %tmp.66 = lgetv %sinVal.15;
+        symbol [ sinVal %tmp.66 127 21 27 ];
+        %tmp.67 = 1.0;
+        %tmp.68 = add %tmp.66 %tmp.67;
+        %tmp.69 = 2.0;
+        %tmp.70 = div %tmp.68 %tmp.69;
+        lputv %t.16 %tmp.70;
+        symbol [ t %t.16 127 16 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 129 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %r.17 = local;
+        symbol [ r %r.17 129 16 17 ];
+        %tmp.71 = lgetv %rDark.2;
+        symbol [ rDark %tmp.71 129 21 26 ];
+        %tmp.72 = lgetv %t.16;
+        symbol [ t %tmp.72 129 29 30 ];
+        %tmp.73 = lgetv %rLight.5;
+        symbol [ rLight %tmp.73 129 34 40 ];
+        %tmp.74 = lgetv %rDark.2;
+        symbol [ rDark %tmp.74 129 43 48 ];
+        %tmp.75 = sub %tmp.73 %tmp.74;
+        %tmp.76 = mul %tmp.72 %tmp.75;
+        %tmp.77 = add %tmp.71 %tmp.76;
+        symbol [ toNumber %tmp.78 129 51 59 ];
+        %tmp.78 = getv function %tmp.77 :toNumber;
+        %tmp.79 = invoke %tmp.77 %tmp.78();
+        lputv %r.17 %tmp.79;
+        symbol [ r %r.17 129 16 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 130 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %g.18 = local;
+        symbol [ g %g.18 130 16 17 ];
+        %tmp.80 = lgetv %gDark.3;
+        symbol [ gDark %tmp.80 130 21 26 ];
+        %tmp.81 = lgetv %t.16;
+        symbol [ t %tmp.81 130 29 30 ];
+        %tmp.82 = lgetv %gLight.6;
+        symbol [ gLight %tmp.82 130 34 40 ];
+        %tmp.83 = lgetv %gDark.3;
+        symbol [ gDark %tmp.83 130 43 48 ];
+        %tmp.84 = sub %tmp.82 %tmp.83;
+        %tmp.85 = mul %tmp.81 %tmp.84;
+        %tmp.86 = add %tmp.80 %tmp.85;
+        symbol [ toNumber %tmp.87 130 51 59 ];
+        %tmp.87 = getv function %tmp.86 :toNumber;
+        %tmp.88 = invoke %tmp.86 %tmp.87();
+        lputv %g.18 %tmp.88;
+        symbol [ g %g.18 130 16 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 131 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %b.19 = local;
+        symbol [ b %b.19 131 16 17 ];
+        %tmp.89 = lgetv %bDark.4;
+        symbol [ bDark %tmp.89 131 21 26 ];
+        %tmp.90 = lgetv %t.16;
+        symbol [ t %tmp.90 131 29 30 ];
+        %tmp.91 = lgetv %bLight.7;
+        symbol [ bLight %tmp.91 131 34 40 ];
+        %tmp.92 = lgetv %bDark.4;
+        symbol [ bDark %tmp.92 131 43 48 ];
+        %tmp.93 = sub %tmp.91 %tmp.92;
+        %tmp.94 = mul %tmp.90 %tmp.93;
+        %tmp.95 = add %tmp.89 %tmp.94;
+        symbol [ toNumber %tmp.96 131 51 59 ];
+        %tmp.96 = getv function %tmp.95 :toNumber;
+        %tmp.97 = invoke %tmp.95 %tmp.96();
+        lputv %b.19 %tmp.97;
+        symbol [ b %b.19 131 16 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 132 12 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop" ]
+        %segColor.20 = local;
+        symbol [ segColor %segColor.20 132 16 24 ];
+        %tmp.98 = lgetv %r.17;
+        symbol [ r %tmp.98 132 28 29 ];
+        %tmp.99 = 16;
+        %tmp.100 = shl %tmp.98 %tmp.99;
+        %tmp.101 = lgetv %g.18;
+        symbol [ g %tmp.101 132 40 41 ];
+        %tmp.102 = 8;
+        %tmp.103 = shl %tmp.101 %tmp.102;
+        %tmp.104 = bitor %tmp.100 %tmp.103;
+        %tmp.105 = lgetv %b.19;
+        symbol [ b %tmp.105 132 50 51 ];
+        %tmp.106 = bitor %tmp.104 %tmp.105;
+        lputv %segColor.20 %tmp.106;
+        symbol [ segColor %segColor.20 132 16 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 134 12 ]
+        %tmp.107 = lgetv %dc;
+        symbol [ dc %tmp.107 134 12 14 ];
+        symbol [ setColor %tmp.108 134 15 23 ];
+        %tmp.108 = getv function %tmp.107 :setColor;
+        %tmp.109 = lgetv %segColor.20;
+        symbol [ segColor %tmp.109 134 24 32 ];
+        symbol [ Graphics %tmp.110 134 34 42 ];
+        %tmp.110 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.111 134 43 60 ];
+        %tmp.111 = getv %tmp.110 :COLOR_TRANSPARENT;
+        invoke %tmp.107 %tmp.108(%tmp.109, %tmp.111);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 135 12 ]
+        %tmp.112 = lgetv %dc;
+        symbol [ dc %tmp.112 135 12 14 ];
+        symbol [ drawArc %tmp.113 135 15 22 ];
+        %tmp.113 = getv function %tmp.112 :drawArc;
+        %tmp.114 = lgetv %cx;
+        symbol [ cx %tmp.114 135 23 25 ];
+        %tmp.115 = lgetv %cy;
+        symbol [ cy %tmp.115 135 27 29 ];
+        %tmp.116 = lgetv %radius;
+        symbol [ radius %tmp.116 135 31 37 ];
+        symbol [ Graphics %tmp.117 135 39 47 ];
+        %tmp.117 = getm $.Toybox.Graphics;
+        symbol [ ARC_COUNTER_CLOCKWISE %tmp.118 135 48 69 ];
+        %tmp.118 = getv %tmp.117 :ARC_COUNTER_CLOCKWISE;
+        %tmp.119 = lgetv %startDeg.11;
+        symbol [ startDeg %tmp.119 135 71 79 ];
+        symbol [ toNumber %tmp.120 135 80 88 ];
+        %tmp.120 = getv function %tmp.119 :toNumber;
+        %tmp.121 = invoke %tmp.119 %tmp.120();
+        %tmp.122 = lgetv %endDeg.12;
+        symbol [ endDeg %tmp.122 135 92 98 ];
+        symbol [ toNumber %tmp.123 135 99 107 ];
+        %tmp.123 = getv function %tmp.122 :toNumber;
+        %tmp.124 = invoke %tmp.122 %tmp.123();
+        %tmp.125 = 1;
+        %tmp.126 = add %tmp.124 %tmp.125;
+        invoke %tmp.112 %tmp.113(%tmp.114, %tmp.115, %tmp.116, %tmp.118, %tmp.121, %tmp.126);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_43_136_8_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_incr:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 118 ]
+        %tmp.129 = lgetv %i.10;
+        symbol [ i %tmp.129 118 38 39 ];
+        %tmp.130 = add %tmp.129 1;
+        lputv %i.10 %tmp.130;
+        symbol [ i %i.10 118 38 39 ];
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_test;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_118_8_136_8_for_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_101_112_137_4_stop:
+    }
+    //! Draws small sun moving around ring according to local time of day
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 140; @symbol_functiondef = [drawMovingSun,140,21,34]; @symbol_param<0> = [dc,140,35,37]; @symbol_param<0>_type<0> = [Graphics,140,41,49]; @symbol_param<0>_type<1> = [Dc,140,50,52]; @symbol_param<1> = [cx,140,54,56]; @symbol_param<1>_type<0> = [Number,140,60,66]; @symbol_param<2> = [cy,140,68,70]; @symbol_param<2>_type<0> = [Number,140,74,80]; @symbol_param<3> = [radius,140,82,88]; @symbol_param<3>_type<0> = [Number,140,92,98]; ]
+    private
+    function drawMovingSun(dc as Graphics.Dc, cx as Number, cy as Number, radius as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 141 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_stop" ]
+        %clockTime.1 = local;
+        symbol [ clockTime %clockTime.1 141 12 21 ];
+        symbol [ System %tmp.1 141 24 30 ];
+        %tmp.1 = getm $.Toybox.System;
+        symbol [ getClockTime %tmp.2 141 31 43 ];
+        %tmp.2 = getv function %tmp.1 :getClockTime;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %clockTime.1 %tmp.3;
+        symbol [ clockTime %clockTime.1 141 12 21 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 142 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_stop" ]
+        %totalSeconds.2 = local;
+        symbol [ totalSeconds %totalSeconds.2 142 12 24 ];
+        %tmp.4 = lgetv %clockTime.1;
+        symbol [ clockTime %tmp.4 142 27 36 ];
+        symbol [ hour %tmp.5 142 37 41 ];
+        %tmp.5 = getv %tmp.4 :hour;
+        %tmp.6 = 3600;
+        %tmp.7 = mul %tmp.5 %tmp.6;
+        %tmp.8 = lgetv %clockTime.1;
+        symbol [ clockTime %tmp.8 142 51 60 ];
+        symbol [ min %tmp.9 142 61 64 ];
+        %tmp.9 = getv %tmp.8 :min;
+        %tmp.10 = 60;
+        %tmp.11 = mul %tmp.9 %tmp.10;
+        %tmp.12 = add %tmp.7 %tmp.11;
+        %tmp.13 = lgetv %clockTime.1;
+        symbol [ clockTime %tmp.13 142 72 81 ];
+        symbol [ sec %tmp.14 142 82 85 ];
+        %tmp.14 = getv %tmp.13 :sec;
+        %tmp.15 = add %tmp.12 %tmp.14;
+        lputv %totalSeconds.2 %tmp.15;
+        symbol [ totalSeconds %totalSeconds.2 142 12 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 143 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_stop" ]
+        %dayFraction.3 = local;
+        symbol [ dayFraction %dayFraction.3 143 12 23 ];
+        %tmp.16 = lgetv %totalSeconds.2;
+        symbol [ totalSeconds %tmp.16 143 26 38 ];
+        symbol [ toFloat %tmp.17 143 39 46 ];
+        %tmp.17 = getv function %tmp.16 :toFloat;
+        %tmp.18 = invoke %tmp.16 %tmp.17();
+        %tmp.19 = 86400.0;
+        %tmp.20 = div %tmp.18 %tmp.19;
+        lputv %dayFraction.3 %tmp.20;
+        symbol [ dayFraction %dayFraction.3 143 12 23 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 149 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_stop" ]
+        %sunAngleDeg.4 = local;
+        symbol [ sunAngleDeg %sunAngleDeg.4 149 12 23 ];
+        %tmp.21 = 270.0;
+        %tmp.22 = lgetv %dayFraction.3;
+        symbol [ dayFraction %tmp.22 149 35 46 ];
+        %tmp.23 = 360.0;
+        %tmp.24 = mul %tmp.22 %tmp.23;
+        %tmp.25 = sub %tmp.21 %tmp.24;
+        lputv %sunAngleDeg.4 %tmp.25;
+        symbol [ sunAngleDeg %sunAngleDeg.4 149 12 23 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 150 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_stop" ]
+        %sunRad.5 = local;
+        symbol [ sunRad %sunRad.5 150 12 18 ];
+        symbol [ Math %tmp.26 150 21 25 ];
+        %tmp.26 = getm $.Toybox.Math;
+        symbol [ toRadians %tmp.27 150 26 35 ];
+        %tmp.27 = getv function %tmp.26 :toRadians;
+        %tmp.28 = lgetv %sunAngleDeg.4;
+        symbol [ sunAngleDeg %tmp.28 150 36 47 ];
+        %tmp.29 = invoke %tmp.26 %tmp.27(%tmp.28);
+        lputv %sunRad.5 %tmp.29;
+        symbol [ sunRad %sunRad.5 150 12 18 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 152 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_stop" ]
+        %sunX.6 = local;
+        symbol [ sunX %sunX.6 152 12 16 ];
+        %tmp.30 = lgetv %cx;
+        symbol [ cx %tmp.30 152 19 21 ];
+        %tmp.31 = lgetv %radius;
+        symbol [ radius %tmp.31 152 25 31 ];
+        symbol [ Math %tmp.32 152 34 38 ];
+        %tmp.32 = getm $.Toybox.Math;
+        symbol [ cos %tmp.33 152 39 42 ];
+        %tmp.33 = getv function %tmp.32 :cos;
+        %tmp.34 = lgetv %sunRad.5;
+        symbol [ sunRad %tmp.34 152 43 49 ];
+        %tmp.35 = invoke %tmp.32 %tmp.33(%tmp.34);
+        %tmp.36 = mul %tmp.31 %tmp.35;
+        symbol [ toNumber %tmp.37 152 52 60 ];
+        %tmp.37 = getv function %tmp.36 :toNumber;
+        %tmp.38 = invoke %tmp.36 %tmp.37();
+        %tmp.39 = add %tmp.30 %tmp.38;
+        lputv %sunX.6 %tmp.39;
+        symbol [ sunX %sunX.6 152 12 16 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 153 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_stop" ]
+        %sunY.7 = local;
+        symbol [ sunY %sunY.7 153 12 16 ];
+        %tmp.40 = lgetv %cy;
+        symbol [ cy %tmp.40 153 19 21 ];
+        %tmp.41 = lgetv %radius;
+        symbol [ radius %tmp.41 153 25 31 ];
+        symbol [ Math %tmp.42 153 34 38 ];
+        %tmp.42 = getm $.Toybox.Math;
+        symbol [ sin %tmp.43 153 39 42 ];
+        %tmp.43 = getv function %tmp.42 :sin;
+        %tmp.44 = lgetv %sunRad.5;
+        symbol [ sunRad %tmp.44 153 43 49 ];
+        %tmp.45 = invoke %tmp.42 %tmp.43(%tmp.44);
+        %tmp.46 = mul %tmp.41 %tmp.45;
+        symbol [ toNumber %tmp.47 153 52 60 ];
+        %tmp.47 = getv function %tmp.46 :toNumber;
+        %tmp.48 = invoke %tmp.46 %tmp.47();
+        %tmp.49 = sub %tmp.40 %tmp.48;
+        lputv %sunY.7 %tmp.49;
+        symbol [ sunY %sunY.7 153 12 16 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 156 8 ]
+        %tmp.50 = lgetv %dc;
+        symbol [ dc %tmp.50 156 8 10 ];
+        symbol [ setColor %tmp.51 156 11 19 ];
+        %tmp.51 = getv function %tmp.50 :setColor;
+        symbol [ COLOR_SUN_HALO %tmp.53 156 20 34 ];
+        %tmp.53 = getv ? :COLOR_SUN_HALO;
+        symbol [ Graphics %tmp.54 156 36 44 ];
+        %tmp.54 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.55 156 45 62 ];
+        %tmp.55 = getv %tmp.54 :COLOR_TRANSPARENT;
+        invoke %tmp.50 %tmp.51(%tmp.53, %tmp.55);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 157 8 ]
+        %tmp.56 = lgetv %dc;
+        symbol [ dc %tmp.56 157 8 10 ];
+        symbol [ fillCircle %tmp.57 157 11 21 ];
+        %tmp.57 = getv function %tmp.56 :fillCircle;
+        %tmp.58 = lgetv %sunX.6;
+        symbol [ sunX %tmp.58 157 22 26 ];
+        %tmp.59 = lgetv %sunY.7;
+        symbol [ sunY %tmp.59 157 28 32 ];
+        %tmp.60 = 7;
+        invoke %tmp.56 %tmp.57(%tmp.58, %tmp.59, %tmp.60);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 160 8 ]
+        %tmp.61 = lgetv %dc;
+        symbol [ dc %tmp.61 160 8 10 ];
+        symbol [ setColor %tmp.62 160 11 19 ];
+        %tmp.62 = getv function %tmp.61 :setColor;
+        symbol [ COLOR_SUN_CORE %tmp.64 160 20 34 ];
+        %tmp.64 = getv ? :COLOR_SUN_CORE;
+        symbol [ Graphics %tmp.65 160 36 44 ];
+        %tmp.65 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.66 160 45 62 ];
+        %tmp.66 = getv %tmp.65 :COLOR_TRANSPARENT;
+        invoke %tmp.61 %tmp.62(%tmp.64, %tmp.66);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 161 8 ]
+        %tmp.67 = lgetv %dc;
+        symbol [ dc %tmp.67 161 8 10 ];
+        symbol [ fillCircle %tmp.68 161 11 21 ];
+        %tmp.68 = getv function %tmp.67 :fillCircle;
+        %tmp.69 = lgetv %sunX.6;
+        symbol [ sunX %tmp.69 161 22 26 ];
+        %tmp.70 = lgetv %sunY.7;
+        symbol [ sunY %tmp.70 161 28 32 ];
+        %tmp.71 = 4;
+        invoke %tmp.67 %tmp.68(%tmp.69, %tmp.70, %tmp.71);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_140_108_162_4_stop:
+    }
+    //! Renders upcoming alarm countdown and event subtitle
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 169; @symbol_functiondef = [drawUpcomingScreen,169,21,39]; @symbol_param<0> = [dc,169,40,42]; @symbol_param<0>_type<0> = [Graphics,169,46,54]; @symbol_param<0>_type<1> = [Dc,169,55,57]; @symbol_param<1> = [w,169,59,60]; @symbol_param<1>_type<0> = [Number,169,64,70]; @symbol_param<2> = [h,169,72,73]; @symbol_param<2>_type<0> = [Number,169,77,83]; @symbol_param<3> = [cx,169,85,87]; @symbol_param<3>_type<0> = [Number,169,91,97]; @symbol_param<4> = [cy,169,99,101]; @symbol_param<4>_type<0> = [Number,169,105,111]; ]
+    private
+    function drawUpcomingScreen(dc as Graphics.Dc, w as Number, h as Number, cx as Number, cy as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 170 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %trigger.1 = local;
+        symbol [ trigger %trigger.1 170 12 19 ];
+        symbol [ _model %tmp.2 170 22 28 ];
+        %tmp.2 = getv ? :_model;
+        symbol [ getTriggerTime %tmp.3 170 29 43 ];
+        %tmp.3 = getv function %tmp.2 :getTriggerTime;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        lputv %trigger.1 %tmp.4;
+        symbol [ trigger %trigger.1 170 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 171 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %now.2 = local;
+        symbol [ now %now.2 171 12 15 ];
+        symbol [ Time %tmp.5 171 18 22 ];
+        %tmp.5 = getm $.Toybox.Time;
+        symbol [ now %tmp.6 171 23 26 ];
+        %tmp.6 = getv function %tmp.5 :now;
+        %tmp.7 = invoke %tmp.5 %tmp.6();
+        symbol [ value %tmp.8 171 29 34 ];
+        %tmp.8 = getv function %tmp.7 :value;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        lputv %now.2 %tmp.9;
+        symbol [ now %now.2 171 12 15 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 172 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %diff.3 = local;
+        symbol [ diff %diff.3 172 12 16 ];
+        %tmp.10 = lgetv %trigger.1;
+        symbol [ trigger %tmp.10 172 19 26 ];
+        %tmp.11 = lgetv %now.2;
+        symbol [ now %tmp.11 172 29 32 ];
+        %tmp.12 = sub %tmp.10 %tmp.11;
+        lputv %diff.3 %tmp.12;
+        symbol [ diff %diff.3 172 12 16 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 174 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %countdownStr.4 = local;
+        symbol [ countdownStr %countdownStr.4 174 12 24 ];
+        %tmp.13 = "0:00";
+        lputv %countdownStr.4 %tmp.13;
+        symbol [ countdownStr %countdownStr.4 174 12 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 175 8 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_175_8_185_8_if_stmt:
+        %tmp.14 = lgetv %diff.3;
+        symbol [ diff %tmp.14 175 12 16 ];
+        %tmp.15 = 0;
+        %tmp.16 = gt %tmp.14 %tmp.15;
+        bf %tmp.16 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_175_8_185_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_175_8_185_8_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_175_22_185_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 176 12 ]
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_12_184_12_if_stmt:
+        %tmp.17 = lgetv %diff.3;
+        symbol [ diff %tmp.17 176 16 20 ];
+        %tmp.18 = 3600;
+        %tmp.19 = gte %tmp.17 %tmp.18;
+        bf %tmp.19 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_12_184_12_if_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_12_184_12_if_true:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_30_180_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 177 16 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_30_180_12_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_30_180_12_stop" ]
+        %hours.5 = local;
+        symbol [ hours %hours.5 177 20 25 ];
+        %tmp.20 = lgetv %diff.3;
+        symbol [ diff %tmp.20 177 28 32 ];
+        %tmp.21 = 3600;
+        %tmp.22 = div %tmp.20 %tmp.21;
+        lputv %hours.5 %tmp.22;
+        symbol [ hours %hours.5 177 20 25 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 178 16 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_30_180_12_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_30_180_12_stop" ]
+        %mins.6 = local;
+        symbol [ mins %mins.6 178 20 24 ];
+        %tmp.23 = lgetv %diff.3;
+        symbol [ diff %tmp.23 178 28 32 ];
+        %tmp.24 = 3600;
+        %tmp.25 = mod %tmp.23 %tmp.24;
+        %tmp.26 = 60;
+        %tmp.27 = div %tmp.25 %tmp.26;
+        lputv %mins.6 %tmp.27;
+        symbol [ mins %mins.6 178 20 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 179 16 ]
+        symbol [ Lang %tmp.28 179 31 35 ];
+        %tmp.28 = getm $.Toybox.Lang;
+        symbol [ format %tmp.29 179 36 42 ];
+        %tmp.29 = getv function %tmp.28 :format;
+        %tmp.30 = "$1$:$2$";
+        %tmp.31 = newa 2;
+        %tmp.32 = lgetv %hours.5;
+        symbol [ hours %tmp.32 179 55 60 ];
+        %tmp.33 = dup %tmp.31;
+        %tmp.34 = aputv %tmp.33 0 %tmp.32;
+        %tmp.35 = lgetv %mins.6;
+        symbol [ mins %tmp.35 179 62 66 ];
+        symbol [ format %tmp.36 179 67 73 ];
+        %tmp.36 = getv function %tmp.35 :format;
+        %tmp.37 = "%02d";
+        %tmp.38 = invoke %tmp.35 %tmp.36(%tmp.37);
+        %tmp.39 = dup %tmp.34;
+        %tmp.40 = aputv %tmp.39 1 %tmp.38;
+        %tmp.41 = invoke %tmp.28 %tmp.29(%tmp.30, %tmp.40);
+        lputv %countdownStr.4 %tmp.41;
+        symbol [ countdownStr %countdownStr.4 179 16 28 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_30_180_12_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_12_184_12_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_12_184_12_if_else_false:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_180_19_184_12_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 181 16 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_180_19_184_12_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_180_19_184_12_stop" ]
+        %mins.7 = local;
+        symbol [ mins %mins.7 181 20 24 ];
+        %tmp.42 = lgetv %diff.3;
+        symbol [ diff %tmp.42 181 27 31 ];
+        %tmp.43 = 60;
+        %tmp.44 = div %tmp.42 %tmp.43;
+        lputv %mins.7 %tmp.44;
+        symbol [ mins %mins.7 181 20 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 182 16 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_180_19_184_12_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_180_19_184_12_stop" ]
+        %secs.8 = local;
+        symbol [ secs %secs.8 182 20 24 ];
+        %tmp.45 = lgetv %diff.3;
+        symbol [ diff %tmp.45 182 27 31 ];
+        %tmp.46 = 60;
+        %tmp.47 = mod %tmp.45 %tmp.46;
+        lputv %secs.8 %tmp.47;
+        symbol [ secs %secs.8 182 20 24 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 183 16 ]
+        symbol [ Lang %tmp.48 183 31 35 ];
+        %tmp.48 = getm $.Toybox.Lang;
+        symbol [ format %tmp.49 183 36 42 ];
+        %tmp.49 = getv function %tmp.48 :format;
+        %tmp.50 = "$1$:$2$";
+        %tmp.51 = newa 2;
+        %tmp.52 = lgetv %mins.7;
+        symbol [ mins %tmp.52 183 55 59 ];
+        %tmp.53 = dup %tmp.51;
+        %tmp.54 = aputv %tmp.53 0 %tmp.52;
+        %tmp.55 = lgetv %secs.8;
+        symbol [ secs %tmp.55 183 61 65 ];
+        symbol [ format %tmp.56 183 66 72 ];
+        %tmp.56 = getv function %tmp.55 :format;
+        %tmp.57 = "%02d";
+        %tmp.58 = invoke %tmp.55 %tmp.56(%tmp.57);
+        %tmp.59 = dup %tmp.54;
+        %tmp.60 = aputv %tmp.59 1 %tmp.58;
+        %tmp.61 = invoke %tmp.48 %tmp.49(%tmp.50, %tmp.60);
+        lputv %countdownStr.4 %tmp.61;
+        symbol [ countdownStr %countdownStr.4 183 16 28 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_180_19_184_12_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_176_12_184_12_if_end:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_175_22_185_8_stop:
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_175_8_185_8_if_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_175_8_185_8_if_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 188 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %eventTitle.9 = local;
+        symbol [ eventTitle %eventTitle.9 188 12 22 ];
+        symbol [ _model %tmp.63 188 25 31 ];
+        %tmp.63 = getv ? :_model;
+        symbol [ getTitle %tmp.64 188 32 40 ];
+        %tmp.64 = getv function %tmp.63 :getTitle;
+        %tmp.65 = invoke %tmp.63 %tmp.64();
+        lputv %eventTitle.9 %tmp.65;
+        symbol [ eventTitle %eventTitle.9 188 12 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 189 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %subtitle.10 = local;
+        symbol [ subtitle %subtitle.10 189 12 20 ];
+        %tmp.66 = "To ";
+        %tmp.67 = lgetv %eventTitle.9;
+        symbol [ eventTitle %tmp.67 189 31 41 ];
+        %tmp.68 = add %tmp.66 %tmp.67;
+        lputv %subtitle.10 %tmp.68;
+        symbol [ subtitle %subtitle.10 189 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 192 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %triggerMoment.11 = local;
+        symbol [ triggerMoment %triggerMoment.11 192 12 25 ];
+        symbol [ Time %tmp.71 192 32 36 ];
+        %tmp.71 = getm $.Toybox.Time;
+        symbol [ Moment %tmp.72 192 37 43 ];
+        %tmp.72 = getv function ? %tmp.71 :Moment;
+        %tmp.73 = lgetv %trigger.1;
+        symbol [ trigger %tmp.73 192 44 51 ];
+        %tmp.69 = newc %tmp.72 (%tmp.73);
+        lputv %triggerMoment.11 %tmp.69;
+        symbol [ triggerMoment %triggerMoment.11 192 12 25 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 193 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %trigInfo.12 = local;
+        symbol [ trigInfo %trigInfo.12 193 12 20 ];
+        symbol [ Gregorian %tmp.74 193 23 32 ];
+        %tmp.74 = getm $.Toybox.Time.Gregorian;
+        symbol [ info %tmp.75 193 33 37 ];
+        %tmp.75 = getv function %tmp.74 :info;
+        %tmp.76 = lgetv %triggerMoment.11;
+        symbol [ triggerMoment %tmp.76 193 38 51 ];
+        symbol [ Time %tmp.77 193 53 57 ];
+        %tmp.77 = getm $.Toybox.Time;
+        symbol [ FORMAT_SHORT %tmp.78 193 58 70 ];
+        %tmp.78 = getv %tmp.77 :FORMAT_SHORT;
+        %tmp.79 = invoke %tmp.74 %tmp.75(%tmp.76, %tmp.78);
+        lputv %trigInfo.12 %tmp.79;
+        symbol [ trigInfo %trigInfo.12 193 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 194 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop" ]
+        %trigTimeStr.13 = local;
+        symbol [ trigTimeStr %trigTimeStr.13 194 12 23 ];
+        symbol [ Lang %tmp.80 194 26 30 ];
+        %tmp.80 = getm $.Toybox.Lang;
+        symbol [ format %tmp.81 194 31 37 ];
+        %tmp.81 = getv function %tmp.80 :format;
+        %tmp.82 = "$1$:$2$";
+        %tmp.83 = newa 2;
+        %tmp.84 = lgetv %trigInfo.12;
+        symbol [ trigInfo %tmp.84 194 50 58 ];
+        symbol [ hour %tmp.85 194 59 63 ];
+        %tmp.85 = getv %tmp.84 :hour;
+        symbol [ format %tmp.86 194 64 70 ];
+        %tmp.86 = getv function %tmp.85 :format;
+        %tmp.87 = "%02d";
+        %tmp.88 = invoke %tmp.85 %tmp.86(%tmp.87);
+        %tmp.89 = dup %tmp.83;
+        %tmp.90 = aputv %tmp.89 0 %tmp.88;
+        %tmp.91 = lgetv %trigInfo.12;
+        symbol [ trigInfo %tmp.91 194 80 88 ];
+        symbol [ min %tmp.92 194 89 92 ];
+        %tmp.92 = getv %tmp.91 :min;
+        symbol [ format %tmp.93 194 93 99 ];
+        %tmp.93 = getv function %tmp.92 :format;
+        %tmp.94 = "%02d";
+        %tmp.95 = invoke %tmp.92 %tmp.93(%tmp.94);
+        %tmp.96 = dup %tmp.90;
+        %tmp.97 = aputv %tmp.96 1 %tmp.95;
+        %tmp.98 = invoke %tmp.80 %tmp.81(%tmp.82, %tmp.97);
+        lputv %trigTimeStr.13 %tmp.98;
+        symbol [ trigTimeStr %trigTimeStr.13 194 12 23 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 196 8 ]
+        %tmp.99 = lgetv %dc;
+        symbol [ dc %tmp.99 196 8 10 ];
+        symbol [ setColor %tmp.100 196 11 19 ];
+        %tmp.100 = getv function %tmp.99 :setColor;
+        symbol [ Graphics %tmp.101 196 20 28 ];
+        %tmp.101 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.102 196 29 42 ];
+        %tmp.102 = getv %tmp.101 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.103 196 44 52 ];
+        %tmp.103 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.104 196 53 70 ];
+        %tmp.104 = getv %tmp.103 :COLOR_TRANSPARENT;
+        invoke %tmp.99 %tmp.100(%tmp.102, %tmp.104);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 197 8 ]
+        %tmp.105 = lgetv %dc;
+        symbol [ dc %tmp.105 197 8 10 ];
+        symbol [ drawText %tmp.106 197 11 19 ];
+        %tmp.106 = getv function %tmp.105 :drawText;
+        %tmp.107 = lgetv %cx;
+        symbol [ cx %tmp.107 197 20 22 ];
+        %tmp.108 = lgetv %cy;
+        symbol [ cy %tmp.108 197 24 26 ];
+        %tmp.109 = lgetv %h;
+        symbol [ h %tmp.109 197 30 31 ];
+        %tmp.110 = 0.28;
+        %tmp.111 = mul %tmp.109 %tmp.110;
+        symbol [ toNumber %tmp.112 197 40 48 ];
+        %tmp.112 = getv function %tmp.111 :toNumber;
+        %tmp.113 = invoke %tmp.111 %tmp.112();
+        %tmp.114 = sub %tmp.108 %tmp.113;
+        symbol [ Graphics %tmp.115 197 52 60 ];
+        %tmp.115 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.116 197 61 71 ];
+        %tmp.116 = getv %tmp.115 :FONT_XTINY;
+        %tmp.117 = "ALARM AT ";
+        %tmp.118 = lgetv %trigTimeStr.13;
+        symbol [ trigTimeStr %tmp.118 197 87 98 ];
+        %tmp.119 = add %tmp.117 %tmp.118;
+        symbol [ Graphics %tmp.120 197 100 108 ];
+        %tmp.120 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.121 197 109 128 ];
+        %tmp.121 = getv %tmp.120 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.105 %tmp.106(%tmp.107, %tmp.114, %tmp.116, %tmp.119, %tmp.121);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 200 8 ]
+        %tmp.122 = lgetv %dc;
+        symbol [ dc %tmp.122 200 8 10 ];
+        symbol [ setColor %tmp.123 200 11 19 ];
+        %tmp.123 = getv function %tmp.122 :setColor;
+        symbol [ Graphics %tmp.124 200 20 28 ];
+        %tmp.124 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.125 200 29 40 ];
+        %tmp.125 = getv %tmp.124 :COLOR_WHITE;
+        symbol [ Graphics %tmp.126 200 42 50 ];
+        %tmp.126 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.127 200 51 68 ];
+        %tmp.127 = getv %tmp.126 :COLOR_TRANSPARENT;
+        invoke %tmp.122 %tmp.123(%tmp.125, %tmp.127);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 201 8 ]
+        %tmp.128 = lgetv %dc;
+        symbol [ dc %tmp.128 201 8 10 ];
+        symbol [ drawText %tmp.129 201 11 19 ];
+        %tmp.129 = getv function %tmp.128 :drawText;
+        %tmp.130 = lgetv %cx;
+        symbol [ cx %tmp.130 201 20 22 ];
+        %tmp.131 = lgetv %cy;
+        symbol [ cy %tmp.131 201 24 26 ];
+        %tmp.132 = lgetv %h;
+        symbol [ h %tmp.132 201 30 31 ];
+        %tmp.133 = 0.08;
+        %tmp.134 = mul %tmp.132 %tmp.133;
+        symbol [ toNumber %tmp.135 201 40 48 ];
+        %tmp.135 = getv function %tmp.134 :toNumber;
+        %tmp.136 = invoke %tmp.134 %tmp.135();
+        %tmp.137 = sub %tmp.131 %tmp.136;
+        symbol [ Graphics %tmp.138 201 52 60 ];
+        %tmp.138 = getm $.Toybox.Graphics;
+        symbol [ FONT_NUMBER_HOT %tmp.139 201 61 76 ];
+        %tmp.139 = getv %tmp.138 :FONT_NUMBER_HOT;
+        %tmp.140 = lgetv %countdownStr.4;
+        symbol [ countdownStr %tmp.140 201 78 90 ];
+        symbol [ Graphics %tmp.141 201 92 100 ];
+        %tmp.141 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.142 201 101 120 ];
+        %tmp.142 = getv %tmp.141 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.143 201 123 131 ];
+        %tmp.143 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.144 201 132 152 ];
+        %tmp.144 = getv %tmp.143 :TEXT_JUSTIFY_VCENTER;
+        %tmp.145 = bitor %tmp.142 %tmp.144;
+        invoke %tmp.128 %tmp.129(%tmp.130, %tmp.137, %tmp.139, %tmp.140, %tmp.145);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 204 8 ]
+        %tmp.146 = lgetv %dc;
+        symbol [ dc %tmp.146 204 8 10 ];
+        symbol [ setColor %tmp.147 204 11 19 ];
+        %tmp.147 = getv function %tmp.146 :setColor;
+        symbol [ COLOR_LIGHT_BLUE %tmp.149 204 20 36 ];
+        %tmp.149 = getv ? :COLOR_LIGHT_BLUE;
+        symbol [ Graphics %tmp.150 204 38 46 ];
+        %tmp.150 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.151 204 47 64 ];
+        %tmp.151 = getv %tmp.150 :COLOR_TRANSPARENT;
+        invoke %tmp.146 %tmp.147(%tmp.149, %tmp.151);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 205 8 ]
+        %tmp.152 = lgetv %dc;
+        symbol [ dc %tmp.152 205 8 10 ];
+        symbol [ drawText %tmp.153 205 11 19 ];
+        %tmp.153 = getv function %tmp.152 :drawText;
+        %tmp.154 = lgetv %cx;
+        symbol [ cx %tmp.154 205 20 22 ];
+        %tmp.155 = lgetv %cy;
+        symbol [ cy %tmp.155 205 24 26 ];
+        %tmp.156 = lgetv %h;
+        symbol [ h %tmp.156 205 30 31 ];
+        %tmp.157 = 0.16;
+        %tmp.158 = mul %tmp.156 %tmp.157;
+        symbol [ toNumber %tmp.159 205 40 48 ];
+        %tmp.159 = getv function %tmp.158 :toNumber;
+        %tmp.160 = invoke %tmp.158 %tmp.159();
+        %tmp.161 = add %tmp.155 %tmp.160;
+        symbol [ Graphics %tmp.162 205 52 60 ];
+        %tmp.162 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.163 205 61 71 ];
+        %tmp.163 = getv %tmp.162 :FONT_SMALL;
+        %tmp.164 = lgetv %subtitle.10;
+        symbol [ subtitle %tmp.164 205 73 81 ];
+        symbol [ Graphics %tmp.165 205 83 91 ];
+        %tmp.165 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.166 205 92 111 ];
+        %tmp.166 = getv %tmp.165 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.152 %tmp.153(%tmp.154, %tmp.161, %tmp.163, %tmp.164, %tmp.166);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 208 8 ]
+        %tmp.167 = self;
+        symbol [ drawConnectionIndicator %tmp.168 208 8 31 ];
+        %tmp.168 = getv function %tmp.167 :drawConnectionIndicator;
+        %tmp.169 = lgetv %dc;
+        symbol [ dc %tmp.169 208 32 34 ];
+        %tmp.170 = lgetv %cx;
+        symbol [ cx %tmp.170 208 36 38 ];
+        %tmp.171 = lgetv %cy;
+        symbol [ cy %tmp.171 208 41 43 ];
+        %tmp.172 = lgetv %h;
+        symbol [ h %tmp.172 208 47 48 ];
+        %tmp.173 = 0.32;
+        %tmp.174 = mul %tmp.172 %tmp.173;
+        %tmp.175 = add %tmp.171 %tmp.174;
+        symbol [ toNumber %tmp.176 208 58 66 ];
+        %tmp.176 = getv function %tmp.175 :toNumber;
+        %tmp.177 = invoke %tmp.175 %tmp.176();
+        invoke %tmp.167 %tmp.168(%tmp.169, %tmp.170, %tmp.177);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_169_121_209_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 215; @symbol_functiondef = [drawIdleScreen,215,21,35]; @symbol_param<0> = [dc,215,36,38]; @symbol_param<0>_type<0> = [Graphics,215,42,50]; @symbol_param<0>_type<1> = [Dc,215,51,53]; @symbol_param<1> = [w,215,55,56]; @symbol_param<1>_type<0> = [Number,215,60,66]; @symbol_param<2> = [h,215,68,69]; @symbol_param<2>_type<0> = [Number,215,73,79]; @symbol_param<3> = [cx,215,81,83]; @symbol_param<3>_type<0> = [Number,215,87,93]; @symbol_param<4> = [cy,215,95,97]; @symbol_param<4>_type<0> = [Number,215,101,107]; ]
+    private
+    function drawIdleScreen(dc as Graphics.Dc, w as Number, h as Number, cx as Number, cy as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_215_117_230_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 217 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 217 8 10 ];
+        symbol [ setColor %tmp.2 217 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ Graphics %tmp.3 217 20 28 ];
+        %tmp.3 = getm $.Toybox.Graphics;
+        symbol [ COLOR_DK_GRAY %tmp.4 217 29 42 ];
+        %tmp.4 = getv %tmp.3 :COLOR_DK_GRAY;
+        symbol [ Graphics %tmp.5 217 44 52 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.6 217 53 70 ];
+        %tmp.6 = getv %tmp.5 :COLOR_TRANSPARENT;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 218 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 218 8 10 ];
+        symbol [ drawText %tmp.8 218 11 19 ];
+        %tmp.8 = getv function %tmp.7 :drawText;
+        %tmp.9 = lgetv %cx;
+        symbol [ cx %tmp.9 218 20 22 ];
+        %tmp.10 = lgetv %cy;
+        symbol [ cy %tmp.10 218 24 26 ];
+        %tmp.11 = lgetv %h;
+        symbol [ h %tmp.11 218 30 31 ];
+        %tmp.12 = 0.26;
+        %tmp.13 = mul %tmp.11 %tmp.12;
+        symbol [ toNumber %tmp.14 218 40 48 ];
+        %tmp.14 = getv function %tmp.13 :toNumber;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        %tmp.16 = sub %tmp.10 %tmp.15;
+        symbol [ Graphics %tmp.17 218 52 60 ];
+        %tmp.17 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.18 218 61 71 ];
+        %tmp.18 = getv %tmp.17 :FONT_XTINY;
+        %tmp.19 = "SALARM COMPANION";
+        symbol [ Graphics %tmp.20 218 93 101 ];
+        %tmp.20 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.21 218 102 121 ];
+        %tmp.21 = getv %tmp.20 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.7 %tmp.8(%tmp.9, %tmp.16, %tmp.18, %tmp.19, %tmp.21);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 221 8 ]
+        %tmp.22 = lgetv %dc;
+        symbol [ dc %tmp.22 221 8 10 ];
+        symbol [ setColor %tmp.23 221 11 19 ];
+        %tmp.23 = getv function %tmp.22 :setColor;
+        symbol [ Graphics %tmp.24 221 20 28 ];
+        %tmp.24 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.25 221 29 42 ];
+        %tmp.25 = getv %tmp.24 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.26 221 44 52 ];
+        %tmp.26 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.27 221 53 70 ];
+        %tmp.27 = getv %tmp.26 :COLOR_TRANSPARENT;
+        invoke %tmp.22 %tmp.23(%tmp.25, %tmp.27);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 222 8 ]
+        %tmp.28 = lgetv %dc;
+        symbol [ dc %tmp.28 222 8 10 ];
+        symbol [ drawText %tmp.29 222 11 19 ];
+        %tmp.29 = getv function %tmp.28 :drawText;
+        %tmp.30 = lgetv %cx;
+        symbol [ cx %tmp.30 222 20 22 ];
+        %tmp.31 = lgetv %cy;
+        symbol [ cy %tmp.31 222 24 26 ];
+        %tmp.32 = lgetv %h;
+        symbol [ h %tmp.32 222 30 31 ];
+        %tmp.33 = 0.06;
+        %tmp.34 = mul %tmp.32 %tmp.33;
+        symbol [ toNumber %tmp.35 222 40 48 ];
+        %tmp.35 = getv function %tmp.34 :toNumber;
+        %tmp.36 = invoke %tmp.34 %tmp.35();
+        %tmp.37 = sub %tmp.31 %tmp.36;
+        symbol [ Graphics %tmp.38 222 52 60 ];
+        %tmp.38 = getm $.Toybox.Graphics;
+        symbol [ FONT_NUMBER_HOT %tmp.39 222 61 76 ];
+        %tmp.39 = getv %tmp.38 :FONT_NUMBER_HOT;
+        %tmp.40 = "--:--";
+        symbol [ Graphics %tmp.41 222 87 95 ];
+        %tmp.41 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.42 222 96 115 ];
+        %tmp.42 = getv %tmp.41 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.43 222 118 126 ];
+        %tmp.43 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.44 222 127 147 ];
+        %tmp.44 = getv %tmp.43 :TEXT_JUSTIFY_VCENTER;
+        %tmp.45 = bitor %tmp.42 %tmp.44;
+        invoke %tmp.28 %tmp.29(%tmp.30, %tmp.37, %tmp.39, %tmp.40, %tmp.45);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 225 8 ]
+        %tmp.46 = lgetv %dc;
+        symbol [ dc %tmp.46 225 8 10 ];
+        symbol [ setColor %tmp.47 225 11 19 ];
+        %tmp.47 = getv function %tmp.46 :setColor;
+        symbol [ Graphics %tmp.48 225 20 28 ];
+        %tmp.48 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.49 225 29 40 ];
+        %tmp.49 = getv %tmp.48 :COLOR_WHITE;
+        symbol [ Graphics %tmp.50 225 42 50 ];
+        %tmp.50 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.51 225 51 68 ];
+        %tmp.51 = getv %tmp.50 :COLOR_TRANSPARENT;
+        invoke %tmp.46 %tmp.47(%tmp.49, %tmp.51);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 226 8 ]
+        %tmp.52 = lgetv %dc;
+        symbol [ dc %tmp.52 226 8 10 ];
+        symbol [ drawText %tmp.53 226 11 19 ];
+        %tmp.53 = getv function %tmp.52 :drawText;
+        %tmp.54 = lgetv %cx;
+        symbol [ cx %tmp.54 226 20 22 ];
+        %tmp.55 = lgetv %cy;
+        symbol [ cy %tmp.55 226 24 26 ];
+        %tmp.56 = lgetv %h;
+        symbol [ h %tmp.56 226 30 31 ];
+        %tmp.57 = 0.16;
+        %tmp.58 = mul %tmp.56 %tmp.57;
+        symbol [ toNumber %tmp.59 226 40 48 ];
+        %tmp.59 = getv function %tmp.58 :toNumber;
+        %tmp.60 = invoke %tmp.58 %tmp.59();
+        %tmp.61 = add %tmp.55 %tmp.60;
+        symbol [ Graphics %tmp.62 226 52 60 ];
+        %tmp.62 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.63 226 61 70 ];
+        %tmp.63 = getv %tmp.62 :FONT_TINY;
+        %tmp.64 = "No Upcoming Alarm";
+        symbol [ Graphics %tmp.65 226 93 101 ];
+        %tmp.65 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.66 226 102 121 ];
+        %tmp.66 = getv %tmp.65 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.52 %tmp.53(%tmp.54, %tmp.61, %tmp.63, %tmp.64, %tmp.66);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 229 8 ]
+        %tmp.67 = self;
+        symbol [ drawConnectionIndicator %tmp.68 229 8 31 ];
+        %tmp.68 = getv function %tmp.67 :drawConnectionIndicator;
+        %tmp.69 = lgetv %dc;
+        symbol [ dc %tmp.69 229 32 34 ];
+        %tmp.70 = lgetv %cx;
+        symbol [ cx %tmp.70 229 36 38 ];
+        %tmp.71 = lgetv %cy;
+        symbol [ cy %tmp.71 229 41 43 ];
+        %tmp.72 = lgetv %h;
+        symbol [ h %tmp.72 229 47 48 ];
+        %tmp.73 = 0.28;
+        %tmp.74 = mul %tmp.72 %tmp.73;
+        %tmp.75 = add %tmp.71 %tmp.74;
+        symbol [ toNumber %tmp.76 229 58 66 ];
+        %tmp.76 = getv function %tmp.75 :toNumber;
+        %tmp.77 = invoke %tmp.75 %tmp.76();
+        invoke %tmp.67 %tmp.68(%tmp.69, %tmp.70, %tmp.77);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_215_117_230_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 232; @symbol_functiondef = [drawConnectionIndicator,232,21,44]; @symbol_param<0> = [dc,232,45,47]; @symbol_param<0>_type<0> = [Graphics,232,51,59]; @symbol_param<0>_type<1> = [Dc,232,60,62]; @symbol_param<1> = [x,232,64,65]; @symbol_param<1>_type<0> = [Number,232,69,75]; @symbol_param<2> = [y,232,77,78]; @symbol_param<2>_type<0> = [Number,232,82,88]; ]
+    private
+    function drawConnectionIndicator(dc as Graphics.Dc, x as Number, y as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_232_98_242_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 233 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_232_98_242_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_232_98_242_4_stop" ]
+        %connected.1 = local;
+        symbol [ connected %connected.1 233 12 21 ];
+        symbol [ _model %tmp.2 233 24 30 ];
+        %tmp.2 = getv ? :_model;
+        symbol [ isPhoneConnected %tmp.3 233 31 47 ];
+        %tmp.3 = getv function %tmp.2 :isPhoneConnected;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        lputv %connected.1 %tmp.4;
+        symbol [ connected %connected.1 233 12 21 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 234 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_232_98_242_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_232_98_242_4_stop" ]
+        %dotColor.2 = local;
+        symbol [ dotColor %dotColor.2 234 12 20 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_begin:
+        %tmp.5 = lgetv %connected.1;
+        symbol [ connected %tmp.5 234 23 32 ];
+        bf %tmp.5 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_true:
+        symbol [ COLOR_SUCCESS %tmp.7 234 35 48 ];
+        %tmp.7 = getv ? :COLOR_SUCCESS;
+        push %tmp.7;
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_else_false:
+        symbol [ COLOR_ALERT_RED %tmp.9 234 51 66 ];
+        %tmp.9 = getv ? :COLOR_ALERT_RED;
+        push %tmp.9;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_end:
+        %tmp.10 = phi [%tmp.5 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_begin] [%tmp.7 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_true] [%tmp.9 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_else_false] [%tmp.10 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_234_23_234_51_end];
+        lputv %dotColor.2 %tmp.10;
+        symbol [ dotColor %dotColor.2 234 12 20 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 235 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_232_98_242_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_232_98_242_4_stop" ]
+        %text.3 = local;
+        symbol [ text %text.3 235 12 16 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_begin:
+        %tmp.11 = lgetv %connected.1;
+        symbol [ connected %tmp.11 235 19 28 ];
+        bf %tmp.11 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_true:
+        %tmp.12 = "Phone Connected";
+        push %tmp.12;
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_else_false:
+        %tmp.13 = "Waiting for Phone";
+        push %tmp.13;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_end:
+        %tmp.14 = phi [%tmp.11 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_begin] [%tmp.12 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_true] [%tmp.13 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_else_false] [%tmp.14 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_235_19_235_51_end];
+        lputv %text.3 %tmp.14;
+        symbol [ text %text.3 235 12 16 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 237 8 ]
+        %tmp.15 = lgetv %dc;
+        symbol [ dc %tmp.15 237 8 10 ];
+        symbol [ setColor %tmp.16 237 11 19 ];
+        %tmp.16 = getv function %tmp.15 :setColor;
+        %tmp.17 = lgetv %dotColor.2;
+        symbol [ dotColor %tmp.17 237 20 28 ];
+        symbol [ Graphics %tmp.18 237 30 38 ];
+        %tmp.18 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.19 237 39 56 ];
+        %tmp.19 = getv %tmp.18 :COLOR_TRANSPARENT;
+        invoke %tmp.15 %tmp.16(%tmp.17, %tmp.19);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 238 8 ]
+        %tmp.20 = lgetv %dc;
+        symbol [ dc %tmp.20 238 8 10 ];
+        symbol [ fillCircle %tmp.21 238 11 21 ];
+        %tmp.21 = getv function %tmp.20 :fillCircle;
+        %tmp.22 = lgetv %x;
+        symbol [ x %tmp.22 238 22 23 ];
+        %tmp.23 = 52;
+        %tmp.24 = sub %tmp.22 %tmp.23;
+        %tmp.25 = lgetv %y;
+        symbol [ y %tmp.25 238 30 31 ];
+        %tmp.26 = 8;
+        %tmp.27 = add %tmp.25 %tmp.26;
+        %tmp.28 = 3;
+        invoke %tmp.20 %tmp.21(%tmp.24, %tmp.27, %tmp.28);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 240 8 ]
+        %tmp.29 = lgetv %dc;
+        symbol [ dc %tmp.29 240 8 10 ];
+        symbol [ setColor %tmp.30 240 11 19 ];
+        %tmp.30 = getv function %tmp.29 :setColor;
+        symbol [ Graphics %tmp.31 240 20 28 ];
+        %tmp.31 = getm $.Toybox.Graphics;
+        symbol [ COLOR_DK_GRAY %tmp.32 240 29 42 ];
+        %tmp.32 = getv %tmp.31 :COLOR_DK_GRAY;
+        symbol [ Graphics %tmp.33 240 44 52 ];
+        %tmp.33 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.34 240 53 70 ];
+        %tmp.34 = getv %tmp.33 :COLOR_TRANSPARENT;
+        invoke %tmp.29 %tmp.30(%tmp.32, %tmp.34);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 241 8 ]
+        %tmp.35 = lgetv %dc;
+        symbol [ dc %tmp.35 241 8 10 ];
+        symbol [ drawText %tmp.36 241 11 19 ];
+        %tmp.36 = getv function %tmp.35 :drawText;
+        %tmp.37 = lgetv %x;
+        symbol [ x %tmp.37 241 20 21 ];
+        %tmp.38 = 5;
+        %tmp.39 = add %tmp.37 %tmp.38;
+        %tmp.40 = lgetv %y;
+        symbol [ y %tmp.40 241 27 28 ];
+        symbol [ Graphics %tmp.41 241 30 38 ];
+        %tmp.41 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.42 241 39 49 ];
+        %tmp.42 = getv %tmp.41 :FONT_XTINY;
+        %tmp.43 = lgetv %text.3;
+        symbol [ text %tmp.43 241 51 55 ];
+        symbol [ Graphics %tmp.44 241 57 65 ];
+        %tmp.44 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.45 241 66 85 ];
+        %tmp.45 = getv %tmp.44 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.35 %tmp.36(%tmp.39, %tmp.40, %tmp.42, %tmp.43, %tmp.45);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_232_98_242_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 248; @symbol_functiondef = [drawRingingScreen,248,21,38]; @symbol_param<0> = [dc,248,39,41]; @symbol_param<0>_type<0> = [Graphics,248,45,53]; @symbol_param<0>_type<1> = [Dc,248,54,56]; @symbol_param<1> = [w,248,58,59]; @symbol_param<1>_type<0> = [Number,248,63,69]; @symbol_param<2> = [h,248,71,72]; @symbol_param<2>_type<0> = [Number,248,76,82]; @symbol_param<3> = [cx,248,84,86]; @symbol_param<3>_type<0> = [Number,248,90,96]; @symbol_param<4> = [cy,248,98,100]; @symbol_param<4>_type<0> = [Number,248,104,110]; ]
+    private
+    function drawRingingScreen(dc as Graphics.Dc, w as Number, h as Number, cx as Number, cy as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 250 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_stop" ]
+        %pulseColor.1 = local;
+        symbol [ pulseColor %pulseColor.1 250 12 22 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_begin:
+        symbol [ _pulseCounter %tmp.2 250 26 39 ];
+        %tmp.2 = getv ? :_pulseCounter;
+        %tmp.3 = 2;
+        %tmp.4 = mod %tmp.2 %tmp.3;
+        %tmp.5 = 0;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        bf %tmp.6 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_true:
+        symbol [ COLOR_ALERT_RED %tmp.8 250 52 67 ];
+        %tmp.8 = getv ? :COLOR_ALERT_RED;
+        push %tmp.8;
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_else_false:
+        symbol [ COLOR_ALERT_AMB %tmp.10 250 70 85 ];
+        %tmp.10 = getv ? :COLOR_ALERT_AMB;
+        push %tmp.10;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_end:
+        %tmp.11 = phi [%tmp.6 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_begin] [%tmp.8 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_true] [%tmp.10 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_else_false] [%tmp.11 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_250_25_250_70_end];
+        lputv %pulseColor.1 %tmp.11;
+        symbol [ pulseColor %pulseColor.1 250 12 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 251 8 ]
+        %tmp.12 = lgetv %dc;
+        symbol [ dc %tmp.12 251 8 10 ];
+        symbol [ setPenWidth %tmp.13 251 11 22 ];
+        %tmp.13 = getv function %tmp.12 :setPenWidth;
+        %tmp.14 = 6;
+        invoke %tmp.12 %tmp.13(%tmp.14);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 252 8 ]
+        %tmp.15 = lgetv %dc;
+        symbol [ dc %tmp.15 252 8 10 ];
+        symbol [ setColor %tmp.16 252 11 19 ];
+        %tmp.16 = getv function %tmp.15 :setColor;
+        %tmp.17 = lgetv %pulseColor.1;
+        symbol [ pulseColor %tmp.17 252 20 30 ];
+        symbol [ Graphics %tmp.18 252 32 40 ];
+        %tmp.18 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.19 252 41 58 ];
+        %tmp.19 = getv %tmp.18 :COLOR_TRANSPARENT;
+        invoke %tmp.15 %tmp.16(%tmp.17, %tmp.19);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 253 8 ]
+        %tmp.20 = lgetv %dc;
+        symbol [ dc %tmp.20 253 8 10 ];
+        symbol [ drawCircle %tmp.21 253 11 21 ];
+        %tmp.21 = getv function %tmp.20 :drawCircle;
+        %tmp.22 = lgetv %cx;
+        symbol [ cx %tmp.22 253 22 24 ];
+        %tmp.23 = lgetv %cy;
+        symbol [ cy %tmp.23 253 26 28 ];
+        %tmp.24 = lgetv %cx;
+        symbol [ cx %tmp.24 253 30 32 ];
+        %tmp.25 = 4;
+        %tmp.26 = sub %tmp.24 %tmp.25;
+        invoke %tmp.20 %tmp.21(%tmp.22, %tmp.23, %tmp.26);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 256 8 ]
+        %tmp.27 = lgetv %dc;
+        symbol [ dc %tmp.27 256 8 10 ];
+        symbol [ setColor %tmp.28 256 11 19 ];
+        %tmp.28 = getv function %tmp.27 :setColor;
+        %tmp.29 = lgetv %pulseColor.1;
+        symbol [ pulseColor %tmp.29 256 20 30 ];
+        symbol [ Graphics %tmp.30 256 32 40 ];
+        %tmp.30 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.31 256 41 58 ];
+        %tmp.31 = getv %tmp.30 :COLOR_TRANSPARENT;
+        invoke %tmp.27 %tmp.28(%tmp.29, %tmp.31);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 257 8 ]
+        %tmp.32 = lgetv %dc;
+        symbol [ dc %tmp.32 257 8 10 ];
+        symbol [ fillRoundedRectangle %tmp.33 257 11 31 ];
+        %tmp.33 = getv function %tmp.32 :fillRoundedRectangle;
+        %tmp.34 = lgetv %cx;
+        symbol [ cx %tmp.34 257 33 35 ];
+        %tmp.35 = lgetv %w;
+        symbol [ w %tmp.35 257 39 40 ];
+        %tmp.36 = 0.38;
+        %tmp.37 = mul %tmp.35 %tmp.36;
+        %tmp.38 = sub %tmp.34 %tmp.37;
+        symbol [ toNumber %tmp.39 257 50 58 ];
+        %tmp.39 = getv function %tmp.38 :toNumber;
+        %tmp.40 = invoke %tmp.38 %tmp.39();
+        %tmp.41 = lgetv %h;
+        symbol [ h %tmp.41 257 63 64 ];
+        %tmp.42 = 0.08;
+        %tmp.43 = mul %tmp.41 %tmp.42;
+        symbol [ toNumber %tmp.44 257 73 81 ];
+        %tmp.44 = getv function %tmp.43 :toNumber;
+        %tmp.45 = invoke %tmp.43 %tmp.44();
+        %tmp.46 = lgetv %w;
+        symbol [ w %tmp.46 257 86 87 ];
+        %tmp.47 = 0.76;
+        %tmp.48 = mul %tmp.46 %tmp.47;
+        symbol [ toNumber %tmp.49 257 96 104 ];
+        %tmp.49 = getv function %tmp.48 :toNumber;
+        %tmp.50 = invoke %tmp.48 %tmp.49();
+        %tmp.51 = lgetv %h;
+        symbol [ h %tmp.51 257 109 110 ];
+        %tmp.52 = 0.10;
+        %tmp.53 = mul %tmp.51 %tmp.52;
+        symbol [ toNumber %tmp.54 257 119 127 ];
+        %tmp.54 = getv function %tmp.53 :toNumber;
+        %tmp.55 = invoke %tmp.53 %tmp.54();
+        %tmp.56 = 6;
+        invoke %tmp.32 %tmp.33(%tmp.40, %tmp.45, %tmp.50, %tmp.55, %tmp.56);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 258 8 ]
+        %tmp.57 = lgetv %dc;
+        symbol [ dc %tmp.57 258 8 10 ];
+        symbol [ setColor %tmp.58 258 11 19 ];
+        %tmp.58 = getv function %tmp.57 :setColor;
+        symbol [ Graphics %tmp.59 258 20 28 ];
+        %tmp.59 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.60 258 29 40 ];
+        %tmp.60 = getv %tmp.59 :COLOR_WHITE;
+        symbol [ Graphics %tmp.61 258 42 50 ];
+        %tmp.61 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.62 258 51 68 ];
+        %tmp.62 = getv %tmp.61 :COLOR_TRANSPARENT;
+        invoke %tmp.57 %tmp.58(%tmp.60, %tmp.62);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 259 8 ]
+        %tmp.63 = lgetv %dc;
+        symbol [ dc %tmp.63 259 8 10 ];
+        symbol [ drawText %tmp.64 259 11 19 ];
+        %tmp.64 = getv function %tmp.63 :drawText;
+        %tmp.65 = lgetv %cx;
+        symbol [ cx %tmp.65 259 20 22 ];
+        %tmp.66 = lgetv %h;
+        symbol [ h %tmp.66 259 25 26 ];
+        %tmp.67 = 0.13;
+        %tmp.68 = mul %tmp.66 %tmp.67;
+        symbol [ toNumber %tmp.69 259 35 43 ];
+        %tmp.69 = getv function %tmp.68 :toNumber;
+        %tmp.70 = invoke %tmp.68 %tmp.69();
+        symbol [ Graphics %tmp.71 259 47 55 ];
+        %tmp.71 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.72 259 56 65 ];
+        %tmp.72 = getv %tmp.71 :FONT_TINY;
+        %tmp.73 = "! ALARM RINGING !";
+        symbol [ Graphics %tmp.74 259 88 96 ];
+        %tmp.74 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.75 259 97 116 ];
+        %tmp.75 = getv %tmp.74 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.76 259 119 127 ];
+        %tmp.76 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.77 259 128 148 ];
+        %tmp.77 = getv %tmp.76 :TEXT_JUSTIFY_VCENTER;
+        %tmp.78 = bitor %tmp.75 %tmp.77;
+        invoke %tmp.63 %tmp.64(%tmp.65, %tmp.70, %tmp.72, %tmp.73, %tmp.78);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 262 8 ]
+        %tmp.79 = lgetv %dc;
+        symbol [ dc %tmp.79 262 8 10 ];
+        symbol [ setColor %tmp.80 262 11 19 ];
+        %tmp.80 = getv function %tmp.79 :setColor;
+        symbol [ Graphics %tmp.81 262 20 28 ];
+        %tmp.81 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.82 262 29 40 ];
+        %tmp.82 = getv %tmp.81 :COLOR_WHITE;
+        symbol [ Graphics %tmp.83 262 42 50 ];
+        %tmp.83 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.84 262 51 68 ];
+        %tmp.84 = getv %tmp.83 :COLOR_TRANSPARENT;
+        invoke %tmp.79 %tmp.80(%tmp.82, %tmp.84);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 263 8 ]
+        %tmp.85 = lgetv %dc;
+        symbol [ dc %tmp.85 263 8 10 ];
+        symbol [ drawText %tmp.86 263 11 19 ];
+        %tmp.86 = getv function %tmp.85 :drawText;
+        %tmp.87 = lgetv %cx;
+        symbol [ cx %tmp.87 263 20 22 ];
+        %tmp.88 = lgetv %h;
+        symbol [ h %tmp.88 263 25 26 ];
+        %tmp.89 = 0.25;
+        %tmp.90 = mul %tmp.88 %tmp.89;
+        symbol [ toNumber %tmp.91 263 35 43 ];
+        %tmp.91 = getv function %tmp.90 :toNumber;
+        %tmp.92 = invoke %tmp.90 %tmp.91();
+        symbol [ Graphics %tmp.93 263 47 55 ];
+        %tmp.93 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.94 263 56 67 ];
+        %tmp.94 = getv %tmp.93 :FONT_MEDIUM;
+        symbol [ _model %tmp.96 263 69 75 ];
+        %tmp.96 = getv ? :_model;
+        symbol [ getTitle %tmp.97 263 76 84 ];
+        %tmp.97 = getv function %tmp.96 :getTitle;
+        %tmp.98 = invoke %tmp.96 %tmp.97();
+        symbol [ Graphics %tmp.99 263 88 96 ];
+        %tmp.99 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.100 263 97 116 ];
+        %tmp.100 = getv %tmp.99 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.101 263 119 127 ];
+        %tmp.101 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.102 263 128 148 ];
+        %tmp.102 = getv %tmp.101 :TEXT_JUSTIFY_VCENTER;
+        %tmp.103 = bitor %tmp.100 %tmp.102;
+        invoke %tmp.85 %tmp.86(%tmp.87, %tmp.92, %tmp.94, %tmp.98, %tmp.103);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 265 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_stop" ]
+        %clock.2 = local;
+        symbol [ clock %clock.2 265 12 17 ];
+        symbol [ System %tmp.104 265 20 26 ];
+        %tmp.104 = getm $.Toybox.System;
+        symbol [ getClockTime %tmp.105 265 27 39 ];
+        %tmp.105 = getv function %tmp.104 :getClockTime;
+        %tmp.106 = invoke %tmp.104 %tmp.105();
+        lputv %clock.2 %tmp.106;
+        symbol [ clock %clock.2 265 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 266 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_stop" ]
+        %timeStr.3 = local;
+        symbol [ timeStr %timeStr.3 266 12 19 ];
+        symbol [ Lang %tmp.107 266 22 26 ];
+        %tmp.107 = getm $.Toybox.Lang;
+        symbol [ format %tmp.108 266 27 33 ];
+        %tmp.108 = getv function %tmp.107 :format;
+        %tmp.109 = "$1$:$2$";
+        %tmp.110 = newa 2;
+        %tmp.111 = lgetv %clock.2;
+        symbol [ clock %tmp.111 266 46 51 ];
+        symbol [ hour %tmp.112 266 52 56 ];
+        %tmp.112 = getv %tmp.111 :hour;
+        symbol [ format %tmp.113 266 57 63 ];
+        %tmp.113 = getv function %tmp.112 :format;
+        %tmp.114 = "%02d";
+        %tmp.115 = invoke %tmp.112 %tmp.113(%tmp.114);
+        %tmp.116 = dup %tmp.110;
+        %tmp.117 = aputv %tmp.116 0 %tmp.115;
+        %tmp.118 = lgetv %clock.2;
+        symbol [ clock %tmp.118 266 73 78 ];
+        symbol [ min %tmp.119 266 79 82 ];
+        %tmp.119 = getv %tmp.118 :min;
+        symbol [ format %tmp.120 266 83 89 ];
+        %tmp.120 = getv function %tmp.119 :format;
+        %tmp.121 = "%02d";
+        %tmp.122 = invoke %tmp.119 %tmp.120(%tmp.121);
+        %tmp.123 = dup %tmp.117;
+        %tmp.124 = aputv %tmp.123 1 %tmp.122;
+        %tmp.125 = invoke %tmp.107 %tmp.108(%tmp.109, %tmp.124);
+        lputv %timeStr.3 %tmp.125;
+        symbol [ timeStr %timeStr.3 266 12 19 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 267 8 ]
+        %tmp.126 = lgetv %dc;
+        symbol [ dc %tmp.126 267 8 10 ];
+        symbol [ setColor %tmp.127 267 11 19 ];
+        %tmp.127 = getv function %tmp.126 :setColor;
+        symbol [ Graphics %tmp.128 267 20 28 ];
+        %tmp.128 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.129 267 29 42 ];
+        %tmp.129 = getv %tmp.128 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.130 267 44 52 ];
+        %tmp.130 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.131 267 53 70 ];
+        %tmp.131 = getv %tmp.130 :COLOR_TRANSPARENT;
+        invoke %tmp.126 %tmp.127(%tmp.129, %tmp.131);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 268 8 ]
+        %tmp.132 = lgetv %dc;
+        symbol [ dc %tmp.132 268 8 10 ];
+        symbol [ drawText %tmp.133 268 11 19 ];
+        %tmp.133 = getv function %tmp.132 :drawText;
+        %tmp.134 = lgetv %cx;
+        symbol [ cx %tmp.134 268 20 22 ];
+        %tmp.135 = lgetv %h;
+        symbol [ h %tmp.135 268 25 26 ];
+        %tmp.136 = 0.36;
+        %tmp.137 = mul %tmp.135 %tmp.136;
+        symbol [ toNumber %tmp.138 268 35 43 ];
+        %tmp.138 = getv function %tmp.137 :toNumber;
+        %tmp.139 = invoke %tmp.137 %tmp.138();
+        symbol [ Graphics %tmp.140 268 47 55 ];
+        %tmp.140 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.141 268 56 66 ];
+        %tmp.141 = getv %tmp.140 :FONT_SMALL;
+        %tmp.142 = lgetv %timeStr.3;
+        symbol [ timeStr %tmp.142 268 68 75 ];
+        symbol [ Graphics %tmp.143 268 77 85 ];
+        %tmp.143 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.144 268 86 105 ];
+        %tmp.144 = getv %tmp.143 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.145 268 108 116 ];
+        %tmp.145 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.146 268 117 137 ];
+        %tmp.146 = getv %tmp.145 :TEXT_JUSTIFY_VCENTER;
+        %tmp.147 = bitor %tmp.144 %tmp.146;
+        invoke %tmp.132 %tmp.133(%tmp.134, %tmp.139, %tmp.141, %tmp.142, %tmp.147);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 271 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_stop" ]
+        %snoozeRect.4 = local;
+        symbol [ snoozeRect %snoozeRect.4 271 12 22 ];
+        %tmp.148 = self;
+        symbol [ getSnoozeButtonRect %tmp.149 271 25 44 ];
+        %tmp.149 = getv function %tmp.148 :getSnoozeButtonRect;
+        %tmp.150 = lgetv %w;
+        symbol [ w %tmp.150 271 45 46 ];
+        %tmp.151 = lgetv %h;
+        symbol [ h %tmp.151 271 48 49 ];
+        %tmp.152 = invoke %tmp.148 %tmp.149(%tmp.150, %tmp.151);
+        lputv %snoozeRect.4 %tmp.152;
+        symbol [ snoozeRect %snoozeRect.4 271 12 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 272 8 ]
+        %tmp.153 = lgetv %dc;
+        symbol [ dc %tmp.153 272 8 10 ];
+        symbol [ setColor %tmp.154 272 11 19 ];
+        %tmp.154 = getv function %tmp.153 :setColor;
+        symbol [ COLOR_ALERT_BLUE %tmp.156 272 20 36 ];
+        %tmp.156 = getv ? :COLOR_ALERT_BLUE;
+        symbol [ Graphics %tmp.157 272 38 46 ];
+        %tmp.157 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.158 272 47 64 ];
+        %tmp.158 = getv %tmp.157 :COLOR_TRANSPARENT;
+        invoke %tmp.153 %tmp.154(%tmp.156, %tmp.158);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 273 8 ]
+        %tmp.159 = lgetv %dc;
+        symbol [ dc %tmp.159 273 8 10 ];
+        symbol [ fillRoundedRectangle %tmp.160 273 11 31 ];
+        %tmp.160 = getv function %tmp.159 :fillRoundedRectangle;
+        %tmp.161 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.161 273 32 42 ];
+        %tmp.162 = 0;
+        %tmp.163 = agetv %tmp.161 %tmp.162;
+        %tmp.164 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.164 273 47 57 ];
+        %tmp.165 = 1;
+        %tmp.166 = agetv %tmp.164 %tmp.165;
+        %tmp.167 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.167 273 62 72 ];
+        %tmp.168 = 2;
+        %tmp.169 = agetv %tmp.167 %tmp.168;
+        %tmp.170 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.170 273 77 87 ];
+        %tmp.171 = 3;
+        %tmp.172 = agetv %tmp.170 %tmp.171;
+        %tmp.173 = 12;
+        invoke %tmp.159 %tmp.160(%tmp.163, %tmp.166, %tmp.169, %tmp.172, %tmp.173);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 276 8 ]
+        %tmp.174 = lgetv %dc;
+        symbol [ dc %tmp.174 276 8 10 ];
+        symbol [ setColor %tmp.175 276 11 19 ];
+        %tmp.175 = getv function %tmp.174 :setColor;
+        symbol [ Graphics %tmp.176 276 20 28 ];
+        %tmp.176 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.177 276 29 40 ];
+        %tmp.177 = getv %tmp.176 :COLOR_WHITE;
+        symbol [ Graphics %tmp.178 276 42 50 ];
+        %tmp.178 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.179 276 51 68 ];
+        %tmp.179 = getv %tmp.178 :COLOR_TRANSPARENT;
+        invoke %tmp.174 %tmp.175(%tmp.177, %tmp.179);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 277 8 ]
+        %tmp.180 = lgetv %dc;
+        symbol [ dc %tmp.180 277 8 10 ];
+        symbol [ setPenWidth %tmp.181 277 11 22 ];
+        %tmp.181 = getv function %tmp.180 :setPenWidth;
+        %tmp.182 = 2;
+        invoke %tmp.180 %tmp.181(%tmp.182);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 278 8 ]
+        %tmp.183 = lgetv %dc;
+        symbol [ dc %tmp.183 278 8 10 ];
+        symbol [ drawRoundedRectangle %tmp.184 278 11 31 ];
+        %tmp.184 = getv function %tmp.183 :drawRoundedRectangle;
+        %tmp.185 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.185 278 32 42 ];
+        %tmp.186 = 0;
+        %tmp.187 = agetv %tmp.185 %tmp.186;
+        %tmp.188 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.188 278 47 57 ];
+        %tmp.189 = 1;
+        %tmp.190 = agetv %tmp.188 %tmp.189;
+        %tmp.191 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.191 278 62 72 ];
+        %tmp.192 = 2;
+        %tmp.193 = agetv %tmp.191 %tmp.192;
+        %tmp.194 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.194 278 77 87 ];
+        %tmp.195 = 3;
+        %tmp.196 = agetv %tmp.194 %tmp.195;
+        %tmp.197 = 12;
+        invoke %tmp.183 %tmp.184(%tmp.187, %tmp.190, %tmp.193, %tmp.196, %tmp.197);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 280 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_stop" ]
+        %snoozeMins.5 = local;
+        symbol [ snoozeMins %snoozeMins.5 280 12 22 ];
+        symbol [ _model %tmp.199 280 25 31 ];
+        %tmp.199 = getv ? :_model;
+        symbol [ getSnoozeDuration %tmp.200 280 32 49 ];
+        %tmp.200 = getv function %tmp.199 :getSnoozeDuration;
+        %tmp.201 = invoke %tmp.199 %tmp.200();
+        %tmp.202 = 60;
+        %tmp.203 = div %tmp.201 %tmp.202;
+        lputv %snoozeMins.5 %tmp.203;
+        symbol [ snoozeMins %snoozeMins.5 280 12 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 281 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_stop" ]
+        %snoozeLabel.6 = local;
+        symbol [ snoozeLabel %snoozeLabel.6 281 12 23 ];
+        symbol [ Lang %tmp.204 281 26 30 ];
+        %tmp.204 = getm $.Toybox.Lang;
+        symbol [ format %tmp.205 281 31 37 ];
+        %tmp.205 = getv function %tmp.204 :format;
+        %tmp.206 = "SNOOZE (+$1$m)";
+        %tmp.207 = newa 1;
+        %tmp.208 = lgetv %snoozeMins.5;
+        symbol [ snoozeMins %tmp.208 281 57 67 ];
+        %tmp.209 = dup %tmp.207;
+        %tmp.210 = aputv %tmp.209 0 %tmp.208;
+        %tmp.211 = invoke %tmp.204 %tmp.205(%tmp.206, %tmp.210);
+        lputv %snoozeLabel.6 %tmp.211;
+        symbol [ snoozeLabel %snoozeLabel.6 281 12 23 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 282 8 ]
+        %tmp.212 = lgetv %dc;
+        symbol [ dc %tmp.212 282 8 10 ];
+        symbol [ drawText %tmp.213 282 11 19 ];
+        %tmp.213 = getv function %tmp.212 :drawText;
+        %tmp.214 = lgetv %cx;
+        symbol [ cx %tmp.214 282 20 22 ];
+        %tmp.215 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.215 282 24 34 ];
+        %tmp.216 = 1;
+        %tmp.217 = agetv %tmp.215 %tmp.216;
+        %tmp.218 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.218 282 41 51 ];
+        %tmp.219 = 3;
+        %tmp.220 = agetv %tmp.218 %tmp.219;
+        %tmp.221 = 2;
+        %tmp.222 = div %tmp.220 %tmp.221;
+        %tmp.223 = add %tmp.217 %tmp.222;
+        %tmp.224 = 8;
+        %tmp.225 = sub %tmp.223 %tmp.224;
+        symbol [ Graphics %tmp.226 282 65 73 ];
+        %tmp.226 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.227 282 74 84 ];
+        %tmp.227 = getv %tmp.226 :FONT_SMALL;
+        %tmp.228 = lgetv %snoozeLabel.6;
+        symbol [ snoozeLabel %tmp.228 282 86 97 ];
+        symbol [ Graphics %tmp.229 282 99 107 ];
+        %tmp.229 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.230 282 108 127 ];
+        %tmp.230 = getv %tmp.229 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.231 282 130 138 ];
+        %tmp.231 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.232 282 139 159 ];
+        %tmp.232 = getv %tmp.231 :TEXT_JUSTIFY_VCENTER;
+        %tmp.233 = bitor %tmp.230 %tmp.232;
+        invoke %tmp.212 %tmp.213(%tmp.214, %tmp.225, %tmp.227, %tmp.228, %tmp.233);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 283 8 ]
+        %tmp.234 = lgetv %dc;
+        symbol [ dc %tmp.234 283 8 10 ];
+        symbol [ setColor %tmp.235 283 11 19 ];
+        %tmp.235 = getv function %tmp.234 :setColor;
+        symbol [ COLOR_LIGHT_BLUE %tmp.237 283 20 36 ];
+        %tmp.237 = getv ? :COLOR_LIGHT_BLUE;
+        symbol [ Graphics %tmp.238 283 38 46 ];
+        %tmp.238 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.239 283 47 64 ];
+        %tmp.239 = getv %tmp.238 :COLOR_TRANSPARENT;
+        invoke %tmp.234 %tmp.235(%tmp.237, %tmp.239);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 284 8 ]
+        %tmp.240 = lgetv %dc;
+        symbol [ dc %tmp.240 284 8 10 ];
+        symbol [ drawText %tmp.241 284 11 19 ];
+        %tmp.241 = getv function %tmp.240 :drawText;
+        %tmp.242 = lgetv %cx;
+        symbol [ cx %tmp.242 284 20 22 ];
+        %tmp.243 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.243 284 24 34 ];
+        %tmp.244 = 1;
+        %tmp.245 = agetv %tmp.243 %tmp.244;
+        %tmp.246 = lgetv %snoozeRect.4;
+        symbol [ snoozeRect %tmp.246 284 41 51 ];
+        %tmp.247 = 3;
+        %tmp.248 = agetv %tmp.246 %tmp.247;
+        %tmp.249 = 2;
+        %tmp.250 = div %tmp.248 %tmp.249;
+        %tmp.251 = add %tmp.245 %tmp.250;
+        %tmp.252 = 12;
+        %tmp.253 = add %tmp.251 %tmp.252;
+        symbol [ Graphics %tmp.254 284 66 74 ];
+        %tmp.254 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.255 284 75 85 ];
+        %tmp.255 = getv %tmp.254 :FONT_XTINY;
+        %tmp.256 = "[SELECT BUTTON]";
+        symbol [ Graphics %tmp.257 284 106 114 ];
+        %tmp.257 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.258 284 115 134 ];
+        %tmp.258 = getv %tmp.257 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.259 284 137 145 ];
+        %tmp.259 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.260 284 146 166 ];
+        %tmp.260 = getv %tmp.259 :TEXT_JUSTIFY_VCENTER;
+        %tmp.261 = bitor %tmp.258 %tmp.260;
+        invoke %tmp.240 %tmp.241(%tmp.242, %tmp.253, %tmp.255, %tmp.256, %tmp.261);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 287 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_stop" ]
+        %dismissRect.7 = local;
+        symbol [ dismissRect %dismissRect.7 287 12 23 ];
+        %tmp.262 = self;
+        symbol [ getDismissButtonRect %tmp.263 287 26 46 ];
+        %tmp.263 = getv function %tmp.262 :getDismissButtonRect;
+        %tmp.264 = lgetv %w;
+        symbol [ w %tmp.264 287 47 48 ];
+        %tmp.265 = lgetv %h;
+        symbol [ h %tmp.265 287 50 51 ];
+        %tmp.266 = invoke %tmp.262 %tmp.263(%tmp.264, %tmp.265);
+        lputv %dismissRect.7 %tmp.266;
+        symbol [ dismissRect %dismissRect.7 287 12 23 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 288 8 ]
+        %tmp.267 = lgetv %dc;
+        symbol [ dc %tmp.267 288 8 10 ];
+        symbol [ setColor %tmp.268 288 11 19 ];
+        %tmp.268 = getv function %tmp.267 :setColor;
+        symbol [ COLOR_ALERT_RED %tmp.270 288 20 35 ];
+        %tmp.270 = getv ? :COLOR_ALERT_RED;
+        symbol [ Graphics %tmp.271 288 37 45 ];
+        %tmp.271 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.272 288 46 63 ];
+        %tmp.272 = getv %tmp.271 :COLOR_TRANSPARENT;
+        invoke %tmp.267 %tmp.268(%tmp.270, %tmp.272);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 289 8 ]
+        %tmp.273 = lgetv %dc;
+        symbol [ dc %tmp.273 289 8 10 ];
+        symbol [ fillRoundedRectangle %tmp.274 289 11 31 ];
+        %tmp.274 = getv function %tmp.273 :fillRoundedRectangle;
+        %tmp.275 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.275 289 32 43 ];
+        %tmp.276 = 0;
+        %tmp.277 = agetv %tmp.275 %tmp.276;
+        %tmp.278 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.278 289 48 59 ];
+        %tmp.279 = 1;
+        %tmp.280 = agetv %tmp.278 %tmp.279;
+        %tmp.281 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.281 289 64 75 ];
+        %tmp.282 = 2;
+        %tmp.283 = agetv %tmp.281 %tmp.282;
+        %tmp.284 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.284 289 80 91 ];
+        %tmp.285 = 3;
+        %tmp.286 = agetv %tmp.284 %tmp.285;
+        %tmp.287 = 12;
+        invoke %tmp.273 %tmp.274(%tmp.277, %tmp.280, %tmp.283, %tmp.286, %tmp.287);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 292 8 ]
+        %tmp.288 = lgetv %dc;
+        symbol [ dc %tmp.288 292 8 10 ];
+        symbol [ setColor %tmp.289 292 11 19 ];
+        %tmp.289 = getv function %tmp.288 :setColor;
+        symbol [ Graphics %tmp.290 292 20 28 ];
+        %tmp.290 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.291 292 29 40 ];
+        %tmp.291 = getv %tmp.290 :COLOR_WHITE;
+        symbol [ Graphics %tmp.292 292 42 50 ];
+        %tmp.292 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.293 292 51 68 ];
+        %tmp.293 = getv %tmp.292 :COLOR_TRANSPARENT;
+        invoke %tmp.288 %tmp.289(%tmp.291, %tmp.293);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 293 8 ]
+        %tmp.294 = lgetv %dc;
+        symbol [ dc %tmp.294 293 8 10 ];
+        symbol [ setPenWidth %tmp.295 293 11 22 ];
+        %tmp.295 = getv function %tmp.294 :setPenWidth;
+        %tmp.296 = 2;
+        invoke %tmp.294 %tmp.295(%tmp.296);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 294 8 ]
+        %tmp.297 = lgetv %dc;
+        symbol [ dc %tmp.297 294 8 10 ];
+        symbol [ drawRoundedRectangle %tmp.298 294 11 31 ];
+        %tmp.298 = getv function %tmp.297 :drawRoundedRectangle;
+        %tmp.299 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.299 294 32 43 ];
+        %tmp.300 = 0;
+        %tmp.301 = agetv %tmp.299 %tmp.300;
+        %tmp.302 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.302 294 48 59 ];
+        %tmp.303 = 1;
+        %tmp.304 = agetv %tmp.302 %tmp.303;
+        %tmp.305 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.305 294 64 75 ];
+        %tmp.306 = 2;
+        %tmp.307 = agetv %tmp.305 %tmp.306;
+        %tmp.308 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.308 294 80 91 ];
+        %tmp.309 = 3;
+        %tmp.310 = agetv %tmp.308 %tmp.309;
+        %tmp.311 = 12;
+        invoke %tmp.297 %tmp.298(%tmp.301, %tmp.304, %tmp.307, %tmp.310, %tmp.311);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 296 8 ]
+        %tmp.312 = lgetv %dc;
+        symbol [ dc %tmp.312 296 8 10 ];
+        symbol [ drawText %tmp.313 296 11 19 ];
+        %tmp.313 = getv function %tmp.312 :drawText;
+        %tmp.314 = lgetv %cx;
+        symbol [ cx %tmp.314 296 20 22 ];
+        %tmp.315 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.315 296 24 35 ];
+        %tmp.316 = 1;
+        %tmp.317 = agetv %tmp.315 %tmp.316;
+        %tmp.318 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.318 296 42 53 ];
+        %tmp.319 = 3;
+        %tmp.320 = agetv %tmp.318 %tmp.319;
+        %tmp.321 = 2;
+        %tmp.322 = div %tmp.320 %tmp.321;
+        %tmp.323 = add %tmp.317 %tmp.322;
+        %tmp.324 = 8;
+        %tmp.325 = sub %tmp.323 %tmp.324;
+        symbol [ Graphics %tmp.326 296 67 75 ];
+        %tmp.326 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.327 296 76 86 ];
+        %tmp.327 = getv %tmp.326 :FONT_SMALL;
+        %tmp.328 = "DISMISS";
+        symbol [ Graphics %tmp.329 296 99 107 ];
+        %tmp.329 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.330 296 108 127 ];
+        %tmp.330 = getv %tmp.329 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.331 296 130 138 ];
+        %tmp.331 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.332 296 139 159 ];
+        %tmp.332 = getv %tmp.331 :TEXT_JUSTIFY_VCENTER;
+        %tmp.333 = bitor %tmp.330 %tmp.332;
+        invoke %tmp.312 %tmp.313(%tmp.314, %tmp.325, %tmp.327, %tmp.328, %tmp.333);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 297 8 ]
+        %tmp.334 = lgetv %dc;
+        symbol [ dc %tmp.334 297 8 10 ];
+        symbol [ setColor %tmp.335 297 11 19 ];
+        %tmp.335 = getv function %tmp.334 :setColor;
+        symbol [ Graphics %tmp.336 297 20 28 ];
+        %tmp.336 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.337 297 29 42 ];
+        %tmp.337 = getv %tmp.336 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.338 297 44 52 ];
+        %tmp.338 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.339 297 53 70 ];
+        %tmp.339 = getv %tmp.338 :COLOR_TRANSPARENT;
+        invoke %tmp.334 %tmp.335(%tmp.337, %tmp.339);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 298 8 ]
+        %tmp.340 = lgetv %dc;
+        symbol [ dc %tmp.340 298 8 10 ];
+        symbol [ drawText %tmp.341 298 11 19 ];
+        %tmp.341 = getv function %tmp.340 :drawText;
+        %tmp.342 = lgetv %cx;
+        symbol [ cx %tmp.342 298 20 22 ];
+        %tmp.343 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.343 298 24 35 ];
+        %tmp.344 = 1;
+        %tmp.345 = agetv %tmp.343 %tmp.344;
+        %tmp.346 = lgetv %dismissRect.7;
+        symbol [ dismissRect %tmp.346 298 42 53 ];
+        %tmp.347 = 3;
+        %tmp.348 = agetv %tmp.346 %tmp.347;
+        %tmp.349 = 2;
+        %tmp.350 = div %tmp.348 %tmp.349;
+        %tmp.351 = add %tmp.345 %tmp.350;
+        %tmp.352 = 12;
+        %tmp.353 = add %tmp.351 %tmp.352;
+        symbol [ Graphics %tmp.354 298 68 76 ];
+        %tmp.354 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.355 298 77 87 ];
+        %tmp.355 = getv %tmp.354 :FONT_XTINY;
+        %tmp.356 = "[BACK BUTTON]";
+        symbol [ Graphics %tmp.357 298 106 114 ];
+        %tmp.357 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.358 298 115 134 ];
+        %tmp.358 = getv %tmp.357 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.359 298 137 145 ];
+        %tmp.359 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.360 298 146 166 ];
+        %tmp.360 = getv %tmp.359 :TEXT_JUSTIFY_VCENTER;
+        %tmp.361 = bitor %tmp.358 %tmp.360;
+        invoke %tmp.340 %tmp.341(%tmp.342, %tmp.353, %tmp.355, %tmp.356, %tmp.361);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_248_120_299_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 305; @symbol_functiondef = [drawPendingOverlay,305,21,39]; @symbol_param<0> = [dc,305,40,42]; @symbol_param<0>_type<0> = [Graphics,305,46,54]; @symbol_param<0>_type<1> = [Dc,305,55,57]; @symbol_param<1> = [w,305,59,60]; @symbol_param<1>_type<0> = [Number,305,64,70]; @symbol_param<2> = [h,305,72,73]; @symbol_param<2>_type<0> = [Number,305,77,83]; @symbol_param<3> = [cx,305,85,87]; @symbol_param<3>_type<0> = [Number,305,91,97]; @symbol_param<4> = [cy,305,99,101]; @symbol_param<4>_type<0> = [Number,305,105,111]; ]
+    private
+    function drawPendingOverlay(dc as Graphics.Dc, w as Number, h as Number, cx as Number, cy as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_305_121_329_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 307 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 307 8 10 ];
+        symbol [ setColor %tmp.2 307 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ Graphics %tmp.3 307 20 28 ];
+        %tmp.3 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.4 307 29 40 ];
+        %tmp.4 = getv %tmp.3 :COLOR_BLACK;
+        symbol [ Graphics %tmp.5 307 42 50 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.6 307 51 68 ];
+        %tmp.6 = getv %tmp.5 :COLOR_TRANSPARENT;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 308 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 308 8 10 ];
+        symbol [ fillCircle %tmp.8 308 11 21 ];
+        %tmp.8 = getv function %tmp.7 :fillCircle;
+        %tmp.9 = lgetv %cx;
+        symbol [ cx %tmp.9 308 22 24 ];
+        %tmp.10 = lgetv %cy;
+        symbol [ cy %tmp.10 308 26 28 ];
+        %tmp.11 = lgetv %cx;
+        symbol [ cx %tmp.11 308 30 32 ];
+        %tmp.12 = 10;
+        %tmp.13 = sub %tmp.11 %tmp.12;
+        invoke %tmp.7 %tmp.8(%tmp.9, %tmp.10, %tmp.13);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 310 8 ]
+        %tmp.14 = lgetv %dc;
+        symbol [ dc %tmp.14 310 8 10 ];
+        symbol [ setPenWidth %tmp.15 310 11 22 ];
+        %tmp.15 = getv function %tmp.14 :setPenWidth;
+        %tmp.16 = 3;
+        invoke %tmp.14 %tmp.15(%tmp.16);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 311 8 ]
+        %tmp.17 = lgetv %dc;
+        symbol [ dc %tmp.17 311 8 10 ];
+        symbol [ setColor %tmp.18 311 11 19 ];
+        %tmp.18 = getv function %tmp.17 :setColor;
+        symbol [ COLOR_LIGHT_BLUE %tmp.20 311 20 36 ];
+        %tmp.20 = getv ? :COLOR_LIGHT_BLUE;
+        symbol [ Graphics %tmp.21 311 38 46 ];
+        %tmp.21 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.22 311 47 64 ];
+        %tmp.22 = getv %tmp.21 :COLOR_TRANSPARENT;
+        invoke %tmp.17 %tmp.18(%tmp.20, %tmp.22);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 312 8 ]
+        %tmp.23 = lgetv %dc;
+        symbol [ dc %tmp.23 312 8 10 ];
+        symbol [ drawCircle %tmp.24 312 11 21 ];
+        %tmp.24 = getv function %tmp.23 :drawCircle;
+        %tmp.25 = lgetv %cx;
+        symbol [ cx %tmp.25 312 22 24 ];
+        %tmp.26 = lgetv %cy;
+        symbol [ cy %tmp.26 312 26 28 ];
+        %tmp.27 = lgetv %cx;
+        symbol [ cx %tmp.27 312 30 32 ];
+        %tmp.28 = 10;
+        %tmp.29 = sub %tmp.27 %tmp.28;
+        invoke %tmp.23 %tmp.24(%tmp.25, %tmp.26, %tmp.29);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 314 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_305_121_329_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_305_121_329_4_stop" ]
+        %actionName.1 = local;
+        symbol [ actionName %actionName.1 314 12 22 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_begin:
+        symbol [ _model %tmp.31 314 26 32 ];
+        %tmp.31 = getv ? :_model;
+        symbol [ getPendingAction %tmp.32 314 33 49 ];
+        %tmp.32 = getv function %tmp.31 :getPendingAction;
+        %tmp.33 = invoke %tmp.31 %tmp.32();
+        symbol [ SalarmModel %tmp.35 314 55 66 ];
+        %tmp.35 = getv ? :SalarmModel;
+        symbol [ ACTION_SNOOZE %tmp.36 314 67 80 ];
+        %tmp.36 = getv %tmp.35 :ACTION_SNOOZE;
+        %tmp.37 = eq %tmp.33 %tmp.36;
+        bf %tmp.37 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_else_false;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_true:
+        %tmp.38 = "Snoozing...";
+        push %tmp.38;
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_else_false:
+        %tmp.39 = "Dismissing...";
+        push %tmp.39;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_end:
+        %tmp.40 = phi [%tmp.37 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_begin] [%tmp.38 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_true] [%tmp.39 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_else_false] [%tmp.40 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_314_25_314_100_end];
+        lputv %actionName.1 %tmp.40;
+        symbol [ actionName %actionName.1 314 12 22 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 315 8 ]
+        %tmp.41 = lgetv %dc;
+        symbol [ dc %tmp.41 315 8 10 ];
+        symbol [ setColor %tmp.42 315 11 19 ];
+        %tmp.42 = getv function %tmp.41 :setColor;
+        symbol [ Graphics %tmp.43 315 20 28 ];
+        %tmp.43 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.44 315 29 40 ];
+        %tmp.44 = getv %tmp.43 :COLOR_WHITE;
+        symbol [ Graphics %tmp.45 315 42 50 ];
+        %tmp.45 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.46 315 51 68 ];
+        %tmp.46 = getv %tmp.45 :COLOR_TRANSPARENT;
+        invoke %tmp.41 %tmp.42(%tmp.44, %tmp.46);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 316 8 ]
+        %tmp.47 = lgetv %dc;
+        symbol [ dc %tmp.47 316 8 10 ];
+        symbol [ drawText %tmp.48 316 11 19 ];
+        %tmp.48 = getv function %tmp.47 :drawText;
+        %tmp.49 = lgetv %cx;
+        symbol [ cx %tmp.49 316 20 22 ];
+        %tmp.50 = lgetv %cy;
+        symbol [ cy %tmp.50 316 24 26 ];
+        %tmp.51 = 35;
+        %tmp.52 = sub %tmp.50 %tmp.51;
+        symbol [ Graphics %tmp.53 316 33 41 ];
+        %tmp.53 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.54 316 42 53 ];
+        %tmp.54 = getv %tmp.53 :FONT_MEDIUM;
+        %tmp.55 = lgetv %actionName.1;
+        symbol [ actionName %tmp.55 316 55 65 ];
+        symbol [ Graphics %tmp.56 316 67 75 ];
+        %tmp.56 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.57 316 76 95 ];
+        %tmp.57 = getv %tmp.56 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.47 %tmp.48(%tmp.49, %tmp.52, %tmp.54, %tmp.55, %tmp.57);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 318 8 ]
+        %tmp.58 = lgetv %dc;
+        symbol [ dc %tmp.58 318 8 10 ];
+        symbol [ setColor %tmp.59 318 11 19 ];
+        %tmp.59 = getv function %tmp.58 :setColor;
+        symbol [ Graphics %tmp.60 318 20 28 ];
+        %tmp.60 = getm $.Toybox.Graphics;
+        symbol [ COLOR_LT_GRAY %tmp.61 318 29 42 ];
+        %tmp.61 = getv %tmp.60 :COLOR_LT_GRAY;
+        symbol [ Graphics %tmp.62 318 44 52 ];
+        %tmp.62 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.63 318 53 70 ];
+        %tmp.63 = getv %tmp.62 :COLOR_TRANSPARENT;
+        invoke %tmp.58 %tmp.59(%tmp.61, %tmp.63);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 319 8 ]
+        %tmp.64 = lgetv %dc;
+        symbol [ dc %tmp.64 319 8 10 ];
+        symbol [ drawText %tmp.65 319 11 19 ];
+        %tmp.65 = getv function %tmp.64 :drawText;
+        %tmp.66 = lgetv %cx;
+        symbol [ cx %tmp.66 319 20 22 ];
+        %tmp.67 = lgetv %cy;
+        symbol [ cy %tmp.67 319 24 26 ];
+        %tmp.68 = 5;
+        %tmp.69 = add %tmp.67 %tmp.68;
+        symbol [ Graphics %tmp.70 319 32 40 ];
+        %tmp.70 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.71 319 41 50 ];
+        %tmp.71 = getv %tmp.70 :FONT_TINY;
+        %tmp.72 = "Waiting for Phone...";
+        symbol [ Graphics %tmp.73 319 76 84 ];
+        %tmp.73 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.74 319 85 104 ];
+        %tmp.74 = getv %tmp.73 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.64 %tmp.65(%tmp.66, %tmp.69, %tmp.71, %tmp.72, %tmp.74);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 322 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_305_121_329_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_305_121_329_4_stop" ]
+        %dots.2 = local;
+        symbol [ dots %dots.2 322 12 16 ];
+        %tmp.75 = "";
+        lputv %dots.2 %tmp.75;
+        symbol [ dots %dots.2 322 12 16 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 323 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_305_121_329_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_305_121_329_4_stop" ]
+        %count.3 = local;
+        symbol [ count %count.3 323 12 17 ];
+        symbol [ _pulseCounter %tmp.77 323 21 34 ];
+        %tmp.77 = getv ? :_pulseCounter;
+        %tmp.78 = 4;
+        %tmp.79 = mod %tmp.77 %tmp.78;
+        lputv %count.3 %tmp.79;
+        symbol [ count %count.3 323 12 17 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 324 8 ]
+        for @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_test @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_incr @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_init:
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_begin" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_end" ]
+        %i.4 = local;
+        symbol [ i %i.4 324 17 18 ];
+        %tmp.80 = 0;
+        lputv %i.4 %tmp.80;
+        symbol [ i %i.4 324 17 18 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_test:
+        %tmp.81 = lgetv %i.4;
+        symbol [ i %tmp.81 324 24 25 ];
+        %tmp.82 = lgetv %count.3;
+        symbol [ count %tmp.82 324 28 33 ];
+        %tmp.83 = lt %tmp.81 %tmp.82;
+        bf %tmp.83 @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_end;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_begin:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_40_326_8_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 325 12 ]
+        %tmp.84 = lgetv %dots.2;
+        symbol [ dots %tmp.84 325 19 23 ];
+        %tmp.85 = " •";
+        %tmp.86 = add %tmp.84 %tmp.85;
+        lputv %dots.2 %tmp.86;
+        symbol [ dots %dots.2 325 12 16 ];
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_40_326_8_stop:
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_incr:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 324 ]
+        %tmp.89 = lgetv %i.4;
+        symbol [ i %tmp.89 324 35 36 ];
+        %tmp.90 = add %tmp.89 1;
+        lputv %i.4 %tmp.90;
+        symbol [ i %i.4 324 35 36 ];
+        goto @_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_test;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_324_8_326_8_for_end:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 327 8 ]
+        %tmp.91 = lgetv %dc;
+        symbol [ dc %tmp.91 327 8 10 ];
+        symbol [ setColor %tmp.92 327 11 19 ];
+        %tmp.92 = getv function %tmp.91 :setColor;
+        symbol [ COLOR_LIGHT_BLUE %tmp.94 327 20 36 ];
+        %tmp.94 = getv ? :COLOR_LIGHT_BLUE;
+        symbol [ Graphics %tmp.95 327 38 46 ];
+        %tmp.95 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.96 327 47 64 ];
+        %tmp.96 = getv %tmp.95 :COLOR_TRANSPARENT;
+        invoke %tmp.91 %tmp.92(%tmp.94, %tmp.96);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 328 8 ]
+        %tmp.97 = lgetv %dc;
+        symbol [ dc %tmp.97 328 8 10 ];
+        symbol [ drawText %tmp.98 328 11 19 ];
+        %tmp.98 = getv function %tmp.97 :drawText;
+        %tmp.99 = lgetv %cx;
+        symbol [ cx %tmp.99 328 20 22 ];
+        %tmp.100 = lgetv %cy;
+        symbol [ cy %tmp.100 328 24 26 ];
+        %tmp.101 = 30;
+        %tmp.102 = add %tmp.100 %tmp.101;
+        symbol [ Graphics %tmp.103 328 33 41 ];
+        %tmp.103 = getm $.Toybox.Graphics;
+        symbol [ FONT_LARGE %tmp.104 328 42 52 ];
+        %tmp.104 = getv %tmp.103 :FONT_LARGE;
+        %tmp.105 = lgetv %dots.2;
+        symbol [ dots %tmp.105 328 54 58 ];
+        symbol [ Graphics %tmp.106 328 60 68 ];
+        %tmp.106 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.107 328 69 88 ];
+        %tmp.107 = getv %tmp.106 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.97 %tmp.98(%tmp.99, %tmp.102, %tmp.104, %tmp.105, %tmp.107);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_305_121_329_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 331; @symbol_functiondef = [drawConfirmedOverlay,331,21,41]; @symbol_param<0> = [dc,331,42,44]; @symbol_param<0>_type<0> = [Graphics,331,48,56]; @symbol_param<0>_type<1> = [Dc,331,57,59]; @symbol_param<1> = [w,331,61,62]; @symbol_param<1>_type<0> = [Number,331,66,72]; @symbol_param<2> = [h,331,74,75]; @symbol_param<2>_type<0> = [Number,331,79,85]; @symbol_param<3> = [cx,331,87,89]; @symbol_param<3>_type<0> = [Number,331,93,99]; @symbol_param<4> = [cy,331,101,103]; @symbol_param<4>_type<0> = [Number,331,107,113]; ]
+    private
+    function drawConfirmedOverlay(dc as Graphics.Dc, w as Number, h as Number, cx as Number, cy as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_331_123_344_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 332 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 332 8 10 ];
+        symbol [ setColor %tmp.2 332 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ COLOR_BG %tmp.4 332 20 28 ];
+        %tmp.4 = getv ? :COLOR_BG;
+        symbol [ Graphics %tmp.5 332 30 38 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.6 332 39 56 ];
+        %tmp.6 = getv %tmp.5 :COLOR_TRANSPARENT;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 333 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 333 8 10 ];
+        symbol [ fillCircle %tmp.8 333 11 21 ];
+        %tmp.8 = getv function %tmp.7 :fillCircle;
+        %tmp.9 = lgetv %cx;
+        symbol [ cx %tmp.9 333 22 24 ];
+        %tmp.10 = lgetv %cy;
+        symbol [ cy %tmp.10 333 26 28 ];
+        %tmp.11 = lgetv %cx;
+        symbol [ cx %tmp.11 333 30 32 ];
+        %tmp.12 = 10;
+        %tmp.13 = sub %tmp.11 %tmp.12;
+        invoke %tmp.7 %tmp.8(%tmp.9, %tmp.10, %tmp.13);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 335 8 ]
+        %tmp.14 = lgetv %dc;
+        symbol [ dc %tmp.14 335 8 10 ];
+        symbol [ setPenWidth %tmp.15 335 11 22 ];
+        %tmp.15 = getv function %tmp.14 :setPenWidth;
+        %tmp.16 = 4;
+        invoke %tmp.14 %tmp.15(%tmp.16);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 336 8 ]
+        %tmp.17 = lgetv %dc;
+        symbol [ dc %tmp.17 336 8 10 ];
+        symbol [ setColor %tmp.18 336 11 19 ];
+        %tmp.18 = getv function %tmp.17 :setColor;
+        symbol [ COLOR_SUCCESS %tmp.20 336 20 33 ];
+        %tmp.20 = getv ? :COLOR_SUCCESS;
+        symbol [ Graphics %tmp.21 336 35 43 ];
+        %tmp.21 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.22 336 44 61 ];
+        %tmp.22 = getv %tmp.21 :COLOR_TRANSPARENT;
+        invoke %tmp.17 %tmp.18(%tmp.20, %tmp.22);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 337 8 ]
+        %tmp.23 = lgetv %dc;
+        symbol [ dc %tmp.23 337 8 10 ];
+        symbol [ drawCircle %tmp.24 337 11 21 ];
+        %tmp.24 = getv function %tmp.23 :drawCircle;
+        %tmp.25 = lgetv %cx;
+        symbol [ cx %tmp.25 337 22 24 ];
+        %tmp.26 = lgetv %cy;
+        symbol [ cy %tmp.26 337 26 28 ];
+        %tmp.27 = lgetv %cx;
+        symbol [ cx %tmp.27 337 30 32 ];
+        %tmp.28 = 10;
+        %tmp.29 = sub %tmp.27 %tmp.28;
+        invoke %tmp.23 %tmp.24(%tmp.25, %tmp.26, %tmp.29);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 339 8 ]
+        %tmp.30 = lgetv %dc;
+        symbol [ dc %tmp.30 339 8 10 ];
+        symbol [ setColor %tmp.31 339 11 19 ];
+        %tmp.31 = getv function %tmp.30 :setColor;
+        symbol [ COLOR_SUCCESS %tmp.33 339 20 33 ];
+        %tmp.33 = getv ? :COLOR_SUCCESS;
+        symbol [ Graphics %tmp.34 339 35 43 ];
+        %tmp.34 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.35 339 44 61 ];
+        %tmp.35 = getv %tmp.34 :COLOR_TRANSPARENT;
+        invoke %tmp.30 %tmp.31(%tmp.33, %tmp.35);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 340 8 ]
+        %tmp.36 = lgetv %dc;
+        symbol [ dc %tmp.36 340 8 10 ];
+        symbol [ drawText %tmp.37 340 11 19 ];
+        %tmp.37 = getv function %tmp.36 :drawText;
+        %tmp.38 = lgetv %cx;
+        symbol [ cx %tmp.38 340 20 22 ];
+        %tmp.39 = lgetv %cy;
+        symbol [ cy %tmp.39 340 24 26 ];
+        %tmp.40 = 25;
+        %tmp.41 = sub %tmp.39 %tmp.40;
+        symbol [ Graphics %tmp.42 340 33 41 ];
+        %tmp.42 = getm $.Toybox.Graphics;
+        symbol [ FONT_MEDIUM %tmp.43 340 42 53 ];
+        %tmp.43 = getv %tmp.42 :FONT_MEDIUM;
+        %tmp.44 = "CONFIRMED";
+        symbol [ Graphics %tmp.45 340 68 76 ];
+        %tmp.45 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.46 340 77 96 ];
+        %tmp.46 = getv %tmp.45 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.36 %tmp.37(%tmp.38, %tmp.41, %tmp.43, %tmp.44, %tmp.46);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 342 8 ]
+        %tmp.47 = lgetv %dc;
+        symbol [ dc %tmp.47 342 8 10 ];
+        symbol [ setColor %tmp.48 342 11 19 ];
+        %tmp.48 = getv function %tmp.47 :setColor;
+        symbol [ Graphics %tmp.49 342 20 28 ];
+        %tmp.49 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.50 342 29 40 ];
+        %tmp.50 = getv %tmp.49 :COLOR_WHITE;
+        symbol [ Graphics %tmp.51 342 42 50 ];
+        %tmp.51 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.52 342 51 68 ];
+        %tmp.52 = getv %tmp.51 :COLOR_TRANSPARENT;
+        invoke %tmp.47 %tmp.48(%tmp.50, %tmp.52);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 343 8 ]
+        %tmp.53 = lgetv %dc;
+        symbol [ dc %tmp.53 343 8 10 ];
+        symbol [ drawText %tmp.54 343 11 19 ];
+        %tmp.54 = getv function %tmp.53 :drawText;
+        %tmp.55 = lgetv %cx;
+        symbol [ cx %tmp.55 343 20 22 ];
+        %tmp.56 = lgetv %cy;
+        symbol [ cy %tmp.56 343 24 26 ];
+        %tmp.57 = 10;
+        %tmp.58 = add %tmp.56 %tmp.57;
+        symbol [ Graphics %tmp.59 343 33 41 ];
+        %tmp.59 = getm $.Toybox.Graphics;
+        symbol [ FONT_SMALL %tmp.60 343 42 52 ];
+        %tmp.60 = getv %tmp.59 :FONT_SMALL;
+        symbol [ _model %tmp.62 343 54 60 ];
+        %tmp.62 = getv ? :_model;
+        symbol [ getStatusText %tmp.63 343 61 74 ];
+        %tmp.63 = getv function %tmp.62 :getStatusText;
+        %tmp.64 = invoke %tmp.62 %tmp.63();
+        symbol [ Graphics %tmp.65 343 78 86 ];
+        %tmp.65 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.66 343 87 106 ];
+        %tmp.66 = getv %tmp.65 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.53 %tmp.54(%tmp.55, %tmp.58, %tmp.60, %tmp.64, %tmp.66);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_331_123_344_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 346; @symbol_functiondef = [drawFailedOverlay,346,21,38]; @symbol_param<0> = [dc,346,39,41]; @symbol_param<0>_type<0> = [Graphics,346,45,53]; @symbol_param<0>_type<1> = [Dc,346,54,56]; @symbol_param<1> = [w,346,58,59]; @symbol_param<1>_type<0> = [Number,346,63,69]; @symbol_param<2> = [h,346,71,72]; @symbol_param<2>_type<0> = [Number,346,76,82]; @symbol_param<3> = [cx,346,84,86]; @symbol_param<3>_type<0> = [Number,346,90,96]; @symbol_param<4> = [cy,346,98,100]; @symbol_param<4>_type<0> = [Number,346,104,110]; ]
+    private
+    function drawFailedOverlay(dc as Graphics.Dc, w as Number, h as Number, cx as Number, cy as Number) as Void {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_346_120_364_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 347 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 347 8 10 ];
+        symbol [ setColor %tmp.2 347 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ COLOR_BG %tmp.4 347 20 28 ];
+        %tmp.4 = getv ? :COLOR_BG;
+        symbol [ Graphics %tmp.5 347 30 38 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.6 347 39 56 ];
+        %tmp.6 = getv %tmp.5 :COLOR_TRANSPARENT;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 348 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 348 8 10 ];
+        symbol [ fillCircle %tmp.8 348 11 21 ];
+        %tmp.8 = getv function %tmp.7 :fillCircle;
+        %tmp.9 = lgetv %cx;
+        symbol [ cx %tmp.9 348 22 24 ];
+        %tmp.10 = lgetv %cy;
+        symbol [ cy %tmp.10 348 26 28 ];
+        %tmp.11 = lgetv %cx;
+        symbol [ cx %tmp.11 348 30 32 ];
+        %tmp.12 = 10;
+        %tmp.13 = sub %tmp.11 %tmp.12;
+        invoke %tmp.7 %tmp.8(%tmp.9, %tmp.10, %tmp.13);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 350 8 ]
+        %tmp.14 = lgetv %dc;
+        symbol [ dc %tmp.14 350 8 10 ];
+        symbol [ setPenWidth %tmp.15 350 11 22 ];
+        %tmp.15 = getv function %tmp.14 :setPenWidth;
+        %tmp.16 = 4;
+        invoke %tmp.14 %tmp.15(%tmp.16);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 351 8 ]
+        %tmp.17 = lgetv %dc;
+        symbol [ dc %tmp.17 351 8 10 ];
+        symbol [ setColor %tmp.18 351 11 19 ];
+        %tmp.18 = getv function %tmp.17 :setColor;
+        symbol [ COLOR_ALERT_RED %tmp.20 351 20 35 ];
+        %tmp.20 = getv ? :COLOR_ALERT_RED;
+        symbol [ Graphics %tmp.21 351 37 45 ];
+        %tmp.21 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.22 351 46 63 ];
+        %tmp.22 = getv %tmp.21 :COLOR_TRANSPARENT;
+        invoke %tmp.17 %tmp.18(%tmp.20, %tmp.22);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 352 8 ]
+        %tmp.23 = lgetv %dc;
+        symbol [ dc %tmp.23 352 8 10 ];
+        symbol [ drawCircle %tmp.24 352 11 21 ];
+        %tmp.24 = getv function %tmp.23 :drawCircle;
+        %tmp.25 = lgetv %cx;
+        symbol [ cx %tmp.25 352 22 24 ];
+        %tmp.26 = lgetv %cy;
+        symbol [ cy %tmp.26 352 26 28 ];
+        %tmp.27 = lgetv %cx;
+        symbol [ cx %tmp.27 352 30 32 ];
+        %tmp.28 = 10;
+        %tmp.29 = sub %tmp.27 %tmp.28;
+        invoke %tmp.23 %tmp.24(%tmp.25, %tmp.26, %tmp.29);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 354 8 ]
+        %tmp.30 = lgetv %dc;
+        symbol [ dc %tmp.30 354 8 10 ];
+        symbol [ setColor %tmp.31 354 11 19 ];
+        %tmp.31 = getv function %tmp.30 :setColor;
+        symbol [ COLOR_ALERT_RED %tmp.33 354 20 35 ];
+        %tmp.33 = getv ? :COLOR_ALERT_RED;
+        symbol [ Graphics %tmp.34 354 37 45 ];
+        %tmp.34 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.35 354 46 63 ];
+        %tmp.35 = getv %tmp.34 :COLOR_TRANSPARENT;
+        invoke %tmp.30 %tmp.31(%tmp.33, %tmp.35);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 355 8 ]
+        %tmp.36 = lgetv %dc;
+        symbol [ dc %tmp.36 355 8 10 ];
+        symbol [ drawText %tmp.37 355 11 19 ];
+        %tmp.37 = getv function %tmp.36 :drawText;
+        %tmp.38 = lgetv %cx;
+        symbol [ cx %tmp.38 355 20 22 ];
+        %tmp.39 = lgetv %cy;
+        symbol [ cy %tmp.39 355 24 26 ];
+        %tmp.40 = 40;
+        %tmp.41 = sub %tmp.39 %tmp.40;
+        symbol [ Graphics %tmp.42 355 33 41 ];
+        %tmp.42 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.43 355 42 51 ];
+        %tmp.43 = getv %tmp.42 :FONT_TINY;
+        %tmp.44 = "ACTION NOT CONFIRMED";
+        symbol [ Graphics %tmp.45 355 77 85 ];
+        %tmp.45 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.46 355 86 105 ];
+        %tmp.46 = getv %tmp.45 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.36 %tmp.37(%tmp.38, %tmp.41, %tmp.43, %tmp.44, %tmp.46);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 357 8 ]
+        %tmp.47 = lgetv %dc;
+        symbol [ dc %tmp.47 357 8 10 ];
+        symbol [ setColor %tmp.48 357 11 19 ];
+        %tmp.48 = getv function %tmp.47 :setColor;
+        symbol [ Graphics %tmp.49 357 20 28 ];
+        %tmp.49 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.50 357 29 40 ];
+        %tmp.50 = getv %tmp.49 :COLOR_WHITE;
+        symbol [ Graphics %tmp.51 357 42 50 ];
+        %tmp.51 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.52 357 51 68 ];
+        %tmp.52 = getv %tmp.51 :COLOR_TRANSPARENT;
+        invoke %tmp.47 %tmp.48(%tmp.50, %tmp.52);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 358 8 ]
+        %tmp.53 = lgetv %dc;
+        symbol [ dc %tmp.53 358 8 10 ];
+        symbol [ drawText %tmp.54 358 11 19 ];
+        %tmp.54 = getv function %tmp.53 :drawText;
+        %tmp.55 = lgetv %cx;
+        symbol [ cx %tmp.55 358 20 22 ];
+        %tmp.56 = lgetv %cy;
+        symbol [ cy %tmp.56 358 24 26 ];
+        %tmp.57 = 15;
+        %tmp.58 = sub %tmp.56 %tmp.57;
+        symbol [ Graphics %tmp.59 358 33 41 ];
+        %tmp.59 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.60 358 42 52 ];
+        %tmp.60 = getv %tmp.59 :FONT_XTINY;
+        symbol [ _model %tmp.62 358 54 60 ];
+        %tmp.62 = getv ? :_model;
+        symbol [ getStatusText %tmp.63 358 61 74 ];
+        %tmp.63 = getv function %tmp.62 :getStatusText;
+        %tmp.64 = invoke %tmp.62 %tmp.63();
+        symbol [ Graphics %tmp.65 358 78 86 ];
+        %tmp.65 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.66 358 87 106 ];
+        %tmp.66 = getv %tmp.65 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.53 %tmp.54(%tmp.55, %tmp.58, %tmp.60, %tmp.64, %tmp.66);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 360 8 ]
+        %tmp.67 = lgetv %dc;
+        symbol [ dc %tmp.67 360 8 10 ];
+        symbol [ setColor %tmp.68 360 11 19 ];
+        %tmp.68 = getv function %tmp.67 :setColor;
+        symbol [ COLOR_ALERT_AMB %tmp.70 360 20 35 ];
+        %tmp.70 = getv ? :COLOR_ALERT_AMB;
+        symbol [ Graphics %tmp.71 360 37 45 ];
+        %tmp.71 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.72 360 46 63 ];
+        %tmp.72 = getv %tmp.71 :COLOR_TRANSPARENT;
+        invoke %tmp.67 %tmp.68(%tmp.70, %tmp.72);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 361 8 ]
+        %tmp.73 = lgetv %dc;
+        symbol [ dc %tmp.73 361 8 10 ];
+        symbol [ fillRoundedRectangle %tmp.74 361 11 31 ];
+        %tmp.74 = getv function %tmp.73 :fillRoundedRectangle;
+        %tmp.75 = lgetv %cx;
+        symbol [ cx %tmp.75 361 32 34 ];
+        %tmp.76 = lgetv %w;
+        symbol [ w %tmp.76 361 38 39 ];
+        %tmp.77 = 0.32;
+        %tmp.78 = mul %tmp.76 %tmp.77;
+        %tmp.79 = sub %tmp.75 %tmp.78;
+        %tmp.80 = lgetv %cy;
+        symbol [ cy %tmp.80 361 49 51 ];
+        %tmp.81 = 15;
+        %tmp.82 = add %tmp.80 %tmp.81;
+        %tmp.83 = lgetv %w;
+        symbol [ w %tmp.83 361 59 60 ];
+        %tmp.84 = 0.64;
+        %tmp.85 = mul %tmp.83 %tmp.84;
+        %tmp.86 = 30;
+        %tmp.87 = 8;
+        invoke %tmp.73 %tmp.74(%tmp.79, %tmp.82, %tmp.85, %tmp.86, %tmp.87);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 362 8 ]
+        %tmp.88 = lgetv %dc;
+        symbol [ dc %tmp.88 362 8 10 ];
+        symbol [ setColor %tmp.89 362 11 19 ];
+        %tmp.89 = getv function %tmp.88 :setColor;
+        symbol [ Graphics %tmp.90 362 20 28 ];
+        %tmp.90 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.91 362 29 40 ];
+        %tmp.91 = getv %tmp.90 :COLOR_BLACK;
+        symbol [ Graphics %tmp.92 362 42 50 ];
+        %tmp.92 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.93 362 51 68 ];
+        %tmp.93 = getv %tmp.92 :COLOR_TRANSPARENT;
+        invoke %tmp.88 %tmp.89(%tmp.91, %tmp.93);
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 363 8 ]
+        %tmp.94 = lgetv %dc;
+        symbol [ dc %tmp.94 363 8 10 ];
+        symbol [ drawText %tmp.95 363 11 19 ];
+        %tmp.95 = getv function %tmp.94 :drawText;
+        %tmp.96 = lgetv %cx;
+        symbol [ cx %tmp.96 363 20 22 ];
+        %tmp.97 = lgetv %cy;
+        symbol [ cy %tmp.97 363 24 26 ];
+        %tmp.98 = 30;
+        %tmp.99 = add %tmp.97 %tmp.98;
+        symbol [ Graphics %tmp.100 363 33 41 ];
+        %tmp.100 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.101 363 42 52 ];
+        %tmp.101 = getv %tmp.100 :FONT_XTINY;
+        %tmp.102 = "TAP TO RETRY";
+        symbol [ Graphics %tmp.103 363 70 78 ];
+        %tmp.103 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.104 363 79 98 ];
+        %tmp.104 = getv %tmp.103 :TEXT_JUSTIFY_CENTER;
+        symbol [ Graphics %tmp.105 363 101 109 ];
+        %tmp.105 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_VCENTER %tmp.106 363 110 130 ];
+        %tmp.106 = getv %tmp.105 :TEXT_JUSTIFY_VCENTER;
+        %tmp.107 = bitor %tmp.104 %tmp.106;
+        invoke %tmp.94 %tmp.95(%tmp.96, %tmp.99, %tmp.101, %tmp.102, %tmp.107);
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_346_120_364_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 370; @symbol_functiondef = [getSnoozeButtonRect,370,27,46]; @symbol_param<0> = [w,370,47,48]; @symbol_param<0>_type<0> = [Number,370,52,58]; @symbol_param<1> = [h,370,60,61]; @symbol_param<1>_type<0> = [Number,370,65,71]; @symbol_return<0> = [Array,370,76,81]; @symbol_return<1> = [Number,370,82,88]; ]
+    public static
+    function getSnoozeButtonRect(w as Number, h as Number) as Array<Number> {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 371 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_stop" ]
+        %bw.1 = local;
+        symbol [ bw %bw.1 371 12 14 ];
+        %tmp.1 = lgetv %w;
+        symbol [ w %tmp.1 371 18 19 ];
+        %tmp.2 = 0.76;
+        %tmp.3 = mul %tmp.1 %tmp.2;
+        symbol [ toNumber %tmp.4 371 28 36 ];
+        %tmp.4 = getv function %tmp.3 :toNumber;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        lputv %bw.1 %tmp.5;
+        symbol [ bw %bw.1 371 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 372 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_stop" ]
+        %bh.2 = local;
+        symbol [ bh %bh.2 372 12 14 ];
+        %tmp.6 = lgetv %h;
+        symbol [ h %tmp.6 372 18 19 ];
+        %tmp.7 = 0.17;
+        %tmp.8 = mul %tmp.6 %tmp.7;
+        symbol [ toNumber %tmp.9 372 28 36 ];
+        %tmp.9 = getv function %tmp.8 :toNumber;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        lputv %bh.2 %tmp.10;
+        symbol [ bh %bh.2 372 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 373 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_stop" ]
+        %bx.3 = local;
+        symbol [ bx %bx.3 373 12 14 ];
+        %tmp.11 = lgetv %w;
+        symbol [ w %tmp.11 373 18 19 ];
+        %tmp.12 = lgetv %bw.1;
+        symbol [ bw %tmp.12 373 22 24 ];
+        %tmp.13 = sub %tmp.11 %tmp.12;
+        %tmp.14 = 2;
+        %tmp.15 = div %tmp.13 %tmp.14;
+        lputv %bx.3 %tmp.15;
+        symbol [ bx %bx.3 373 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 374 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_stop" ]
+        %by.4 = local;
+        symbol [ by %by.4 374 12 14 ];
+        %tmp.16 = lgetv %h;
+        symbol [ h %tmp.16 374 18 19 ];
+        %tmp.17 = 0.46;
+        %tmp.18 = mul %tmp.16 %tmp.17;
+        symbol [ toNumber %tmp.19 374 28 36 ];
+        %tmp.19 = getv function %tmp.18 :toNumber;
+        %tmp.20 = invoke %tmp.18 %tmp.19();
+        lputv %by.4 %tmp.20;
+        symbol [ by %by.4 374 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 375 8 ]
+        %tmp.21 = newa 4;
+        %tmp.22 = lgetv %bx.3;
+        symbol [ bx %tmp.22 375 16 18 ];
+        %tmp.23 = dup %tmp.21;
+        %tmp.24 = aputv %tmp.23 0 %tmp.22;
+        %tmp.25 = lgetv %by.4;
+        symbol [ by %tmp.25 375 20 22 ];
+        %tmp.26 = dup %tmp.24;
+        %tmp.27 = aputv %tmp.26 1 %tmp.25;
+        %tmp.28 = lgetv %bw.1;
+        symbol [ bw %tmp.28 375 24 26 ];
+        %tmp.29 = dup %tmp.27;
+        %tmp.30 = aputv %tmp.29 2 %tmp.28;
+        %tmp.31 = lgetv %bh.2;
+        symbol [ bh %tmp.31 375 28 30 ];
+        %tmp.32 = dup %tmp.30;
+        %tmp.33 = aputv %tmp.32 3 %tmp.31;
+        ret %tmp.33;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_370_90_376_4_stop:
+    }
+    [ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 378; @symbol_functiondef = [getDismissButtonRect,378,27,47]; @symbol_param<0> = [w,378,48,49]; @symbol_param<0>_type<0> = [Number,378,53,59]; @symbol_param<1> = [h,378,61,62]; @symbol_param<1>_type<0> = [Number,378,66,72]; @symbol_return<0> = [Array,378,77,82]; @symbol_return<1> = [Number,378,83,89]; ]
+    public static
+    function getDismissButtonRect(w as Number, h as Number) as Array<Number> {
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_start:
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 379 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_stop" ]
+        %bw.1 = local;
+        symbol [ bw %bw.1 379 12 14 ];
+        %tmp.1 = lgetv %w;
+        symbol [ w %tmp.1 379 18 19 ];
+        %tmp.2 = 0.76;
+        %tmp.3 = mul %tmp.1 %tmp.2;
+        symbol [ toNumber %tmp.4 379 28 36 ];
+        %tmp.4 = getv function %tmp.3 :toNumber;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        lputv %bw.1 %tmp.5;
+        symbol [ bw %bw.1 379 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 380 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_stop" ]
+        %bh.2 = local;
+        symbol [ bh %bh.2 380 12 14 ];
+        %tmp.6 = lgetv %h;
+        symbol [ h %tmp.6 380 18 19 ];
+        %tmp.7 = 0.17;
+        %tmp.8 = mul %tmp.6 %tmp.7;
+        symbol [ toNumber %tmp.9 380 28 36 ];
+        %tmp.9 = getv function %tmp.8 :toNumber;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        lputv %bh.2 %tmp.10;
+        symbol [ bh %bh.2 380 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 381 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_stop" ]
+        %bx.3 = local;
+        symbol [ bx %bx.3 381 12 14 ];
+        %tmp.11 = lgetv %w;
+        symbol [ w %tmp.11 381 18 19 ];
+        %tmp.12 = lgetv %bw.1;
+        symbol [ bw %tmp.12 381 22 24 ];
+        %tmp.13 = sub %tmp.11 %tmp.12;
+        %tmp.14 = 2;
+        %tmp.15 = div %tmp.13 %tmp.14;
+        lputv %bx.3 %tmp.15;
+        symbol [ bx %bx.3 381 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 382 8 ]
+        [ "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_start" "_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_stop" ]
+        %by.4 = local;
+        symbol [ by %by.4 382 12 14 ];
+        %tmp.16 = lgetv %h;
+        symbol [ h %tmp.16 382 18 19 ];
+        %tmp.17 = 0.68;
+        %tmp.18 = mul %tmp.16 %tmp.17;
+        symbol [ toNumber %tmp.19 382 28 36 ];
+        %tmp.19 = getv function %tmp.18 :toNumber;
+        %tmp.20 = invoke %tmp.18 %tmp.19();
+        lputv %by.4 %tmp.20;
+        symbol [ by %by.4 382 12 14 ];
+[ "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc" 383 8 ]
+        %tmp.21 = newa 4;
+        %tmp.22 = lgetv %bx.3;
+        symbol [ bx %tmp.22 383 16 18 ];
+        %tmp.23 = dup %tmp.21;
+        %tmp.24 = aputv %tmp.23 0 %tmp.22;
+        %tmp.25 = lgetv %by.4;
+        symbol [ by %tmp.25 383 20 22 ];
+        %tmp.26 = dup %tmp.24;
+        %tmp.27 = aputv %tmp.26 1 %tmp.25;
+        %tmp.28 = lgetv %bw.1;
+        symbol [ bw %tmp.28 383 24 26 ];
+        %tmp.29 = dup %tmp.27;
+        %tmp.30 = aputv %tmp.29 2 %tmp.28;
+        %tmp.31 = lgetv %bh.2;
+        symbol [ bh %tmp.31 383 28 30 ];
+        %tmp.32 = dup %tmp.30;
+        %tmp.33 = aputv %tmp.32 3 %tmp.31;
+        ret %tmp.33;
+_var_home_hzaman_Programs_GarminApp_Salarm_source_SalarmWatchView_mc_378_91_384_4_stop:
+    }
+}
+[ @file = "/var/home/hzaman/Programs/GarminApp/Salarm/source/SalarmWatchView.mc"; @line = 1; ]
+<init> {
+}
